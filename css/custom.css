@@ -28,6 +28,22 @@
   background-size: cover !important;
 }
 
+/* Works page — equal horizontal padding so cards don't hit the edge */
+.body-2 .form-block-2,
+.body-2 .filter_content {
+  padding-left: 4rem;
+  padding-right: 4rem;
+  box-sizing: border-box;
+}
+
+/* Webflow's default adds margin-left/right: 2rem only on the grid, not on the
+   filter row — that creates an asymmetric look. Zero it out so our 4rem padding
+   on the parent is the only horizontal spacing. */
+.body-2 .cms_list.helper {
+  margin-left: 0;
+  margin-right: 0;
+}
+
 /* Works grid: 4 cols ≥2600px, 3 cols 1920–2599, 2 cols <1920px, 1 col mobile */
 .cms_list.helper {
   display: grid;
@@ -73,6 +89,27 @@
   font-size: .95rem;
   letter-spacing: .01em;
   text-align: center;
+}
+
+/* Bikefinder page (body-4 has dark green bg) — make navbar text white */
+.body-4 .navbar_link-text,
+.body-4 .waves---nav-link,
+.body-4 .navbar_link {
+  color: #fff;
+}
+.body-4 .navbar_logo { filter: brightness(0) invert(1); }
+
+/* Bikefinder navbar: fixed at top, slides up while scrolling, back in at end */
+.body-4 .navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  transition: transform .35s ease;
+}
+.body-4.nav-hidden .navbar {
+  transform: translateY(-110%);
 }
 
 /* Filter buttons: keep the pink (bubblegum) highlight on the selected one */

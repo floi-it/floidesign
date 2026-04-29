@@ -1,4 +1,4 @@
-www.floi.it {
+:8080 {
 	root * /srv/floidesign
 	file_server
 
@@ -25,9 +25,4 @@ www.floi.it {
 		rewrite * /404.html
 		file_server
 	}
-}
-
-# Redirect bare domain to www
-floi.it {
-	redir https://www.floi.it{uri} permanent
 }
