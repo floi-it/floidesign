@@ -1,5 +1,5 @@
 :8080 {
-	root * /srv/floidesign
+	root * /home/geo/floidesign
 	file_server
 
 	# Clean URLs — /about serves about.html
