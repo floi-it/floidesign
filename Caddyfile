@@ -1,0 +1,33 @@
+www.floi.it {
+	root * /srv/floidesign
+	file_server
+
+	# Clean URLs — /about serves about.html
+	try_files {path} {path}.html {path}/index.html =404
+
+	# Compression
+	encode zstd gzip
+
+	# Long-lived cache for static assets
+	@static {
+		path /images/* /css/* /js/* /fonts/* /videos/*
+	}
+	header @static Cache-Control "public, max-age=31536000, immutable"
+
+	# Short cache for HTML
+	@html {
+		path *.html /
+	}
+	header @html Cache-Control "public, max-age=300, must-revalidate"
+
+	# Custom 404
+	handle_errors {
+		rewrite * /404.html
+		file_server
+	}
+}
+
+# Redirect bare domain to www
+floi.it {
+	redir https://www.floi.it{uri} permanent
+}

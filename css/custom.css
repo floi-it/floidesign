@@ -1,0 +1,85 @@
+/* Floi custom overrides — loaded after webflow CSS */
+
+/* "Keep scrolling" — fixed-size text that doesn't reflow under the title */
+.scroll-note_text {
+  top: auto;
+  bottom: 6vh;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 991px) {
+  .scroll-note_text { display: none; }
+}
+
+/* Bisu detail page background */
+.frame-590.background-bisu {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+/* Bisu card on home page — single photo, not tiled */
+.container-19 {
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: cover !important;
+}
+
+/* Works grid: 4 cols ≥2600px, 3 cols 1920–2599, 2 cols <1920px, 1 col mobile */
+.cms_list.helper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+}
+@media (min-width: 1920px) {
+  .cms_list.helper { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 2600px) {
+  .cms_list.helper { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 560px) {
+  .cms_list.helper { grid-template-columns: 1fr; }
+}
+
+.works-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  transition: transform .25s ease;
+}
+.works-card:hover { transform: translateY(-4px); }
+.works-card_image-wrap {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 1rem;
+  background: #f2f1ed;
+}
+.works-card_image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.works-card_subtitle {
+  margin-top: .75rem;
+  color: #6d6d6d;
+  font-size: .95rem;
+  letter-spacing: .01em;
+  text-align: center;
+}
+
+/* Filter buttons: keep the pink (bubblegum) highlight on the selected one */
+.work-tabs-link:has(input[type="radio"]:checked) {
+  border-color: var(--bubblegum);
+  color: var(--bubblegum);
+}
+.work-tabs-link:has(input[type="radio"]:checked) .w-form-label {
+  color: var(--bubblegum);
+}
