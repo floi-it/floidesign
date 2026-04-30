@@ -112,6 +112,70 @@
   transform: translateY(-110%);
 }
 
+/* Cookie consent banner */
+#consent-banner {
+  position: fixed;
+  left: 50%;
+  bottom: 1.25rem;
+  transform: translateX(-50%);
+  z-index: 99999;
+  width: min(640px, calc(100% - 2rem));
+  background: #1a1a1a;
+  color: #fff;
+  border-radius: 12px;
+  padding: 1.1rem 1.25rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,.25);
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+  font-family: var(--_typography---font-family--detail, sans-serif);
+  font-size: .9rem;
+  line-height: 1.45;
+}
+#consent-banner .consent-text { color: #f3f3f3; }
+#consent-banner .consent-text a { color: #fff; text-decoration: underline; }
+#consent-banner .consent-buttons {
+  display: flex;
+  gap: .6rem;
+  justify-content: flex-end;
+}
+.consent-btn {
+  border: none;
+  border-radius: 999px;
+  padding: .55rem 1.25rem;
+  font-size: .9rem;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+}
+.consent-btn-primary { background: #fff; color: #111; }
+.consent-btn-primary:hover { background: #ececec; }
+.consent-btn-secondary { background: transparent; color: #f3f3f3; border: 1px solid #555; }
+.consent-btn-secondary:hover { border-color: #999; }
+@media (min-width: 640px) {
+  #consent-banner { flex-direction: row; align-items: center; justify-content: space-between; }
+  #consent-banner .consent-text { flex: 1; }
+}
+
+/* Privacy page layout */
+.privacy-page {
+  max-width: 720px;
+  margin: 6rem auto 4rem;
+  padding: 0 1.5rem;
+  font-family: var(--_typography---font-family--detail, sans-serif);
+  color: #1a1a1a;
+  line-height: 1.55;
+}
+.privacy-page h1 { font-size: 2.25rem; margin: 0 0 .25rem; }
+.privacy-page h2 { font-size: 1.15rem; margin: 2rem 0 .5rem; }
+.privacy-page p, .privacy-page ul { margin: 0 0 1rem; font-size: .95rem; }
+.privacy-page ul { padding-left: 1.25rem; }
+.privacy-page a { color: #1a1a1a; text-decoration: underline; }
+.privacy-meta { color: #6d6d6d; font-size: .85rem; }
+.privacy-back { margin-top: 3rem; }
+.privacy-page .consent-btn { margin-top: .25rem; background: #1a1a1a; color: #fff; }
+.privacy-page .consent-btn:hover { background: #333; }
+
 /* Filter buttons: keep the pink (bubblegum) highlight on the selected one */
 .work-tabs-link:has(input[type="radio"]:checked) {
   border-color: var(--bubblegum);

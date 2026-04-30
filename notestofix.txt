@@ -1,4 +1,0 @@
-1. for bisu page, replace src="images/ecosystemmap.png" with src="images/ecosystemmapNEW.png"
-2. for bisu page, replace src="images/Serviceblueprint.png" with src="images/ServiceblueprintNEW.png"
-3. tacdocs page, replace src="images/IMAGE_1.png" with src="images/IMAGE_1NEW.png" 
-4. for the website tab logo, the thing at the top of the browser where there is a tiny image. for dark mode logo-white.png for bright mode logo_1logo.png (im not sure if tabs have a light or dark mode)

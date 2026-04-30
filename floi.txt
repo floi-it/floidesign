@@ -1,0 +1,1238 @@
+FLOIDESIGN — full text content of www.floi.it
+============================================================
+
+
+
+############################################################
+# 401.html
+############################################################
+
+FloiDesign
+
+Protected Page
+Password
+
+Incorrect password. Please try again.
+
+"> ">
+
+
+############################################################
+# 404.html
+############################################################
+
+FloiDesign
+
+My works
+My works
+
+Case Studies
+Case Studies
+
+For Fun
+For Fun
+
+Shop
+Shop
+
+About floi
+About floi
+
+CV
+CV
+
+Home
+About
+Works
+CV
+Contact
+
+Dropdown
+
+Link 1
+Link 2
+Link 3
+
+Link
+
+Menu
+Menu
+
+Working on it...
+
+The page you are looking for will exist by the end of this year... I promise!
+
+Go to homepage
+
+Pages
+Home
+Instagram
+Linkedin
+Privacy
+Request Prices
+Contact
+
+
+############################################################
+# about.html
+############################################################
+
+FloiDesign
+
+Hi, I'm Francesca
+...but you can call me floi!
+
+I enjoy working on product design, graphics, and Webflow projects. I strongly believe what makes a designer is a good sense of observation, analysis and insights. Most of my free time is spent trying to make my 3d printer work or trying to fix something around the house, but sometimes I just need a walk outside. I'm a lifelong planner, inconsistent reader, and good fork. I love travelling, and taking pictures of wild animals and birds. Sometimes I admit, it's only my family's cats.
+You can check out my work on Instagram , or Behance . To get in touch and get surely an answer, drop me a line .
+
+My works
+My works
+
+Case Studies
+Case Studies
+
+For Fun
+For Fun
+
+Shop
+Shop
+
+About floi
+About floi
+
+CV
+CV
+
+Home
+About
+Works
+CV
+Contact
+
+Dropdown
+
+Link 1
+Link 2
+Link 3
+
+Link
+
+Menu
+Menu
+
+
+############################################################
+# b2b-password-protection.html
+############################################################
+
+FloiDesign
+
+Protected Page
+
+This page is private
+
+Password
+
+Unlock
+
+Contact the site owner if you need access. Password on cv.
+
+Redirecting…
+
+
+############################################################
+# bikefinder.html
+############################################################
+
+FloiDesign
+
+My works
+My works
+
+Case Studies
+Case Studies
+
+For Fun
+For Fun
+
+Shop
+Shop
+
+About floi
+About floi
+
+CV
+CV
+
+Home
+About
+Works
+CV
+Contact
+
+Dropdown
+
+Link 1
+Link 2
+Link 3
+
+Link
+
+Menu
+Menu
+
+Sardinias’ first online biking marketplace
+
+
+############################################################
+# blog.html
+############################################################
+
+FloiDesign
+
+Use for free
+
+Articles
+// Content about design, branding and social media
+
+Subscribe to newsletter
+
+Email Address
+
+Thank you!
+Your submission has been received!
+
+Oops! Something went wrong while submitting the form.
+
+Pages
+Home
+Instagram
+Linkedin
+Privacy
+Request Prices
+Contact
+
+
+############################################################
+# case-studies.html
+############################################################
+
+FloiDesign
+
+My works
+My works
+
+Case Studies
+Case Studies
+
+For Fun
+For Fun
+
+Shop
+Shop
+
+About floi
+About floi
+
+CV
+CV
+
+Home
+About
+Works
+CV
+Contact
+
+Dropdown
+
+Link 1
+Link 2
+Link 3
+
+Link
+
+Menu
+Menu
+
+UX Case Study Brand&Social Arts&Crafts
+
+Thank you! Your submission has been received!
+
+Oops! Something went wrong while submitting the form.
+
+
+############################################################
+# contact.html
+############################################################
+
+FloiDesign
+
+Use for free
+
+Contact
+
+Send me an email
+
+Frequently asked questions
+
+1
+
+Lorem ipsum dolor sit amet, consectetur?
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra rutrum purus vel egestas. Phasellus ut nulla ut odio blandit pretium. Proin sit amet turpis posuere, vehicula est non, aliquet mauris.
+
+1
+
+Lorem ipsum dolor sit amet, consectetur?
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra rutrum purus vel egestas. Phasellus ut nulla ut odio blandit pretium. Proin sit amet turpis posuere, vehicula est non, aliquet mauris.
+
+1
+
+Lorem ipsum dolor sit amet, consectetur?
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra rutrum purus vel egestas. Phasellus ut nulla ut odio blandit pretium. Proin sit amet turpis posuere, vehicula est non, aliquet mauris.
+
+Pages
+Home
+Instagram
+Linkedin
+Privacy
+Request Prices
+Contact
+
+
+############################################################
+# detail_bikefinder.html
+############################################################
+
+FloiDesign
+
+My works
+My works
+
+Case Studies
+Case Studies
+
+For Fun
+For Fun
+
+Shop
+Shop
+
+About floi
+About floi
+
+CV
+CV
+
+Home
+About
+Works
+CV
+Contact
+
+Dropdown
+
+Link 1
+Link 2
+Link 3
+
+Link
+
+Menu
+Menu
+
+
+############################################################
+# detail_bisu.html
+############################################################
+
+FloiDesign
+
+My works
+My works
+
+Case Studies
+Case Studies
+
+For Fun
+For Fun
+
+Shop
+Shop
+
+About floi
+About floi
+
+CV
+CV
+
+Home
+About
+Works
+CV
+Contact
+
+Dropdown
+
+Link 1
+Link 2
+Link 3
+
+Link
+
+Menu
+Menu
+
+Bisu
+
+How might we...
+
+... design a service that preserves stories through objects, while enabling creative intergenerational exchange and community engagement?
+‍ My Bachelor thesis started from some reflections on objects and on the concept of inheritance. I visited secondhand shops and donation centers to see which objects were left and unsold.
+
+‍ Key Insight Themes from my research: - Objects serve as carriers of identity, memory, space, and learning. - There is a narrow "window of meaning" before objects become irrelevant. - Youth and elderly can be connected through co-creation and narration of stories.
+
+Jeweler
+
+Antiquarian
+
+Elderly
+
+Where do you keep your sentimental objects?
+Heirlooms have a space in our lives, while common objects with sentimental value but no economic one will get put aside, passing from flea market to landfill.
+
+Are there people who bring them used and old materials to melt?
+"Yes, usually old necklaces. I always try to use and appreciate these materials that go, and can be, reused. Often people wear jewellery that is ‘out of fashion’ and no longer feel like wearing it. They often come with jewellery that by manufacture is unique and valuable, so I recommend not to melt them. They are special objects, and even if maybe the person will never wear them I refuse to merge jewellery made with techniques or machinery that are no longer common and that are even no longer found.You can do whatever you like with it."
+
+Who will inherit this?
+Looking at the minerals her late husband brought from the mine in the 70s.
+"They have a card, everyone has their own card. I divided them, put them on the table, I tried to do equal parts. I made the notes with the names of my children, my granddaughter was there, I told her: ‘pull the notes’ and because of how she pulled the note put it there. I couldn't do otherwise. And now there are those who took them and those who didn't. “Leave them there mom, leave them there mom” and I wouldn’t want them to fight over two stones."
+
+Buy my tickets
+Buy my tickets
+
+Do people tell you the stories of the object they bring you?
+"Often people know little, maybe inherit something from the father, they sell items that have always been in the house, that dad bought or that had been in the house for generations.
+“It has always been with the family”...they don't feel guilty about selling things...for economic issues"
+
+Before
+After
+
+Before
+After
+
+Before
+After
+
+Before
+After
+
+Do people tell you the stories of the object they bring you?
+"Often people know little, maybe inherit something from the father, they sell items that have always been in the house, that dad bought or that had been in the house for generations.
+“It has always been with the family”...they don't feel guilty about selling things...for economic issues"
+
+A digital Archive
+
+As a final step we developed a small demo of an archive as a digital repository that documents the stories of objects. This initiative serves multiple purposes: creating a communal memory bank, supporting future design research, and fostering civic engagement.
+
+Try the website here
+
+Quiet social impact
+The project generates social impact by addressing elderlies loneliness and generational disconnection, transforming ordinary objects into meaningful artifacts, and promoting sustainable design practices.
+
+From a design perspective, the service faces challenges around timing and trust: capturing stories before they're lost.
+
+Though initially developed through small-scale workshops, these experiences have potential for implementation across diverse communities.
+
+
+############################################################
+# detail_blog.html
+############################################################
+
+FloiDesign
+
+Blog post
+
+Other blog posts
+
+Partner with a design team that turns ideas into powerful digital experiences
+
+Start now
+
+Lorem ipsum dolor sit amet, consectetur adipiscing. Suspendisse varius enim in eros.
+
+Pages
+Home
+Instagram
+Linkedin
+Privacy
+Request Prices
+Contact
+
+
+############################################################
+# detail_fun.html
+############################################################
+
+FloiDesign
+
+My works
+My works
+
+Case Studies
+Case Studies
+
+For Fun
+For Fun
+
+Shop
+Shop
+
+About floi
+About floi
+
+CV
+CV
+
+Menu
+Menu
+
+House of MoMo
+
+Blanca's serendipitous moments of fashion.
+
+Buy my tickets
+Buy my tickets
+
+House of MOMO is a slow fashion brand that creates unique wearable art.
+
+A special thank you to Momo, Masha, Sarvesh, Zach, Zachary, and Sean for one of my most treasured memories.
+
+
+############################################################
+# detail_tatdoc.html
+############################################################
+
+FloiDesign
+
+My works
+My works
+
+Case Studies
+Case Studies
+
+For Fun
+For Fun
+
+Shop
+Shop
+
+About floi
+About floi
+
+CV
+CV
+
+Home
+About
+Works
+CV
+Contact
+
+Dropdown
+
+Link 1
+Link 2
+Link 3
+
+Link
+
+Menu
+Menu
+
+Tatdocs
+Tattoo removals made easy.
+
+My Impact:
+Brand Design, UX Design, Research, Experience Strategy
+
+My role:
+2020 Internship then solo designer
+
+A service that mediates and facilitates the medical routine of tattoo-removal.
+TatDocs was an innovative digital-first solution that transformed tattoo removal accessibility during the COVID-19 pandemic. The platform connects clients with medical professionals for at-home tattoo removal solutions, combining telemedicine with specialized medical products delivered directly to users' homes.
+
+Problem space
+Tools to connect with new patients online
+Remote pre-screening to save time in the office
+Simple scheduling and documentation features
+The ability to reach patients safely
+‍
+
+Patients Needs
+During the pandemic, in-person medical visits became difficult — especially for non-urgent treatments like tattoo removal. At the same time, stricter workplace appearance policies made removal more important for many people, including essential workers.
+‍
+
+Carer Needs
+Access to dermatology experts without needing to visit a clinic
+Clear, honest information about treatment options
+Appointment times that fit around work
+A private, discreet experience
+Ongoing support after treatment
+
+How would Maria Feel?
+
+Centered on our core persona, Maria—a teacher worried about visible tattoos at work—our vision prioritized trust, clarity, and dignity throughout the user journey.
+
+Clinical Clarity:
+Simplify medical info without losing accuracy.
+
+Effortless Input:
+Make photo and data submission easy and private.
+
+Progress Transparency:
+Clearly show each step in the care process.
+
+Clear Language:
+Professional but approachable tone.
+
+Journey mapping
+
+With the help of a Senior Designer I Visualized the patient experience from discovery to aftercare.
+
+Method:
+Created a detailed map for B2B, B2C and relevant sitemaps.
+
+Key Stages:
+Discovery → Photo Submission → Review → Scheduling → Treatment → Aftercare. You can click here to view the assets.
+
+Two different development approaches
+B2B and B2C needed two different approches for investments and Seed rounds. Therefore we moved onto planning a custom-code mobile portal for Doctors, and a Landing page website with a website builder to gather more market information.
+
+Implementation
+We launched targeted digital campaigns and email outreach to evaluate user interest and gather early feedback.
+
+Test clinics and early users provided input on onboarding clarity, photo submission, and scheduling usability
+Feedback helped validate the demand for an accessible, payment-free and private consultation model
+
+Impact
+
+Dermatologists appreciated the time-saving potential
+Early patient feedback confirmed the value of clear, guided onboarding and privacy-conscious design
+The product was ultimately paused due to regional compliance constraints, but initial traction confirmed the viability of the asynchronous care model
+
+I learned
+
+Regulatory-First Design: Future products will incorporate legal validation earlier in the UX process
+Trust-Centric UX: The project successfully demonstrated how design can foster trust in sensitive healthcare journeys.
+Validated Vision: Despite regulatory setbacks, the positive reception confirmed the platform’s potential and relevance in evolving digital health models
+
+‍
+
+
+############################################################
+# detail_works.html
+############################################################
+
+FloiDesign
+
+My works
+My works
+
+Case Studies
+Case Studies
+
+For Fun
+For Fun
+
+Shop
+Shop
+
+About floi
+About floi
+
+CV
+CV
+
+Home
+About
+Works
+CV
+Contact
+
+Dropdown
+
+Link 1
+Link 2
+Link 3
+
+Link
+
+Menu
+Menu
+
+Challenge
+
+No items found.
+
+Improving direct user contact
+
+konfetti Reviews
+The goal: Improving trust and conversions by implementing more UCG content on konfetti, experience focused, Partner first platform.
+
+What is konfetti?
+Founded in 2021 and headquartered in Berlin, konfetti serves as a marketplace connecting users with over 8,000 experiences, including cooking classes, pottery workshops, cocktail-making sessions, and more. In 2025 it received the title of TOP 3 Startups in Germany.
+
+A Small seller problem
+Some newer and smaller Partners , faced several problems:
+
+no customer videos or relatable photos
+Competitive offerings but low sales compared to top ranking
+AI-generated, stock or irrelevant pirctures
+No customer feedback and conversation after purchase
+
+On the other hand, the platform had problems with:
+
+add to cart rates
+having homogenous trust across the variety of events
+
+We tried adding security badges and improving checkout layouts. This helped established Partners but did little for newer ones with few reviews.
+
+New feature!
+This is a handy template you can use for your apps (as a an onboarding tip feature for instance). Feel free to resize it, change colours and modify the arrow position.
+
+Results
+
+Next case
+
+Text reviews
+
+2023
+First iteration
+German context
+We added basic text reviews on the Store and in the Partner Area. This helped but didn't solve trust issues for Partners with poor visuals and and imprecise course descriptions.
+
+- Optimized descriptions and images across classes - Redesigned the review layout to include picutures - Extended Reviews to Partner booking websites through Booking solution - Adding QR codes for quick reviews in person ‍
+We added reviewer profile photos to increase trust. This review didn’t go live: German users are less comfortable sharing photos in online ecommerce profiles. Research showed cultural differences in review preferences due to “cultural differences in uncerainty and avoidance” - Knauß Jessica, Elsner Mark (2023), Photos in Online Reviews of Search Goods. Proceedings of the European Marketing Academy, 52nd, (114463)
+
+Social proof
+Holistic approach
+
+Beyond the business data, I wanted to investigate the cart drop-off from a holistic perspective. Hypothesis: lack of social proof creates a trust gap when word of mouth or rankings aren't fully mature yet. To prove that visual social proof could drive impact , I conducted a heuristic evaluation of the initial layout and audited our internal review management. By mapping the full customer journey , I was able to demonstrate how a friction-filled review experience was preventing users from reaching for a second purchase.
+
+Customer Journeys
+
+Admin Journey
+
+Wireflow
+
+A positive fourth iteration:
+During the previous iteration we: - Removed the profile image requirement - Streamlined the upload process and segmented it to each type of product
+- Supported more media types for photos and videos Then we added...
+
+Videos
+Direct replies
+A review gallery
+We added basic text reviews on the Store and in the Partner Area.
+
+Optimized descriptions and images across classes ‍
+We added reviewer profile photos to increase trust. This review didn’t go live: German users are less
+
+Numbers that speak
+On the right you can see a graph on Sessions by acquisitions, and on the right the conversion rate jump.
+Returning users increased by 61% based on Analytics data
+Conversion rates improved by 80% compared to previous iteration without pictures. Review scores improved due to more accurate customer expectations, authenticity from partner answers and in-loco QRcode scanning.
+
+Pages
+Home
+Instagram
+Linkedin
+Privacy
+Request Prices
+Contact
+
+
+############################################################
+# for-fun.html
+############################################################
+
+FloiDesign
+
+My works
+My works
+
+Case Studies
+Case Studies
+
+For Fun
+For Fun
+
+Shop
+Shop
+
+About floi
+About floi
+
+CV
+CV
+
+Home
+About
+Works
+CV
+Contact
+
+Dropdown
+
+Link 1
+Link 2
+Link 3
+
+Link
+
+Menu
+Menu
+
+UX Case Study Brand&Social Arts&Crafts
+
+Thank you! Your submission has been received!
+
+Oops! Something went wrong while submitting the form.
+
+
+############################################################
+# index.html
+############################################################
+
+FloiDesign
+
+My works
+My works
+
+Case Studies
+Case Studies
+
+For Fun
+For Fun
+
+Shop
+Shop
+
+About floi
+About floi
+
+CV
+CV
+
+Home
+About
+Works
+CV
+Contact
+
+Dropdown
+
+Link 1
+Link 2
+Link 3
+
+Link
+
+Menu
+Menu
+
+Floi
+
+Designing experiences worth returning to.
+
+design
+Keep scrolling
+
+Designs tailored for business
+Made with humans in mind
+
+Loreipsum
+Lorem ipsum dolor sit amet, consectetur.
+
+Loreipsum
+Lorem ipsum dolor sit amet, consectetur.
+
+Loreipsum
+Lorem ipsum dolor sit amet, consectetur.
+
+Loreipsum
+Lorem ipsum dolor sit amet, consectetur.
+
+Loreipsum
+Lorem ipsum dolor sit amet, consectetur.
+
+Loreipsum
+Lorem ipsum dolor sit amet, consectetur.
+
+Loreipsum
+Lorem ipsum dolor sit amet, consectetur.
+
+Loreipsum
+Lorem ipsum dolor sit amet, consectetur.
+
+Loreipsum
+Lorem ipsum dolor sit amet, consectetur.
+
+Loreipsum
+Lorem ipsum dolor sit amet, consectetur.
+
+Loreipsum
+Lorem ipsum dolor sit amet, consectetur.
+
+Loreipsum
+Lorem ipsum dolor sit amet, consectetur.
+
+Loreipsum
+Lorem ipsum dolor sit amet, consectetur.
+
+Loreipsum
+Lorem ipsum dolor sit amet, consectetur.
+
+Loreipsum
+Lorem ipsum dolor sit amet, consectetur.
+
+Loreipsum
+Lorem ipsum dolor sit amet, consectetur.
+
+Loreipsum
+Lorem ipsum dolor sit amet, consectetur.
+
+Loreipsum
+Lorem ipsum dolor sit amet, consectetur.
+
+Loreipsum
+Lorem ipsum dolor sit amet, consectetur.
+
+Loreipsum
+Lorem ipsum dolor sit amet, consectetur.
+
+Loreipsum
+Lorem ipsum dolor sit amet, consectetur.
+
+Loreipsum
+Lorem ipsum dolor sit amet, consectetur.
+
+Loreipsum
+Lorem ipsum dolor sit amet, consectetur.
+
+Loreipsum
+Lorem ipsum dolor sit amet, consectetur.
+
+konfetti_top 3 startup ecommerce
+
+B2B Dashboard
+
+Bisu_creating with elderlies
+
+I aim to design not only for businesses, but for anyone who needs support, whether that's practical help or simply a sense of community. I design for young dreamers, vibrant elders, depleted caregivers, and overstimulated professionals.
+
+Tatdocs_tattoo Doctors
+
+Ecommerce
+SaaS
+Socials
+
+Branding
+
+Experience
+
+2021 ongoing — konfetti
+Freelance product design
+
+Work in an amazing tech team!
+Ux workshops and product design
+Brand and marketing design
+
+2023 Somerset Pacific
+Freelance consultation
+
+Design direction
+IA flows
+Design support on webflow development
+
+2022 Bikefinder
+Startup social media
+
+Social media posts
+Social media videos and ADV
+Pith deck for investors
+
+2020 — Strandarbeiter Ventures
+Ux design Internship
+
+Brand Identity
+Social media graphics
+Partner Portal wireframes and MVP
+
+2016-2019 — Billionaire Media Group
+Freelance during studies
+
+Logo design
+Wordpress landing page design
+Product photography
+
+2010 —
+I won a special art prize at 14 y.old
+
+Might not be relevant, but that's what made me keep follow my dreams
+
+Work
+
+View case
+
+2023
+
+Age of Vice
+Deepti Kapoor
+
+2030
+Mauro F. Guillén
+
+The Obstacle is the Way
+Ryan Holiday
+
+Sphere
+Michael Crichton
+
+How the World Really Works
+Vaclav Smil
+
+Wool
+Hugh Howey
+
+Intensity
+Dean Koontz
+
+Verity
+Colleen Hoover
+
+The Keys to the Effortless Golf Swing
+Michael McTeigue
+
+Constance
+Matthew FitzSimmons
+
+Harvey Penick's Little Red Book
+Harvey Penick & Bud Shrake
+
+Gunmetal Gray
+Mark Greaney
+
+Back Blast
+Mark Greaney
+
+Pages
+Home
+Instagram
+Linkedin
+Privacy
+Request Prices
+Contact
+
+
+############################################################
+# order-confirmation.html
+############################################################
+
+FloiDesign
+
+Customer Information
+
+Email
+
+Shipping Address
+
+Shipping Method
+
+Payment Info
+
+Payment Info
+
+/
+
+Billing Address
+
+Items in Order
+
+Order Summary
+
+Subtotal
+
+Total
+
+
+############################################################
+# paypal-checkout.html
+############################################################
+
+FloiDesign
+
+Shipping Method
+
+No shipping methods are available for the address given.
+
+Customer Information
+
+Email
+
+Shipping Address
+
+Payment Info
+
+Payment Info
+
+/
+
+Billing Address
+
+Items in Order
+
+Order Summary
+
+Subtotal
+
+Total
+
+Place Order
+
+There was an error processing your customer info. Please try again, or contact us if you continue to have problems.
+
+
+############################################################
+# privacy.html
+############################################################
+
+FloiDesign — Privacy Policy
+
+My works
+My works
+
+Case Studies
+Case Studies
+
+For Fun
+For Fun
+
+Shop
+Shop
+
+About floi
+About floi
+
+CV
+CV
+
+Privacy Policy
+Last updated: April 2026
+
+Who we are
+This site ( floi.it ) is run by Francesca Loi, an independent designer based in Italy. You can reach me at floidesignart@gmail.com .
+
+What we collect
+If you accept analytics, this site uses PostHog to record:
+
+Pages you visit and the order you visit them
+Your approximate location (country, city — derived from IP, IP itself is not stored)
+Browser type, screen size, and device type
+Anonymized session replays of mouse movement, clicks, and scrolls — form inputs are masked
+
+If you decline, none of this is collected. The site does not use any other tracking — no Google Analytics, no Facebook pixel, no advertising cookies.
+
+Why we collect it
+To understand how visitors use the site, find broken pages, and improve the design. Data is never sold or shared with advertisers.
+
+Where it goes
+Data is stored on PostHog's EU servers. PostHog is GDPR-compliant. PostHog privacy policy .
+
+How long we keep it
+Session replays: 30 days. Aggregate analytics: 1 year. After that, data is automatically deleted.
+
+Your rights (GDPR)
+If you're in the EU/EEA, you have the right to:
+
+Ask what data we have about you
+Ask us to delete it
+Withdraw your consent at any time (button below)
+
+To make any of these requests, email floidesignart@gmail.com .
+
+Manage your cookie preferences
+Loading current preference…
+Reset preference
+
+Contact
+Questions about this policy: floidesignart@gmail.com
+
+← Back to home
+
+
+############################################################
+# works.html
+############################################################
+
+FloiDesign
+
+My works
+My works
+
+Case Studies
+Case Studies
+
+For Fun
+For Fun
+
+Shop
+Shop
+
+About floi
+About floi
+
+CV
+CV
+
+Home
+About
+Works
+CV
+Contact
+
+Dropdown
+
+Link 1
+Link 2
+Link 3
+
+Link
+
+Menu
+Menu
+
+All
+UX Case Study
+Brand&Social
+Arts&Crafts
+
+B2B Portal and Dashboard
+
+BISU - a service for elderlies
+
+konfetti ecommerce review
+
+tatdocs - a platform for dermatologists
+
+bikefinder - branding for cycling enthusiasts
+
+NOMI a website for hikikomori
+
+Chair
+
+Hum
+
+MOMO fashion pictures
