@@ -6785,8 +6785,8 @@ figcaption {
 
 .waves---main-container-2 {
   max-width: 1352px;
-  padding-left: 24px;
-  padding-right: 24px;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .waves---section-medium-2 {
@@ -6804,8 +6804,6 @@ figcaption {
 .waves-master-gallery-1 {
   width: 100%;
   max-width: 1122px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .waves-grid-gallery-1 {
@@ -12179,7 +12177,7 @@ figcaption {
   justify-content: flex-start;
   align-items: center;
   margin-top: 8%;
-  padding-left: 2rem;
+  padding-left: 0rem;
   display: flex;
 }
 
@@ -12196,8 +12194,8 @@ figcaption {
 }
 
 .radio-button-5, .radio-button-6 {
-  margin-top: 6px;
-  margin-left: auto;
+  margin-top: 1.5rem;
+  margin-left: none;
   display: none;
 }
 
@@ -14948,8 +14946,8 @@ figcaption {
     grid-template-columns: 1fr 1fr;
     grid-auto-columns: 1fr;
     margin-top: auto;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 1rem;
+    margin-right: 1rem;
     padding-top: 40px;
     padding-left: .25rem;
     padding-right: .25rem;
@@ -16557,8 +16555,8 @@ figcaption {
   }
 
   .waves---main-container-2 {
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   .waves---section-medium-2 {
@@ -16567,9 +16565,8 @@ figcaption {
   }
 
   .waves-master-gallery-1 {
-    max-width: 390px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: none;
+    margin-right: none;
   }
 
   .waves-grid-gallery-1 {
@@ -17883,7 +17880,7 @@ figcaption {
   }
 
   .waves---main-container-2 {
-    flex-flow: column;
+    flex-flow: wrap;
     justify-content: center;
     align-items: center;
     display: flex;

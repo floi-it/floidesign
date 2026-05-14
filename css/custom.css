@@ -14,6 +14,30 @@
   .scroll-note_text { display: none; }
 }
 
+/* Bisu — interview quote paragraph: remove the 40px right padding that offsets it */
+#w-node-_2ad96702-ae35-abc6-1929-0307fdb92f47-157dd0f5 .text-size-regular-2 {
+  padding-right: 0;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Home page navbar — Webflow marks the logo link w--current on the home page,
+   which triggers a min-width:1280px rule that gives it flex:1, causing the logo
+   to grow and steal space from the three nav-link groups. Pin it to natural width. */
+@media (min-width: 1280px) {
+  .navbar_logo-wrap.w--current {
+    flex: none;
+  }
+}
+
+/* Home — works gallery: the inner grid wrapper has max-width but no auto margins,
+   so it left-aligns inside the centered container. Fix: centre it. */
+.waves-master-gallery-1 {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* Bisu detail page background */
 .frame-590.background-bisu {
   background-repeat: no-repeat;
@@ -31,17 +55,17 @@
 /* Works page — equal horizontal padding so cards don't hit the edge */
 .body-2 .form-block-2,
 .body-2 .filter_content {
-  padding-left: 4rem;
-  padding-right: 4rem;
-  box-sizing: border-box;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  box-sizing: 100%;
 }
 
 /* Webflow's default adds margin-left/right: 2rem only on the grid, not on the
    filter row — that creates an asymmetric look. Zero it out so our 4rem padding
    on the parent is the only horizontal spacing. */
 .body-2 .cms_list.helper {
-  margin-left: 0;
-  margin-right: 0;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 /* Works grid: 4 cols ≥2600px, 3 cols 1920–2599, 2 cols <1920px, 1 col mobile */
@@ -176,6 +200,11 @@
 .privacy-page .consent-btn { margin-top: .25rem; background: #1a1a1a; color: #fff; }
 .privacy-page .consent-btn:hover { background: #333; }
 
+/* Prevent chip labels from wrapping at narrow viewports */
+.work-tabs-link .w-form-label {
+  white-space: nowrap;
+}
+
 /* Filter buttons: keep the pink (bubblegum) highlight on the selected one */
 .work-tabs-link:has(input[type="radio"]:checked) {
   border-color: var(--bubblegum);
@@ -183,4 +212,105 @@
 }
 .work-tabs-link:has(input[type="radio"]:checked) .w-form-label {
   color: var(--bubblegum);
+}
+
+/* Mobile nav menu — white background */
+.waves---nav-menu {
+  background-color: #fff;
+}
+
+/* Bisu detail — responsive fixes */
+@media (max-width: 767px) {
+  .bas-wrapper {
+    height: 380px;
+  }
+  .section-36 {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+  .section-37 {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  /* Interview tabs: at 480–767px the items are inline-block and overflow;
+     switch to flex so the three pills share the row equally. */
+  .tabs-menu-2 {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 6px;
+    width: 100%;
+  }
+  .tabs-menu-2 .work-tabs-link {
+    flex: 1 1 0;
+    min-width: 0;
+    text-align: center;
+    margin-left: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (max-width: 479px) {
+  /* Slider height */
+  .bas-wrapper {
+    height: 260px;
+  }
+
+  /* Map sections */
+  .section-36 {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+  .section-37 {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+
+  /* Tighten the large text/intro blocks — base keeps 60px which is too much */
+  .frame-590 {
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+
+  /* Webflow's .categories rule adds margin-top: 60px at 479px;
+     .categories.due doesn't reset it, so a 60px gap appears before the
+     interview section. Remove it. */
+  .categories.due {
+    margin-top: 0;
+  }
+
+  /* Tighten the before/after slider wrapper */
+  .frame-592-4 {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  /* Reduce container-17 (social impact card) padding so text isn't cramped
+     on a narrow screen and the card doesn't overflow */
+  .container-17 {
+    padding: 24px 16px;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Ensure the body-text paragraph fills the column instead of staying 50% wide */
+  .observational-research-i-visited-secondhand-shops-and-donation-centers-to-see-which-objects-were-lef-2 {
+    width: 100%;
+    display: block;
+  }
+
+  /* At ≤479px Webflow also forces flex: none; min-width: 40% on the tabs —
+     re-assert the flex layout so our 767px rules aren't undone. */
+  .tabs-menu-2 {
+    gap: 4px;
+  }
+  .tabs-menu-2 .work-tabs-link {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    padding: 8px 6px;
+    font-size: 14px;
+    margin-left: 0 !important;
+  }
 }
