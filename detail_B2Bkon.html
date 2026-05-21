@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>B2B Dashboard — FloiDesign</title>
+  <title>B2B Partner Portal — FloiDesign</title>
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <link href="css/normalize.css" rel="stylesheet" type="text/css">
   <link href="css/webflow.css" rel="stylesheet" type="text/css">
@@ -10,30 +10,269 @@
   <link href="css/custom.css" rel="stylesheet" type="text/css">
   <link href="images/logo_1logo.png" rel="icon" type="image/png" media="(prefers-color-scheme: light)">
   <link href="images/logo-white.png" rel="icon" type="image/png" media="(prefers-color-scheme: dark)">
-  <style>* { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }</style>
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous">
   <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
-  <script type="text/javascript">WebFont.load({ google: { families: ["Archivo:300,400,500,600,700","EB Garamond:300,400,500,600,700"] } });</script>
+  <script type="text/javascript">WebFont.load({ google: { families: ["Open Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic","Archivo:300,400,500,600,700","EB Garamond:300,400,500,600,700","IBM Plex Mono:300,400,500,600,700","Roboto Mono:300,400,500,600,700"] } });</script>
+  <style>
+    * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; box-sizing: border-box; }
+
+    /* ── Hero ── */
+    .b2b-hero {
+      background: #ffffff;
+      min-height: calc(100vh - 72px);
+      display: flex;
+      align-items: center;
+      padding: 80px 40px;
+    }
+
+    .b2b-hero-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      gap: 60px;
+    }
+
+    /* ── Left ── */
+    .b2b-left {
+      flex-shrink: 0;
+      width: 48%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .b2b-logo {
+      height: 34px;
+      width: auto;
+      display: block;
+      margin-bottom: 8px;
+      opacity: 0.85;
+    }
+
+    .b2b-headline {
+      font-family: 'Archivo', sans-serif;
+      font-size: clamp(36px, 4.2vw, 60px);
+      font-weight: 700;
+      color: #111111;
+      text-transform: uppercase;
+      line-height: 1.0;
+      letter-spacing: -0.5px;
+      margin: 0;
+    }
+
+    .b2b-headline-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 24px;
+      margin-top: 4px;
+    }
+
+    .b2b-desc {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      color: #555555;
+      line-height: 1.65;
+      max-width: 300px;
+      margin-top: 10px;
+    }
+    .b2b-card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    /* ── Right ── */
+    .b2b-right {
+      flex: 1;
+      min-width: 0;
+      position: relative;
+    }
+
+    .b2b-card {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      background: #4b666d;
+      border-radius: 40px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* subtle inner shine */
+    .b2b-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.07) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .b2b-card-label {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.5px;
+      z-index: 2;
+    }
+
+    /* ── CTA button ── */
+    .b2b-try-wrap {
+      position: absolute;
+      bottom: -22px;
+      right: 36px;
+      transform: rotate(1.1deg);
+      z-index: 10;
+    }
+
+    .b2b-try-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #ff7e38;
+      border-radius: 70px;
+      padding: 16px 36px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      box-shadow: 0 8px 24px rgba(255,126,56,0.35);
+    }
+
+    .b2b-try-btn:hover {
+      background: #e86c28;
+      transform: scale(1.04);
+    }
+
+    .b2b-try-btn span {
+      font-family: 'Archivo', sans-serif;
+      font-size: clamp(18px, 2vw, 28px);
+      font-weight: 700;
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      white-space: nowrap;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 860px) {
+      .b2b-hero { padding: 48px 24px 60px; }
+      .b2b-hero-inner { flex-direction: column; gap: 40px; }
+      .b2b-left { width: 100%; }
+      .b2b-headline { font-size: clamp(30px, 9vw, 48px); }
+      .b2b-headline-row { flex-direction: column; gap: 8px; }
+      .b2b-desc { max-width: 100%; margin-top: 0; }
+      .b2b-right { width: 100%; }
+      .b2b-card { border-radius: 24px; }
+      .b2b-try-wrap { bottom: -18px; right: 20px; }
+      .b2b-try-btn { padding: 12px 26px; }
+      .b2b-try-btn span { font-size: 18px; }
+    }
+
+    @media (max-width: 480px) {
+      .b2b-hero { padding: 36px 16px 56px; }
+      .b2b-headline { font-size: clamp(26px, 10vw, 36px); }
+      .b2b-try-btn { padding: 10px 20px; }
+      .b2b-try-btn span { font-size: 15px; }
+    }
+  </style>
 </head>
 <body>
+
   <nav class="navbar">
     <div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="waves-navbar-1 w-nav">
       <div class="waves---nav-container w-container">
         <a href="index.html" class="navbar_logo-wrap w-inline-block"><img loading="lazy" src="images/logo_1logo.png" alt="" class="navbar_logo"></a>
+        <div class="w-layout-blockcontainer container-9 w-container">
+          <a href="works.html" class="navbar_link w-inline-block">
+            <div class="navbar_link-text _1">My works</div>
+            <div class="navbar_link-text _2">My works</div>
+          </a>
+          <a href="works.html#UX" class="navbar_link w-inline-block">
+            <div class="navbar_link-text _1">Case Studies</div>
+            <div class="navbar_link-text _2">Case Studies</div>
+          </a>
+        </div>
+        <div class="w-layout-blockcontainer container-9 w-container">
+          <a href="works.html#Fun" class="navbar_link w-inline-block">
+            <div class="navbar_link-text _1">For Fun</div>
+            <div class="navbar_link-text _2">For Fun</div>
+          </a>
+          <a href="https://floidesignart.gumroad.com/l/b6-2026-montly" target="_blank" class="navbar_link w-inline-block">
+            <div class="navbar_link-text _1">Shop</div>
+            <div class="navbar_link-text _2">Shop</div>
+          </a>
+        </div>
+        <div class="w-layout-blockcontainer container-9 w-container">
+          <a href="about.html" class="navbar_link w-inline-block">
+            <div class="navbar_link-text _1">About floi</div>
+            <div class="navbar_link-text _2">About floi</div>
+          </a>
+          <a href="CV-Francesca-Loi-2025-2.pdf" download class="navbar_link w-inline-block">
+            <div class="navbar_link-text _1">CV</div>
+            <div class="navbar_link-text _2">CV</div>
+          </a>
+        </div>
         <div class="waves-right-nav-1">
           <nav role="navigation" class="waves---nav-menu w-nav-menu">
             <a href="index.html" class="waves---nav-link w-nav-link">Home</a>
             <a href="about.html" class="waves---nav-link w-nav-link">About</a>
             <a href="works.html" class="waves---nav-link w-nav-link">Works</a>
+            <a href="CV-Francesca-Loi-2025-2.pdf" download class="waves---nav-link w-nav-link">CV</a>
+            <a href="mailto:francesca@floi.it?subject=.Hello!" class="waves---nav-link w-nav-link">Contact</a>
           </nav>
+          <div class="waves---nav-buttons-right">
+            <div class="waves---menu-button w-nav-button">
+              <a href="#" class="navbar_link w-inline-block">
+                <div class="navbar_link-text _1">Menu</div>
+                <div class="navbar_link-text _2">Menu</div>
+              </a>
+              <div class="waves---hamburger-icon w-icon-nav-menu"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </nav>
-  <section style="padding: 8rem 4rem 4rem;">
-    <h1>B2B Partner Portal &amp; Dashboard</h1>
-    <p>Case study coming soon.</p>
-    <a href="works.html">← Back to works</a>
+
+  <section class="b2b-hero">
+    <div class="b2b-hero-inner">
+
+      <!-- Left -->
+      <div class="b2b-left">
+        <h1 class="b2b-headline">Complex data</h1>
+        <h1 class="b2b-headline">of API partners</h1>
+        <div class="b2b-headline-row">
+          <h1 class="b2b-headline" style="flex-shrink:0;">simplified</h1>
+          <p class="b2b-desc">How we simplified a complex coding-first flow with a lot of back and forth to a simplified data flow all in one place. More of the case study on this page coming soon… in the meanwhile try the prototype!</p>
+        </div>
+      </div>
+
+      <!-- Right -->
+      <div class="b2b-right">
+        <div class="b2b-card">
+          <img src="images/macbook-b2b.png" alt="B2B Dashboard mockup" class="b2b-card-img">
+        </div>
+        <div class="b2b-try-wrap">
+          <a href="b2b-dashboard.html" class="b2b-try-btn">
+            <span>Try it here</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
   </section>
+
   <script src="js/webflow.js" type="text/javascript"></script>
 </body>
 </html>

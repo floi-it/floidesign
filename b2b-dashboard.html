@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>B2B Dashboard — FloiDesign</title>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="images/logo_1logo.png" rel="icon" type="image/png" media="(prefers-color-scheme: light)">
+  <link href="images/logo-white.png" rel="icon" type="image/png" media="(prefers-color-scheme: dark)">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+
+    body {
+      background: #191919;
+      color: #ffffff;
+      font-family: 'Poppins', sans-serif;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ── Layout ── */
+    .dashboard { display: flex; height: 100vh; overflow: hidden; }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: 230px;
+      flex-shrink: 0;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .sidebar-logo {
+      height: 56px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+    }
+    .sidebar-logo span {
+      font-size: 17px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.2px;
+    }
+
+    .sidebar-top { flex: 1; padding: 16px 10px 0; }
+
+    .nav-section-label {
+      font-size: 9.5px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.475px;
+      text-transform: uppercase;
+      padding: 0 8px;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .nav-items { display: flex; flex-direction: column; gap: 4px; }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      height: 35.5px;
+      padding: 0 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      color: rgba(255,255,255,0.5);
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .nav-item.active { background: #2a2a2a; color: #ffffff; }
+    .nav-item.disabled { opacity: 0.28; pointer-events: none; }
+    .nav-item img { width: 15px; height: 15px; flex-shrink: 0; }
+
+    .sidebar-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 13px 10px;
+    }
+    .sidebar-bottom .nav-item { color: #4bc0c0; }
+
+    /* ── Main ── */
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+    /* ── Topbar ── */
+    .topbar {
+      height: 56px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      flex-shrink: 0;
+    }
+    .topbar-breadcrumb { font-size: 13px; color: #4bc0c0; text-decoration: none; }
+    .topbar-breadcrumb:hover { color: #7dd8d8; }
+    .topbar-right { display: flex; align-items: center; gap: 10px; }
+
+    .bell-btn {
+      width: 34px; height: 34px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; cursor: pointer;
+    }
+    .bell-btn img { width: 16px; height: 16px; }
+    .bell-dotc {
+      position: absolute; top: 6px; right: 4px;
+      width: 8px; height: 8px;
+      background: #a3c90e;
+      border-radius: 50%;
+      border: 2px solid #191919;
+    }
+    .user-avatar {
+      width: 33px; height: 33px;
+      background: #2a2a2a;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; color: #ffffff;
+    }
+
+    /* ── Content ── */
+    .content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .content::-webkit-scrollbar { width: 5px; }
+    .content::-webkit-scrollbar-track { background: transparent; }
+    .content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 3px; }
+
+    .page-heading h1 { font-size: 22px; font-weight: 700; color: #ffffff; line-height: 1.5; }
+    .page-heading p { font-size: 13px; color: rgba(255,255,255,0.45); font-weight: 400; }
+
+    /* ── Quick Actions ── */
+    .section-label { font-size: 14px; font-weight: 600; color: #ffffff; margin-bottom: 12px; }
+
+    .quick-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .action-btn {
+      display: flex; align-items: center; gap: 8px;
+      height: 40px; padding: 0 17px;
+      background: #242424; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px;
+      font-size: 12px; color: #ffffff; cursor: pointer;
+      font-family: 'Poppins', sans-serif; text-decoration: none;
+      white-space: nowrap;
+    }
+    .action-btn img { width: 16px; height: 16px; }
+    .action-btn:hover { background: #2e2e2e; }
+
+    /* ── Cards grid ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .card {
+      background: #242424;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px;
+      padding: 20px;
+    }
+
+    .card-header {
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 16px;
+    }
+    .card-header img { width: 20px; height: 20px; flex-shrink: 0; }
+    .card-title { font-size: 14px; font-weight: 600; color: #ffffff; }
+
+    /* Integration Status */
+    .integration-status {}
+
+    .connected-row {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .connected-badge { font-size: 14px; font-weight: 700; color: #a3c90e; }
+    .sync-info { font-size: 12px; color: rgba(255,255,255,0.45); }
+
+    .stat-cards { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
+
+    .stat-card {
+      background: rgba(255,255,255,0.05); border-radius: 14px; padding: 13px 13px 12px;
+    }
+    .stat-value { font-size: 24px; font-weight: 700; color: #ffffff; line-height: 1.5; }
+    .stat-value.warn { color: #f4a460; }
+    .stat-label { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 2px; }
+    .stat-label.warn { color: #f4a460; text-decoration: underline; cursor: pointer; }
+
+    /* ── Synch duration chart ── */
+    .sync-chart-wrap {
+      position: relative;
+      margin-top: 8px;
+    }
+    .sync-svg { width: 100%; height: 165px; display: block; overflow: visible; }
+
+    .sync-tooltip {
+      display: none; position: absolute;
+      background: #ffffff; border-radius: 8px; padding: 10px 14px;
+      pointer-events: none; z-index: 20; min-width: 160px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.22);
+    }
+    .sync-tt-date { font-size: 11px; color: rgba(0,0,0,0.45); margin-bottom: 8px; font-weight: 500; }
+    .sync-tt-row { display: flex; align-items: center; gap: 8px; margin-bottom: 3px; }
+    .sync-tt-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .sync-tt-label { font-size: 11px; color: rgba(0,0,0,0.55); flex: 1; }
+    .sync-tt-val { font-size: 14px; font-weight: 700; color: #0d0e13; }
+
+    /* Revenue */
+    .revenue-label-row {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 14px; color: #4bc0c0;
+    }
+    .info-badge {
+      width: 15px; height: 15px;
+      border: 1px solid rgba(255,255,255,0.2); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 9px; color: rgba(255,255,255,0.35);
+    }
+    .revenue-value { font-size: 30px; font-weight: 800; color: #f4a460; margin: 10px 0 4px; }
+    .revenue-footer {
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid rgba(255,255,255,0.08); padding-top: 8px; margin-top: 8px;
+    }
+    .bookings { font-size: 13px; font-weight: 500; color: #4bc0c0; }
+    .avg { display: flex; align-items: center; gap: 6px; }
+    .avg-val { font-size: 14px; font-weight: 700; color: #ffffff; }
+    .avg-lbl { font-size: 11px; color: rgba(255,255,255,0.35); }
+
+    /* ── Revenue bar chart ── */
+    .rev-chart {
+      display: flex; gap: 10px; align-items: flex-end;
+      padding: 18px 0 14px;
+      height: 150px;
+    }
+    .rev-y-axis {
+      display: flex; flex-direction: column; justify-content: space-between;
+      height: 100%; padding-bottom: 20px;
+      flex-shrink: 0;
+    }
+    .rev-y-axis span {
+      font-size: 9px; color: rgba(255,255,255,0.28);
+      line-height: 1; text-align: right;
+    }
+    .rev-bars {
+      display: flex; align-items: flex-end; gap: 6px;
+      flex: 1; height: 100%;
+    }
+    .rev-bar-col {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 6px; flex: 1; height: 100%; justify-content: flex-end;
+      position: relative; cursor: pointer;
+    }
+    .rev-bar {
+      width: 100%; border-radius: 6px 6px 0 0;
+      background: repeating-linear-gradient(
+        -45deg,
+        rgba(255,255,255,0.09),
+        rgba(255,255,255,0.09) 2px,
+        rgba(255,255,255,0.03) 2px,
+        rgba(255,255,255,0.03) 8px
+      );
+      transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+    }
+    .rev-bar-col:hover .rev-bar:not(.active) {
+      background: rgba(255,255,255,0.15);
+    }
+    .rev-bar.active {
+      background: #c8f542;
+      box-shadow: 0 0 16px rgba(200,245,66,0.4);
+    }
+    .rev-bar-label {
+      font-size: 9.5px; color: rgba(255,255,255,0.3);
+      white-space: nowrap; user-select: none;
+    }
+    .rev-bar-col.active .rev-bar-label { color: rgba(255,255,255,0.75); font-weight: 600; }
+    .rev-tooltip {
+      position: absolute; top: -32px; left: 50%; transform: translateX(-50%);
+      background: #ffffff; color: #0d0e13;
+      font-size: 10px; font-weight: 700;
+      padding: 4px 8px; border-radius: 6px; white-space: nowrap;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.15s, top 0.15s;
+    }
+    .rev-tooltip::after {
+      content: ''; position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%);
+      border: 5px solid transparent; border-bottom: none;
+      border-top: 5px solid #ffffff;
+    }
+    .rev-bar-col.active .rev-tooltip { opacity: 1; top: -30px; }
+
+    /* Right column */
+    .right-col { display: flex; flex-direction: row; gap: 12px; }
+    .right-stack { display: flex; flex-direction: column; gap: 12px; flex: 1; }
+
+    /* Cancellation */
+    .cancellation-card {
+      background: #242424;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px;
+      padding: 20px;
+      display: flex; flex-direction: column; align-items: center; gap: 12px;
+    }
+    .cancellation-header { width: 100%; }
+
+    .donut-wrap { width: 160px; height: 160px; position: relative; }
+    .donut-svg { width: 160px; height: 160px; transform: rotate(-90deg); }
+
+    .donut-svg circle[id^="seg"] { cursor: pointer; pointer-events: stroke; }
+
+    .legend-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; }
+    .legend-item {
+      display: flex; align-items: center; gap: 8px;
+      cursor: pointer; padding: 4px 6px; border-radius: 7px;
+      transition: background 0.15s;
+    }
+    .legend-item:hover { background: rgba(255,255,255,0.05); }
+    .legend-item.active { background: rgba(255,255,255,0.07); }
+    .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; transition: transform 0.15s; }
+    .legend-item.active .legend-dot { transform: scale(1.25); }
+    .legend-text { font-size: 11px; color: rgba(255,255,255,0.45); transition: color 0.15s; }
+    .legend-item.active .legend-text { color: #ffffff; font-weight: 600; }
+
+    .donut-svg circle { transition: opacity 0.25s, stroke-width 0.25s; }
+    .donut-svg circle.seg-dimmed { opacity: 0.12; }
+    .donut-svg circle.seg-active { stroke-width: 36; }
+    .donut-center-label { transition: opacity 0.2s; pointer-events: none; }
+    .donut-wrap { position: relative; }
+
+    /* Bottom row (removed — now right-stack handles this) */
+
+    /* Offer Quality */
+    .offer-card {
+      flex: 1;
+      background: #242424;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px;
+      padding: 17px;
+    }
+    .offer-header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .offer-header img { width: 20px; height: 20px; }
+
+    .missing-row {
+      background: rgba(255,255,255,0.05); border-radius: 12px;
+      padding: 12px 13px;
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 8px;
+    }
+    .missing-label { font-size: 13px; font-weight: 600; color: #ffffff; }
+    .missing-sub { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 4px; }
+    .missing-count { font-size: 12px; color: #f4a460; white-space: nowrap; }
+
+    /* Account Manager */
+    .account-card {
+      flex: 1;
+      background: #242424;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px;
+      padding: 20px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .account-row { display: flex; align-items: flex-start; gap: 12px; }
+    .account-icon {
+      width: 20px; height: 20px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 2px;
+    }
+    .account-icon svg { width: 20px; height: 20px; }
+    .account-name { font-size: 14px; font-weight: 600; color: #ffffff; }
+    .account-person { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+    .account-email { font-size: 11px; color: #4bc0c0; margin-top: 4px; }
+    .contact-btn {
+      border: 1px solid rgba(255,255,255,0.12); border-radius: 10px;
+      padding: 10px; text-align: center;
+      font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.7); cursor: pointer;
+    }
+    .contact-btn:hover { background: rgba(255,255,255,0.06); }
+
+    /* ── Recent Orders Table ── */
+    .table-card {
+      background: #242424;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px;
+      padding: 20px 20px 6px;
+    }
+
+    .table-header {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .table-title { font-size: 17.6px; font-weight: 600; color: #ffffff; line-height: 1.3; }
+    .table-subtitle { font-size: 12.4px; color: rgba(255,255,255,0.4); margin-top: 3px; }
+
+    .refresh-btn {
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 7px; padding: 8px 14px;
+      font-size: 12px; font-weight: 500; color: #4bc0c0;
+      font-family: 'Poppins', sans-serif; cursor: pointer; white-space: nowrap;
+    }
+    .refresh-btn:hover { background: rgba(255,255,255,0.1); }
+
+    .table-wrap { overflow-x: auto; }
+
+    .orders-table {
+      width: 100%; border-collapse: collapse; font-size: 12px;
+    }
+    .orders-table th {
+      text-align: left; padding: 16px 10px;
+      font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.35);
+      text-transform: uppercase; letter-spacing: 0.4px;
+      border-bottom: 1px dashed rgba(255,255,255,0.08);
+    }
+    .orders-table th:first-child { padding-left: 0; }
+    .orders-table th.col-actions { text-align: right; border-left: 1px dashed rgba(255,255,255,0.08); }
+
+    .orders-table td {
+      padding: 16px 10px; vertical-align: middle;
+      border-bottom: 1px dashed rgba(255,255,255,0.08);
+      color: #ffffff; font-weight: 600;
+    }
+    .orders-table td:first-child { padding-left: 0; }
+    .orders-table td.col-actions {
+      text-align: right;
+      border-left: 1px dashed rgba(255,255,255,0.08);
+    }
+    .orders-table tbody tr:last-child td { border-bottom: none; }
+
+    .event-cell { display: flex; align-items: center; gap: 10px; }
+    .event-thumb {
+      width: 50px; height: 50px; flex-shrink: 0;
+      background: rgba(255,255,255,0.08); border-radius: 7px;
+    }
+
+    .ticket-count { color: #ffffff; margin-bottom: 4px; }
+    .ticket-badge {
+      display: inline-block;
+      background: rgba(75,192,192,0.15); color: #4bc0c0;
+      font-size: 11px; font-weight: 600;
+      padding: 4px 9px; border-radius: 7px;
+    }
+
+    .cell-time { color: rgba(255,255,255,0.4); margin-top: 2px; }
+
+    .view-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 7px; padding: 8px 14px;
+      font-size: 12px; font-weight: 500; color: #ffffff;
+      font-family: 'Poppins', sans-serif; cursor: pointer; white-space: nowrap;
+    }
+    .view-btn img { width: 18px; height: auto; display: block; }
+    .view-btn:hover { background: rgba(255,255,255,0.12); }
+
+    /* Back link */
+    .back-link {
+      font-size: 12px; color: #4bc0c0; text-decoration: none;
+      padding: 10px 20px; border-top: 1px solid rgba(255,255,255,0.06);
+      display: block; flex-shrink: 0;
+    }
+    .back-link:hover { color: #ffffff; }
+
+    /* ── Mobile gate ── */
+    .mobile-gate {
+      display: none;
+      position: fixed; inset: 0; z-index: 9999;
+      background: #f7f6f2;
+      align-items: center; justify-content: center;
+      padding: 32px 24px;
+    }
+    .mobile-gate-back {
+      position: absolute; top: 24px; left: 24px;
+      font-family: Archivo, sans-serif;
+      font-size: 0.875rem; font-weight: 500;
+      color: #0c071b; text-decoration: none;
+      display: flex; align-items: center; gap: 6px;
+      background: none; border: none; cursor: pointer; padding: 0;
+    }
+    .mobile-gate-back:hover { opacity: 0.6; }
+    .mobile-gate-card {
+      max-width: 360px; width: 100%;
+      display: flex; flex-direction: column; align-items: flex-start;
+      gap: 20px;
+    }
+    .mobile-gate-title {
+      font-family: "EB Garamond", serif;
+      font-size: 2.4rem; font-weight: 500;
+      color: #0c071b; line-height: 1.15;
+    }
+    .mobile-gate-sub {
+      font-family: Archivo, sans-serif;
+      font-size: 0.95rem; font-weight: 400;
+      color: #555; line-height: 1.65;
+    }
+    .mobile-copy-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: #000; color: #fff;
+      border: none; border-radius: 2.25rem;
+      padding: 1rem 2rem;
+      font-family: Archivo, sans-serif;
+      font-size: 1rem; font-weight: 500;
+      cursor: pointer; transition: opacity 0.15s;
+      width: 100%;
+    }
+    .mobile-copy-btn:hover { opacity: 0.85; }
+    .mobile-copy-btn.copied { background: #111; }
+    @media (max-width: 768px) {
+      .mobile-gate { display: flex; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="dashboard">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div>
+      <div class="sidebar-logo">
+        <span>konfetti</span>
+      </div>
+      <div class="sidebar-top">
+        <span class="nav-section-label">Navigazione</span>
+        <div class="nav-items">
+          <a href="#" class="nav-item active">
+            <img src="images/b2b-icon-dashboard.svg" alt="">Dashboard
+          </a>
+          <a href="b2b-connectivity.html" class="nav-item">
+            <img src="images/b2b-icon-connectivity.svg" alt="">Connectivity
+          </a>
+          <a href="b2b-calendar.html" class="nav-item">
+            <img src="images/b2b-icon-calendar.svg" alt="">Calendar
+          </a>
+          <a href="#" class="nav-item disabled">
+            <img src="images/b2b-icon-sales.svg" alt="">My Sales
+          </a>
+          <a href="#" class="nav-item disabled">
+            <img src="images/b2b-icon-invoices.svg" alt="">Invoices
+          </a>
+          <a href="#" class="nav-item disabled">
+            <img src="images/b2b-icon-reviews.svg" alt="">Reviews
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar-bottom">
+      <div class="nav-items">
+        <a href="#" class="nav-item">
+          <img src="images/b2b-icon-helpcenter.svg" alt="">Help Center
+        </a>
+        <a href="#" class="nav-item">
+          <img src="images/b2b-icon-settings.svg" alt="">Settings
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+
+    <!-- Topbar -->
+    <div class="topbar">
+      <a href="detail_B2Bkon.html" class="topbar-breadcrumb">← API / Reseller</a>
+      <div class="topbar-right">
+        <div class="bell-btn">
+          <img src="images/b2b-icon-bell.svg" alt="Notifications">
+          <div class="bell-dot"></div>
+        </div>
+        <div class="user-avatar">AR</div>
+      </div>
+    </div>
+
+    <!-- Scrollable content -->
+    <div class="content">
+
+      <!-- Page heading -->
+      <div class="page-heading">
+        <h1>API / Reseller Dashboard</h1>
+        <p>Monitor integration health &amp; catalog quality</p>
+      </div>
+
+      <!-- Quick Actions -->
+      <div>
+        <p class="section-label">QUICK ACTIONS</p>
+        <div class="quick-actions">
+          <a href="#" class="action-btn">
+            <img src="images/b2b-icon-products.svg" alt="">My Products
+          </a>
+          <a href="#" class="action-btn">
+            <img src="images/b2b-icon-orders.svg" alt="">Order Management
+          </a>
+          <a href="#" class="action-btn">
+            <img src="images/b2b-icon-inventory.svg" alt="">Inventory
+          </a>
+          <a href="#" class="action-btn">
+            <img src="images/b2b-icon-myorders.svg" alt="">My Orders
+          </a>
+          <a href="#" class="action-btn">
+            <img src="images/b2b-icon-helpcenter2.svg" alt="">Help Center
+          </a>
+        </div>
+      </div>
+
+      <!-- Cards grid -->
+      <div class="cards-grid">
+
+        <!-- Integration Status -->
+        <div class="card integration-status">
+          <div class="card-header">
+            <span class="card-title">Container integration</span>
+          </div>
+          <div class="connected-row">
+            <span class="connected-badge">✓ Connected</span>
+            <span class="sync-info">Last sync: 2 min ago – v2.3.1</span>
+          </div>
+          <div class="stat-cards">
+            <div class="stat-card">
+              <div class="stat-value">99.8%</div>
+              <div class="stat-label">Uptime</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">142ms</div>
+              <div class="stat-label">Avg latency</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">1,240</div>
+              <div class="stat-label">Sync requests</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value warn">3</div>
+              <div class="stat-label warn">Check 3 Failed Events</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Synch duration -->
+        <div class="card">
+          <div class="card-header" style="margin-bottom:4px;">
+            <span class="card-title">Synch duration</span>
+          </div>
+          <div class="sync-chart-wrap" id="syncWrap">
+            <svg id="syncSvg" class="sync-svg" viewBox="0 0 576 165"></svg>
+            <div class="sync-tooltip" id="syncTooltip">
+              <div class="sync-tt-date" id="syncTtDate"></div>
+              <div class="sync-tt-row">
+                <span class="sync-tt-dot" style="background:#f4a460;"></span>
+                <span class="sync-tt-label">Avg duration</span>
+                <span class="sync-tt-val" id="syncTtAvg"></span>
+              </div>
+              <div class="sync-tt-row">
+                <span class="sync-tt-dot" style="background:#7c8df0;"></span>
+                <span class="sync-tt-label">Target</span>
+                <span class="sync-tt-val" id="syncTtTgt"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- API Revenue -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">API Revenue This Month</span>
+          </div>
+          <div class="revenue-value">€4,250.80</div>
+
+          <!-- Bar chart -->
+          <div class="rev-chart" id="revChart">
+            <div class="rev-y-axis">
+              <span>4k</span>
+              <span>3k</span>
+              <span>2k</span>
+              <span>1k</span>
+              <span>0</span>
+            </div>
+            <div class="rev-bars" id="revBars">
+              <div class="rev-bar-col" data-amount="€380" data-bookings="10" data-avg="€38">
+                <div class="rev-tooltip">€380</div>
+                <div class="rev-bar" style="height:45%"></div>
+                <span class="rev-bar-label">Jan</span>
+              </div>
+              <div class="rev-bar-col" data-amount="€520" data-bookings="14" data-avg="€37">
+                <div class="rev-tooltip">€520</div>
+                <div class="rev-bar" style="height:61%"></div>
+                <span class="rev-bar-label">Feb</span>
+              </div>
+              <div class="rev-bar-col" data-amount="€710" data-bookings="20" data-avg="€35.50">
+                <div class="rev-tooltip">€710</div>
+                <div class="rev-bar" style="height:84%"></div>
+                <span class="rev-bar-label">Mar</span>
+              </div>
+              <div class="rev-bar-col active" data-amount="€850" data-bookings="24" data-avg="€35">
+                <div class="rev-tooltip">€850</div>
+                <div class="rev-bar active" style="height:100%"></div>
+                <span class="rev-bar-label">Apr</span>
+              </div>
+              <div class="rev-bar-col" data-amount="€620" data-bookings="17" data-avg="€36.47">
+                <div class="rev-tooltip">€620</div>
+                <div class="rev-bar" style="height:73%"></div>
+                <span class="rev-bar-label">May</span>
+              </div>
+              <div class="rev-bar-col" data-amount="€490" data-bookings="13" data-avg="€37.69">
+                <div class="rev-tooltip">€490</div>
+                <div class="rev-bar" style="height:58%"></div>
+                <span class="rev-bar-label">Jun</span>
+              </div>
+              <div class="rev-bar-col" data-amount="€680" data-bookings="19" data-avg="€35.79">
+                <div class="rev-tooltip">€680</div>
+                <div class="rev-bar" style="height:80%"></div>
+                <span class="rev-bar-label">Jul</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="revenue-footer">
+            <span class="bookings" id="revBookings">24 Bookings</span>
+            <div class="avg">
+              <span class="avg-val" id="revAvg">€35</span>
+              <span class="avg-lbl">Avg/booking</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right column -->
+        <div class="right-col">
+
+          <!-- Cancellation Breakdown -->
+          <div class="cancellation-card">
+            <div class="cancellation-header">
+              <span class="card-title">Cancellation Breakdown</span>
+            </div>
+            <div class="donut-wrap">
+              <svg class="donut-svg" id="donutSvg" viewBox="0 0 160 160">
+                <circle cx="80" cy="80" r="55" fill="none" stroke="#242424" stroke-width="34"/>
+                <!-- Weather 45% -->
+                <circle id="seg-0" cx="80" cy="80" r="55" fill="none" stroke="#b76723" stroke-width="30"
+                  stroke-dasharray="155.5 345.6" stroke-dashoffset="0"
+                  data-label="Weather" data-pct="45%" data-value="48 cancellations"/>
+                <!-- Personal 30% -->
+                <circle id="seg-1" cx="80" cy="80" r="55" fill="none" stroke="#4bc0c0" stroke-width="30"
+                  stroke-dasharray="103.7 345.6" stroke-dashoffset="-155.5"
+                  data-label="Personal" data-pct="30%" data-value="32 cancellations"/>
+                <!-- Group Size 15% -->
+                <circle id="seg-2" cx="80" cy="80" r="55" fill="none" stroke="#a3c90e" stroke-width="30"
+                  stroke-dasharray="51.8 345.6" stroke-dashoffset="-259.2"
+                  data-label="Group Size" data-pct="15%" data-value="16 cancellations"/>
+                <!-- Other 10% -->
+                <circle id="seg-3" cx="80" cy="80" r="55" fill="none" stroke="rgba(75,192,192,0.25)" stroke-width="30"
+                  stroke-dasharray="34.6 345.6" stroke-dashoffset="-311.0"
+                  data-label="Other" data-pct="10%" data-value="11 cancellations"/>
+                <!-- Center label (hidden by default, counter-rotated to stay horizontal) -->
+                <g id="donutLabel" class="donut-center-label" opacity="0" transform="rotate(90,80,80)">
+                  <text id="donutPct" x="80" y="77" text-anchor="middle" font-family="Poppins,sans-serif"
+                    font-size="15" font-weight="700" fill="#ffffff"></text>
+                  <text id="donutCat" x="80" y="91" text-anchor="middle" font-family="Poppins,sans-serif"
+                    font-size="8" fill="rgba(255,255,255,0.45)"></text>
+                </g>
+              </svg>
+            </div>
+            <div class="legend-grid" id="donutLegend">
+              <div class="legend-item" data-seg="0" data-label="Weather" data-pct="45%">
+                <div class="legend-dot" style="background:#b76723;"></div>
+                <span class="legend-text">Weather: 45%</span>
+              </div>
+              <div class="legend-item" data-seg="1" data-label="Personal" data-pct="30%">
+                <div class="legend-dot" style="background:#4bc0c0;"></div>
+                <span class="legend-text">Personal: 30%</span>
+              </div>
+              <div class="legend-item" data-seg="2" data-label="Group Size" data-pct="15%">
+                <div class="legend-dot" style="background:#a3c90e;"></div>
+                <span class="legend-text">Group Size: 15%</span>
+              </div>
+              <div class="legend-item" data-seg="3" data-label="Other" data-pct="10%">
+                <div class="legend-dot" style="background:rgba(75,192,192,0.4);"></div>
+                <span class="legend-text">Other: 10%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Offer Quality + Account Manager -->
+          <div class="right-stack">
+
+            <div class="offer-card">
+              <div class="offer-header">
+                <span class="card-title">Offer Quality</span>
+              </div>
+              <div class="missing-row">
+                <div>
+                  <div class="missing-label">Missing data</div>
+                  <div class="missing-sub">Images, description, duration, capacity</div>
+                </div>
+                <span class="missing-count">12 events</span>
+              </div>
+            </div>
+
+            <div class="account-card">
+              <div class="card-header">
+                <span class="card-title">Account Manager</span>
+              </div>
+              <div class="account-row">
+                <div class="account-icon">
+                  <svg width="20" height="20" viewBox="0 0 12 12" fill="none">
+                    <path d="M10 10.5C10 8.567 8.21 7 6 7C3.79 7 2 8.567 2 10.5" stroke="white" stroke-width="1.3" stroke-linecap="round"/>
+                    <circle cx="6" cy="4" r="2.5" stroke="white" stroke-width="1.3"/>
+                  </svg>
+                </div>
+                <div>
+                  <div class="account-person">Sarah Thompson</div>
+                  <div class="account-email">s.thompson@konfetti.com</div>
+                </div>
+              </div>
+              <div class="contact-btn">Contact</div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Recent Orders Table -->
+      <div class="table-card">
+        <div class="table-header">
+          <div>
+            <div class="table-title">Recent Orders</div>
+            <div class="table-subtitle">Here are your last orders</div>
+          </div>
+          <button class="refresh-btn">↻ Refresh</button>
+        </div>
+        <div class="table-wrap">
+          <table class="orders-table">
+            <thead>
+              <tr>
+                <th>Event</th>
+                <th>Total</th>
+                <th>Tickets</th>
+                <th>Date</th>
+                <th>Customer</th>
+                <th>Created At</th>
+                <th class="col-actions">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><div class="event-cell"><div class="event-thumb"></div><span>Cocktail course at Po...</span></div></td>
+                <td>€80.00</td>
+                <td><div class="ticket-count">1</div><div class="ticket-badge">Event Sale</div></td>
+                <td><div>09.01.2026</div><div class="cell-time">19:00</div></td>
+                <td>Ivan Tishkin</td>
+                <td><div>03.11.2025</div><div class="cell-time">17:01</div></td>
+                <td class="col-actions"><button class="view-btn"><img src="images/b2b-icon-eye.svg" alt="">View</button></td>
+              </tr>
+              <tr>
+                <td><div class="event-cell"><div class="event-thumb"></div><span>Cocktailkurs am Potsd...</span></div></td>
+                <td>€50.00</td>
+                <td><div class="ticket-count">5</div><div class="ticket-badge">Private Event Sale</div></td>
+                <td><div>19.12.2025</div><div class="cell-time">06:45</div></td>
+                <td>Regina fake298</td>
+                <td><div>06.10.2025</div><div class="cell-time">11:44</div></td>
+                <td class="col-actions"><button class="view-btn"><img src="images/b2b-icon-eye.svg" alt="">View</button></td>
+              </tr>
+              <tr>
+                <td><div class="event-cell"><div class="event-thumb"></div><span>Cocktailkurs am Potsd...</span></div></td>
+                <td>€100.00</td>
+                <td><div class="ticket-count">10</div><div class="ticket-badge">Private Event Sale</div></td>
+                <td><div>19.12.2025</div><div class="cell-time">06:45</div></td>
+                <td>Regina fake298</td>
+                <td><div>06.10.2025</div><div class="cell-time">11:27</div></td>
+                <td class="col-actions"><button class="view-btn"><img src="images/b2b-icon-eye.svg" alt="">View</button></td>
+              </tr>
+              <tr>
+                <td><div class="event-cell"><div class="event-thumb"></div><span>Cocktailkurs am Potsd...</span></div></td>
+                <td>€200.00</td>
+                <td><div class="ticket-count">20</div><div class="ticket-badge">Private Event Sale</div></td>
+                <td><div>25.12.2025</div><div class="cell-time">08:30</div></td>
+                <td>Sarah Connor dos Santos</td>
+                <td><div>29.09.2025</div><div class="cell-time">16:44</div></td>
+                <td class="col-actions"><button class="view-btn"><img src="images/b2b-icon-eye.svg" alt="">View</button></td>
+              </tr>
+              <tr>
+                <td><div class="event-cell"><div class="event-thumb"></div><span>Cocktailkurs am Potsd...</span></div></td>
+                <td>€1,000.00</td>
+                <td><div class="ticket-count">10</div><div class="ticket-badge">Private Event Sale</div></td>
+                <td><div>24.12.2025</div><div class="cell-time">10:30</div></td>
+                <td>Regina fake298</td>
+                <td><div>25.09.2025</div><div class="cell-time">09:07</div></td>
+                <td class="col-actions"><button class="view-btn"><img src="images/b2b-icon-eye.svg" alt="">View</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+
+    <a href="detail_B2Bkon.html" class="back-link">← Back to B2B project</a>
+  </main>
+
+</div>
+
+<script>
+  // ── Donut chart interaction ──
+  var allSegs     = [0,1,2,3].map(function(i){ return document.getElementById('seg-'+i); });
+  var donutLabel  = document.getElementById('donutLabel');
+  var donutPct    = document.getElementById('donutPct');
+  var donutCat    = document.getElementById('donutCat');
+  var activeDonut = null;
+
+  function activateDonut(idx) {
+    if (activeDonut === idx) {
+      activeDonut = null;
+      allSegs.forEach(function(s){ s.classList.remove('seg-dimmed','seg-active'); });
+      donutLabel.setAttribute('opacity','0');
+      document.querySelectorAll('#donutLegend .legend-item').forEach(function(i){ i.classList.remove('active'); });
+      return;
+    }
+    activeDonut = idx;
+    var seg = allSegs[idx];
+    allSegs.forEach(function(s, i) {
+      s.classList.toggle('seg-dimmed', i !== idx);
+      s.classList.toggle('seg-active', i === idx);
+    });
+    donutPct.textContent = seg.dataset.pct;
+    donutCat.textContent = seg.dataset.label;
+    donutLabel.setAttribute('opacity','1');
+    document.querySelectorAll('#donutLegend .legend-item').forEach(function(item){
+      item.classList.toggle('active', parseInt(item.dataset.seg) === idx);
+    });
+  }
+
+  // Click on SVG slices directly
+  allSegs.forEach(function(seg, idx) {
+    seg.addEventListener('click', function() { activateDonut(idx); });
+  });
+
+  // Click on legend items
+  document.querySelectorAll('#donutLegend .legend-item').forEach(function(item) {
+    item.addEventListener('click', function() { activateDonut(parseInt(item.dataset.seg)); });
+  });
+
+  // ── Revenue bar chart interaction ──
+  document.querySelectorAll('#revBars .rev-bar-col').forEach(function(col) {
+    col.addEventListener('click', function() {
+      // Deactivate all
+      document.querySelectorAll('#revBars .rev-bar-col').forEach(function(c) {
+        c.classList.remove('active');
+        c.querySelector('.rev-bar').classList.remove('active');
+      });
+      // Activate clicked
+      col.classList.add('active');
+      col.querySelector('.rev-bar').classList.add('active');
+      // Update footer
+      document.getElementById('revBookings').textContent = col.dataset.bookings + ' Bookings';
+      document.getElementById('revAvg').textContent = col.dataset.avg;
+    });
+  });
+
+  // ── Synch duration line chart ──
+  (function() {
+    var svg     = document.getElementById('syncSvg');
+    var wrap    = document.getElementById('syncWrap');
+    var tooltip = document.getElementById('syncTooltip');
+    var ttDate  = document.getElementById('syncTtDate');
+    var ttAvg   = document.getElementById('syncTtAvg');
+    var ttTgt   = document.getElementById('syncTtTgt');
+
+    // Figma: 576px card, curves start at x=49, chart h=120, top offset=30
+    var VB_W = 576;
+    var C = { x: 49, y: 30, w: 502, h: 120 };
+    var MAX_VAL = 250;
+    var NS = 'http://www.w3.org/2000/svg';
+
+    var dates   = ['Jan 1','Jan 8','Jan 15','Jan 22','Feb 1','Feb 8','Feb 15','Feb 22'];
+    // Tighter range matching Figma (100–175ms)
+    var avgData = [155, 135, 125, 110, 155, 145, 135, 115];
+    var tgtData = [140, 145, 148, 152, 145, 148, 152, 158];
+    var n = dates.length;
+
+    var xs = dates.map(function(_, i){ return C.x + (i / (n - 1)) * C.w; });
+    function yOf(v){ return C.y + (MAX_VAL - v) / MAX_VAL * C.h; }
+
+    var avgPts = avgData.map(function(v, i){ return { x: xs[i], y: yOf(v) }; });
+    var tgtPts = tgtData.map(function(v, i){ return { x: xs[i], y: yOf(v) }; });
+
+    function el(tag, attrs) {
+      var e = document.createElementNS(NS, tag);
+      Object.keys(attrs).forEach(function(k){ e.setAttribute(k, attrs[k]); });
+      return e;
+    }
+
+    function catmull(pts) {
+      var d = 'M ' + pts[0].x.toFixed(1) + ' ' + pts[0].y.toFixed(1);
+      for (var i = 0; i < pts.length - 1; i++) {
+        var p0 = pts[Math.max(0, i - 1)];
+        var p1 = pts[i]; var p2 = pts[i + 1]; var p3 = pts[Math.min(pts.length - 1, i + 2)];
+        var cp1x = (p1.x + (p2.x - p0.x) / 6).toFixed(1);
+        var cp1y = (p1.y + (p2.y - p0.y) / 6).toFixed(1);
+        var cp2x = (p2.x - (p3.x - p1.x) / 6).toFixed(1);
+        var cp2y = (p2.y - (p3.y - p1.y) / 6).toFixed(1);
+        d += ' C ' + cp1x + ' ' + cp1y + ' ' + cp2x + ' ' + cp2y + ' ' + p2.x.toFixed(1) + ' ' + p2.y.toFixed(1);
+      }
+      return d;
+    }
+
+    // 1. Grid lines
+    [250, 200, 150, 100, 50].forEach(function(v) {
+      svg.appendChild(el('line', { x1: 0, y1: yOf(v), x2: VB_W, y2: yOf(v),
+        stroke: 'rgba(255,255,255,0.07)', 'stroke-width': '1' }));
+    });
+
+    // 2. Curves (before labels so labels sit on top)
+    svg.appendChild(el('path', { d: catmull(tgtPts), fill: 'none',
+      stroke: '#7c8df0', 'stroke-width': '2', 'stroke-linecap': 'round' }));
+    svg.appendChild(el('path', { d: catmull(avgPts), fill: 'none',
+      stroke: '#f4a460', 'stroke-width': '2.5', 'stroke-linecap': 'round' }));
+
+    // 3. Y labels — above each grid line, matching Figma layout
+    [250, 200, 150, 100, 50].forEach(function(v) {
+      var y = yOf(v);
+      var t = el('text', { x: 0, y: y - 4, fill: 'rgba(255,255,255,0.35)',
+        'font-size': '8', 'text-anchor': 'start', 'font-family': 'Poppins,sans-serif' });
+      t.textContent = v + 'ms';
+      svg.appendChild(t);
+    });
+
+    // 4. X labels
+    dates.forEach(function(d, i) {
+      var t = el('text', { x: xs[i], y: C.y + C.h + 16, fill: 'rgba(255,255,255,0.25)',
+        'font-size': '8', 'text-anchor': 'middle', 'font-family': 'Poppins,sans-serif' });
+      t.textContent = d;
+      svg.appendChild(t);
+    });
+
+    // 5. Cursor + dots
+    var cursorLine = el('line', { x1: 0, y1: C.y, x2: 0, y2: C.y + C.h,
+      stroke: 'rgba(255,255,255,0.35)', 'stroke-width': '1', 'stroke-dasharray': '4 3', visibility: 'hidden' });
+    svg.appendChild(cursorLine);
+
+    var dotAvg = el('circle', { r: '5', fill: '#f4a460', stroke: '#242424', 'stroke-width': '2.5', visibility: 'hidden' });
+    var dotTgt = el('circle', { r: '5', fill: '#7c8df0', stroke: '#242424', 'stroke-width': '2.5', visibility: 'hidden' });
+    svg.appendChild(dotAvg);
+    svg.appendChild(dotTgt);
+
+    var overlay = el('rect', { x: C.x, y: C.y, width: C.w, height: C.h,
+      fill: 'transparent', style: 'cursor:crosshair' });
+    svg.appendChild(overlay);
+
+    function interpY(pts, x) {
+      for (var i = 0; i < pts.length - 1; i++) {
+        if (x >= pts[i].x && x <= pts[i + 1].x) {
+          var t = (x - pts[i].x) / (pts[i + 1].x - pts[i].x);
+          var p0 = pts[Math.max(0, i - 1)], p1 = pts[i], p2 = pts[i + 1], p3 = pts[Math.min(pts.length - 1, i + 2)];
+          var t2 = t * t, t3 = t2 * t;
+          return 0.5 * ((2*p1.y) + (-p0.y+p2.y)*t + (2*p0.y-5*p1.y+4*p2.y-p3.y)*t2 + (-p0.y+3*p1.y-3*p2.y+p3.y)*t3);
+        }
+      }
+      return pts[pts.length - 1].y;
+    }
+
+    function yToMs(y) { return Math.round(MAX_VAL - (y - C.y) / C.h * MAX_VAL); }
+    function nearestDate(x) {
+      var best = 0, bestD = Infinity;
+      xs.forEach(function(xp, i){ var d = Math.abs(x - xp); if (d < bestD) { bestD = d; best = i; } });
+      return best;
+    }
+
+    overlay.addEventListener('mousemove', function(e) {
+      var rect = svg.getBoundingClientRect();
+      var scaleX = VB_W / rect.width;
+      var mx = (e.clientX - rect.left) * scaleX;
+      var cx = Math.max(C.x, Math.min(C.x + C.w, mx));
+
+      cursorLine.setAttribute('x1', cx); cursorLine.setAttribute('x2', cx);
+      cursorLine.setAttribute('visibility', 'visible');
+
+      var ay = interpY(avgPts, cx), ty = interpY(tgtPts, cx);
+      dotAvg.setAttribute('cx', cx); dotAvg.setAttribute('cy', ay); dotAvg.setAttribute('visibility', 'visible');
+      dotTgt.setAttribute('cx', cx); dotTgt.setAttribute('cy', ty); dotTgt.setAttribute('visibility', 'visible');
+
+      var idx = nearestDate(cx);
+      ttDate.textContent = dates[idx] + ', 2026';
+      ttAvg.textContent  = yToMs(ay) + 'ms';
+      ttTgt.textContent  = yToMs(ty) + 'ms';
+
+      var wRect = wrap.getBoundingClientRect();
+      var ttW = 170, ttH = 80;
+      var left = e.clientX - wRect.left + 14;
+      var top  = e.clientY - wRect.top  - ttH / 2;
+      if (left + ttW > wRect.width) left = e.clientX - wRect.left - ttW - 14;
+      if (top < 0) top = 4;
+      tooltip.style.left    = left + 'px';
+      tooltip.style.top     = top + 'px';
+      tooltip.style.display = 'block';
+    });
+
+    overlay.addEventListener('mouseleave', function() {
+      cursorLine.setAttribute('visibility', 'hidden');
+      dotAvg.setAttribute('visibility', 'hidden');
+      dotTgt.setAttribute('visibility', 'hidden');
+      tooltip.style.display = 'none';
+    });
+  })();
+</script>
+
+<!-- Mobile gate -->
+<div class="mobile-gate" id="mobileGate">
+  <button class="mobile-gate-back" onclick="history.back()">← Go back</button>
+  <div class="mobile-gate-card">
+    <div class="mobile-gate-title">This one needs a bigger screen!</div>
+    <div class="mobile-gate-sub">This prototype was designed for desktop — the kind with a keyboard and a proper cup of coffee. Grab your laptop and come back. It's worth it.</div>
+    <button class="mobile-copy-btn" id="mobileCopyBtn">Copy page link</button>
+  </div>
+</div>
+<script>
+  document.getElementById('mobileCopyBtn').addEventListener('click', function() {
+    var btn = this;
+    navigator.clipboard.writeText(window.location.href).then(function() {
+      btn.textContent = '✓ Link copied!';
+      btn.classList.add('copied');
+      setTimeout(function() {
+        btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="4" y="4" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M2 9.5V2.5A.5.5 0 0 1 2.5 2h7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg> Copy page link';
+        btn.classList.remove('copied');
+      }, 2500);
+    });
+  });
+</script>
+</body>
+</html>

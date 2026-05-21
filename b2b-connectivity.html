@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Connectivity — FloiDesign</title>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="images/logo_1logo.png" rel="icon" type="image/png" media="(prefers-color-scheme: light)">
+  <link href="images/logo-white.png" rel="icon" type="image/png" media="(prefers-color-scheme: dark)">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+
+    body {
+      background: #191919;
+      color: #ffffff;
+      font-family: 'Poppins', sans-serif;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .dashboard { display: flex; height: 100vh; overflow: hidden; }
+
+    /* ── Sidebar (shared) ── */
+    .sidebar {
+      width: 230px; flex-shrink: 0;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      display: flex; flex-direction: column; justify-content: space-between;
+      height: 100%;
+    }
+    .sidebar-logo {
+      height: 56px; border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex; align-items: center; padding: 0 16px;
+    }
+    .sidebar-logo span { font-size: 17px; font-weight: 800; color: #f0f0f8; }
+    .sidebar-top { flex: 1; padding: 16px 10px 0; }
+    .nav-section-label {
+      font-size: 9.5px; font-weight: 700; color: rgba(255,255,255,0.3);
+      letter-spacing: 0.475px; text-transform: uppercase;
+      padding: 0 8px; margin-bottom: 8px; display: block;
+    }
+    .nav-items { display: flex; flex-direction: column; gap: 4px; }
+    .nav-item {
+      display: flex; align-items: center; gap: 10px;
+      height: 35.5px; padding: 0 10px; border-radius: 8px;
+      cursor: pointer; text-decoration: none;
+      color: rgba(255,255,255,0.5); font-size: 13px; font-weight: 500;
+    }
+    .nav-item.active { background: #2a2a2a; color: #ffffff; }
+    .nav-item:hover:not(.active) { background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.75); }
+    .nav-item.disabled { opacity: 0.28; pointer-events: none; }
+    .nav-item img { width: 15px; height: 15px; flex-shrink: 0; }
+    .sidebar-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding: 13px 10px; }
+    .sidebar-bottom .nav-item { color: #4bc0c0; }
+
+    /* ── Main ── */
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+    .topbar {
+      height: 56px; border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 20px; flex-shrink: 0;
+    }
+    .topbar-breadcrumb { font-size: 13px; color: #4bc0c0; }
+    .topbar-right { display: flex; align-items: center; gap: 10px; }
+    .bell-btn {
+      width: 34px; height: 34px; background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; cursor: pointer;
+    }
+    .bell-btn img { width: 16px; height: 16px; }
+    .bell-dot {
+      position: absolute; top: 6px; right: 4px; width: 8px; height: 8px;
+      background: #a3c90e; border-radius: 50%; border: 2px solid #191919;
+    }
+    .user-avatar {
+      width: 33px; height: 33px; background: #2a2a2a; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; color: #ffffff;
+    }
+
+    /* ── Content ── */
+    .content { flex: 1; overflow-y: auto; padding: 24px 28px; }
+    .content::-webkit-scrollbar { width: 5px; }
+    .content::-webkit-scrollbar-track { background: transparent; }
+    .content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 3px; }
+
+    /* ── Page header ── */
+    .page-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .page-title {
+      font-size: 30px; font-weight: 800; color: #f1feff;
+    }
+    .synch-btn {
+      background: #10aaaa; border: 1px solid #12b7c2; border-radius: 8px;
+      padding: 10px 24px; font-size: 13px; font-weight: 600;
+      color: #161719; cursor: pointer; font-family: 'Poppins', sans-serif;
+    }
+    .synch-btn:hover { background: #0e9898; }
+
+    /* ── Mobile gate ── */
+    .mobile-gate {
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      background: #f7f6f2; align-items: center; justify-content: center; padding: 32px 24px;
+    }
+    .mobile-gate-back { position: absolute; top: 24px; left: 24px; font-family: Archivo, sans-serif; font-size: 0.875rem; font-weight: 500; color: #0c071b; background: none; border: none; cursor: pointer; padding: 0; }
+    .mobile-gate-back:hover { opacity: 0.6; }
+    .mobile-gate-card {
+      max-width: 360px; width: 100%;
+      display: flex; flex-direction: column; align-items: flex-start; gap: 20px;
+    }
+    .mobile-gate-title { font-family: "EB Garamond", serif; font-size: 2.4rem; font-weight: 500; color: #0c071b; line-height: 1.15; }
+    .mobile-gate-sub { font-family: Archivo, sans-serif; font-size: 0.95rem; font-weight: 400; color: #555; line-height: 1.65; }
+    .mobile-copy-btn { display: inline-flex; align-items: center; justify-content: center; background: #000; color: #fff; border: none; border-radius: 2.25rem; padding: 1rem 2rem; font-family: Archivo, sans-serif; font-size: 1rem; font-weight: 500; cursor: pointer; transition: opacity 0.15s; width: 100%; }
+    .mobile-copy-btn:hover { opacity: 0.85; }
+    .mobile-copy-btn.copied { background: #111; }
+    @media (max-width: 768px) { .mobile-gate { display: flex; } }
+
+    /* ── Table card ── */
+    .table-card {
+      background: #242424;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px; padding: 14px;
+      margin-bottom: 20px;
+    }
+
+    /* ── Table header ── */
+    .conn-table-head {
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(255,255,255,0.05); border-radius: 12px;
+      padding: 0 16px; height: 48px; margin-bottom: 4px;
+    }
+    .conn-th {
+      font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.35);
+      text-align: center; text-transform: uppercase; letter-spacing: 0.4px;
+    }
+    .conn-th.left { text-align: left; }
+    .col-event   { width: 300px; }
+    .col-status  { width: 80px; }
+    .col-evname  { width: 190px; }
+    .col-ref     { width: 190px; }
+    .col-price   { width: 90px; }
+    .col-action  { width: 143px; }
+
+    /* ── Table rows ── */
+    .conn-row {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 80px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .conn-row:last-child { border-bottom: none; }
+
+    .conn-td { display: flex; align-items: center; justify-content: center; position: relative; }
+    .conn-td.left { flex-direction: column; align-items: flex-start; justify-content: center; gap: 5px; padding: 0 16px 0 4px; }
+
+    .event-name {
+      font-size: 13px; font-weight: 500; color: #ffffff;
+      line-height: 20px;
+    }
+    .view-code {
+      font-size: 11px; color: #4bc0c0; cursor: pointer; text-decoration: none;
+    }
+    .view-code:hover { text-decoration: underline; }
+
+    .status-badge {
+      background: rgba(75,192,192,0.15); border-radius: 6px; padding: 4px 10px;
+      font-size: 11px; font-weight: 600; color: #4bc0c0;
+    }
+
+    /* ── Custom dropdown ── */
+    .dd-wrap { position: relative; width: 180px; }
+    .dd-trigger {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid transparent;
+      border-radius: 8px; height: 34px; width: 100%;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 10px; cursor: pointer; transition: border-color 0.15s;
+    }
+    .dd-trigger:hover { border-color: rgba(255,255,255,0.12); }
+    .dd-trigger.open  { border-color: rgba(255,255,255,0.18); }
+    .dd-trigger span { font-size: 12px; color: rgba(255,255,255,0.7); overflow: hidden; white-space: nowrap; max-width: 135px; }
+    .dd-trigger img { width: 12px; height: auto; flex-shrink: 0; opacity: 0.5; transition: transform 0.15s; }
+    .dd-trigger.open img { transform: rotate(180deg); }
+
+    .dd-menu {
+      display: none; position: absolute; top: calc(100% + 4px); left: 0; width: 100%;
+      background: #2e2e2e; border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px; overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4); z-index: 100;
+    }
+    .dd-menu.open { display: block; }
+    .dd-option {
+      padding: 9px 12px; font-size: 12px; color: rgba(255,255,255,0.7);
+      cursor: pointer; transition: background 0.1s;
+    }
+    .dd-option:hover { background: rgba(255,255,255,0.07); color: #ffffff; }
+    .dd-option.selected { color: #4bc0c0; background: rgba(75,192,192,0.08); }
+
+    /* Toggle switch */
+    .toggle {
+      width: 32px; height: 18px; border-radius: 999px;
+      position: relative; cursor: pointer; transition: background 0.2s;
+    }
+    .toggle.on  { background: #4bc0c0; }
+    .toggle.off { background: rgba(255,255,255,0.12); }
+    .toggle-thumb {
+      position: absolute; top: 2px;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: #ffffff; transition: left 0.2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+    .toggle.on  .toggle-thumb { left: 16px; }
+    .toggle.off .toggle-thumb { left: 2px; }
+
+    .map-btn {
+      border: 1px solid rgba(255,255,255,0.12); border-radius: 10px;
+      padding: 8px 14px; font-size: 12px; font-weight: 500;
+      color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.05);
+      cursor: pointer; font-family: 'Poppins', sans-serif;
+      width: 143px; text-align: center; white-space: nowrap;
+    }
+    .map-btn:hover { background: rgba(255,255,255,0.1); color: #ffffff; }
+
+    /* ── Pagination ── */
+    .pagination {
+      display: flex; align-items: center; justify-content: center; gap: 4px;
+      padding: 16px 0 4px;
+    }
+    .page-btn {
+      background: #161719; border: 1px solid transparent;
+      border-radius: 6px; height: 36px; min-width: 36px; padding: 0 16px;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      font-size: 14px; font-weight: 500; color: #a4a4a4;
+      cursor: pointer; font-family: 'Poppins', sans-serif; white-space: nowrap;
+    }
+    .page-btn.active { background: #10aaaa; color: #032e32; border-color: rgba(0,0,0,0.1); opacity: 0.8; font-weight: 500; }
+    .page-btn:hover:not(.active) { background: #1e1f22; color: #d0d0d0; }
+    .page-btn img { width: 14px; height: auto; opacity: 0.6; }
+    .page-dots { color: #a4a4a4; font-size: 14px; padding: 0 4px; line-height: 36px; }
+
+    /* ── Map connectivity panel ── */
+    .panel-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.55); z-index: 200;
+      transition: opacity 0.25s;
+    }
+    .panel-overlay.open { display: block; }
+
+    .map-panel {
+      position: fixed; top: 0; right: -560px; width: 540px; height: 100vh;
+      background: #141415; z-index: 201;
+      transition: right 0.3s cubic-bezier(.4,0,.2,1);
+      overflow-y: auto; display: flex; flex-direction: column;
+      box-shadow: -20px 0 40px rgba(0,0,0,0.4);
+    }
+    .map-panel.open { right: 0; }
+
+    .panel-header {
+      height: 46px; border-bottom: 1px solid rgba(255,255,255,0.07);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 20px; flex-shrink: 0;
+    }
+    .panel-header-title { font-size: 13px; font-weight: 500; color: #4bc0c0; }
+    .panel-close {
+      width: 24px; height: 24px; background: rgba(255,255,255,0.07);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; border: none;
+    }
+    .panel-close img { width: 12px; height: 12px; }
+    .panel-close:hover { background: rgba(255,255,255,0.13); }
+
+    .panel-body { padding: 20px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+
+    .panel-step { display: none; flex-direction: column; gap: 12px; }
+    .panel-step.active { display: flex; }
+
+    .panel-title { font-size: 18px; font-weight: 600; color: #e2fdff; }
+    .panel-subtitle { font-size: 12px; color: rgba(226,253,255,0.68); line-height: 1.5; }
+
+    .type-option {
+      background: #1a1b1d; border: 1px solid #353536; border-radius: 8px;
+      padding: 12px 14px; cursor: pointer; transition: border-color 0.15s, background 0.15s;
+    }
+    .type-option:hover  { border-color: #4bc0c0; background: rgba(75,192,192,0.06); }
+    .type-option.selected { border-color: #4bc0c0; background: rgba(75,192,192,0.1); }
+    .type-option-title { font-size: 13px; font-weight: 600; color: #e2fdff; margin-bottom: 4px; }
+    .type-option-desc  { font-size: 12px; color: rgba(226,253,255,0.55); }
+
+    .panel-table-head {
+      background: rgba(31,32,36,0.6); border-radius: 40px;
+      display: flex; align-items: center; height: 40px; padding: 0 16px;
+    }
+    .panel-th { font-size: 12px; color: #868585; flex: 1; text-align: center; }
+    .panel-th.left { text-align: left; }
+
+    .panel-row {
+      display: flex; align-items: center; height: 67px;
+      border-bottom: 1px solid rgba(102,141,144,0.28); padding: 0 14px;
+    }
+    .panel-row:last-child { border-bottom: none; }
+    .panel-row-label { font-size: 14px; font-weight: 500; color: #e2fdff; width: 140px; padding-left: 16px; }
+
+    .panel-dd-wrap { position: relative; flex: 1; }
+    .panel-dd-trigger {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px; height: 34px; width: 100%;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 10px; cursor: pointer;
+    }
+    .panel-dd-trigger span { font-size: 12px; color: rgba(255,255,255,0.55); overflow: hidden; white-space: nowrap; }
+    .panel-dd-trigger img { width: 12px; height: auto; opacity: 0.5; transition: transform 0.15s; }
+    .panel-dd-trigger.open img { transform: rotate(180deg); }
+    .panel-dd-trigger.open { border-color: rgba(255,255,255,0.25); }
+
+    .panel-dd-menu {
+      display: none; position: absolute; top: calc(100% + 4px); left: 0; right: 0;
+      background: #2e2e2e; border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px; overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4); z-index: 300;
+    }
+    .panel-dd-menu.open { display: block; }
+    .panel-dd-option {
+      padding: 9px 12px; font-size: 12px; color: rgba(255,255,255,0.7); cursor: pointer;
+    }
+    .panel-dd-option:hover   { background: rgba(255,255,255,0.07); color: #fff; }
+    .panel-dd-option.selected { color: #4bc0c0; background: rgba(75,192,192,0.08); }
+
+    .panel-btn-row { display: flex; gap: 10px; margin-top: 4px; }
+    .panel-btn-outline {
+      flex: 1; height: 43px; border: 1px solid #4bc0c0; border-radius: 31px;
+      background: transparent; color: #afd5d5; font-size: 13px; font-weight: 600;
+      font-family: 'Poppins', sans-serif; cursor: pointer;
+    }
+    .panel-btn-outline:hover { background: rgba(75,192,192,0.08); }
+    .panel-btn-fill {
+      flex: 1; height: 43px; background: #10aaaa; border: 1px solid #12b7c2;
+      border-radius: 31px; color: #161719; font-size: 13px; font-weight: 600;
+      font-family: 'Poppins', sans-serif; cursor: pointer;
+    }
+    .panel-btn-fill:hover { background: #0e9898; }
+    .panel-btn-fill.single { flex: none; width: 100%; margin-top: 4px; }
+
+    /* ── Validation error ── */
+    .panel-error {
+      display: none; font-size: 12px; color: #ff6b6b;
+      background: rgba(255,80,80,0.08); border: 1px solid rgba(255,80,80,0.2);
+      border-radius: 8px; padding: 9px 12px;
+    }
+    .panel-error.visible { display: block; }
+    .panel-dd-trigger.error { border-color: rgba(255,80,80,0.5) !important; }
+
+    /* ── Success state ── */
+    .success-wrap {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      flex: 1; gap: 14px; padding: 48px 20px; text-align: center;
+    }
+    .success-icon {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: rgba(16,170,170,0.15); border: 2px solid #10aaaa;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px; color: #10aaaa;
+      animation: pop-in 0.35s cubic-bezier(.34,1.56,.64,1);
+    }
+    @keyframes pop-in {
+      from { transform: scale(0.5); opacity: 0; }
+      to   { transform: scale(1);   opacity: 1; }
+    }
+    .success-title { font-size: 18px; font-weight: 700; color: #e2fdff; }
+    .success-sub   { font-size: 13px; color: rgba(226,253,255,0.55); line-height: 1.5; }
+  </style>
+</head>
+<body>
+
+<div class="dashboard">
+
+  <!-- Sidebar — Connectivity active -->
+  <aside class="sidebar">
+    <div>
+      <div class="sidebar-logo"><span>konfetti</span></div>
+      <div class="sidebar-top">
+        <span class="nav-section-label">Navigazione</span>
+        <div class="nav-items">
+          <a href="b2b-dashboard.html" class="nav-item">
+            <img src="images/b2b-icon-dashboard.svg" alt="">Dashboard
+          </a>
+          <a href="b2b-connectivity.html" class="nav-item active">
+            <img src="images/b2b-icon-connectivity.svg" alt="">Connectivity
+          </a>
+          <a href="b2b-calendar.html" class="nav-item">
+            <img src="images/b2b-icon-calendar.svg" alt="">Calendar
+          </a>
+          <a href="#" class="nav-item disabled">
+            <img src="images/b2b-icon-sales.svg" alt="">My Sales
+          </a>
+          <a href="#" class="nav-item disabled">
+            <img src="images/b2b-icon-invoices.svg" alt="">Invoices
+          </a>
+          <a href="#" class="nav-item disabled">
+            <img src="images/b2b-icon-reviews.svg" alt="">Reviews
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar-bottom">
+      <div class="nav-items">
+        <a href="#" class="nav-item"><img src="images/b2b-icon-helpcenter.svg" alt="">Help Center</a>
+        <a href="#" class="nav-item"><img src="images/b2b-icon-settings.svg" alt="">Settings</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+    <div class="topbar">
+      <span class="topbar-breadcrumb">API / Reseller</span>
+      <div class="topbar-right">
+        <div class="bell-btn">
+          <img src="images/b2b-icon-bell.svg" alt="">
+          <div class="bell-dot"></div>
+        </div>
+        <div class="user-avatar">AR</div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <div class="page-header">
+        <h1 class="page-title">Connectivity</h1>
+        <button class="synch-btn">Synch products</button>
+      </div>
+
+      <div class="table-card">
+
+        <!-- Header -->
+        <div class="conn-table-head">
+          <div class="conn-th left col-event">Channel Event</div>
+          <div class="conn-th col-status">Status</div>
+          <div class="conn-th col-evname">Event</div>
+          <div class="conn-th col-ref">Reference Option</div>
+          <div class="conn-th col-price">Override Price</div>
+          <div class="conn-th col-action">Action</div>
+        </div>
+
+        <!-- Rows -->
+        <div id="connRows">
+          <!-- Row template repeated 7 times -->
+        </div>
+
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination">
+        <button class="page-btn">
+          <img src="images/b2b-icon-prev.svg" alt="">Previous
+        </button>
+        <button class="page-btn active">1</button>
+        <button class="page-btn">2</button>
+        <button class="page-btn">3</button>
+        <span class="page-dots">···</span>
+        <button class="page-btn">10</button>
+        <button class="page-btn">
+          Next<img src="images/b2b-icon-next.svg" alt="">
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+</div>
+
+<!-- Overlay -->
+<div class="panel-overlay" id="panelOverlay"></div>
+
+<!-- Map connectivity panel -->
+<div class="map-panel" id="mapPanel">
+  <div class="panel-header">
+    <span class="panel-header-title">Map connectivity</span>
+    <button class="panel-close" id="panelClose">
+      <img src="images/b2b-icon-close.svg" alt="Close">
+    </button>
+  </div>
+  <div class="panel-body">
+
+    <!-- Step 1: Select type -->
+    <div class="panel-step active" id="stepType">
+      <div class="panel-title">Select mapping type</div>
+      <div class="panel-subtitle">Choose how you want to map pricing for this event:</div>
+      <div class="type-option" id="optCategory" data-type="category">
+        <div class="type-option-title">Category</div>
+        <div class="type-option-desc">Map by pricing categories (Adult, Youth, Child, Senior)</div>
+      </div>
+      <div class="type-option" id="optGroup" data-type="group">
+        <div class="type-option-title">Group size</div>
+        <div class="type-option-desc">Map by group size ranges (1-10, 11-20, 21-30 people)</div>
+      </div>
+      <button class="panel-btn-fill single" id="stepTypeNext">Next</button>
+    </div>
+
+    <!-- Step 2a: Group size -->
+    <div class="panel-step" id="stepGroup">
+      <div class="panel-title">Map group tiers</div>
+      <div class="panel-subtitle">Choose how you want to map pricing for this event:</div>
+      <div class="panel-table-head">
+        <span class="panel-th left">Group size range</span>
+        <span class="panel-th">Channel options</span>
+      </div>
+      <div id="groupRows"></div>
+      <div class="panel-error" id="groupError">Please select an option for every group before saving.</div>
+      <div class="panel-btn-row">
+        <button class="panel-btn-outline" id="backFromGroup">Back</button>
+        <button class="panel-btn-fill" id="confirmGroup">Save mapping</button>
+      </div>
+    </div>
+
+    <!-- Step 2b: Category -->
+    <div class="panel-step" id="stepCategory">
+      <div class="panel-title">Map pricing category</div>
+      <div class="panel-subtitle">Choose how you want to map pricing for this event:</div>
+      <div class="panel-table-head">
+        <span class="panel-th left">Pricing category</span>
+        <span class="panel-th">Channel category</span>
+      </div>
+      <div id="categoryRows"></div>
+      <div class="panel-error" id="categoryError">Please select a category for every row before saving.</div>
+      <div class="panel-btn-row">
+        <button class="panel-btn-outline" id="backFromCategory">Back</button>
+        <button class="panel-btn-fill" id="confirmCategory">Save mapping</button>
+      </div>
+    </div>
+
+    <!-- Success -->
+    <div class="panel-step" id="stepSuccess">
+      <div class="success-wrap">
+        <div class="success-icon">✓</div>
+        <div class="success-title">Mapping saved!</div>
+        <div class="success-sub">Your category mapping has been applied successfully.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  var eventOptions = [
+    'City Stuttgart City Walk',
+    'Cocktail Course Frankfurt',
+    'City Hamburg Night Tour',
+    'Berlin Art & History Walk',
+    'Munich Beer Garden Tour'
+  ];
+  var refOptions = [
+    'City Hamburg',
+    'City Berlin',
+    'City Munich',
+    'City Frankfurt',
+    'City Cologne'
+  ];
+
+  var rows = [
+    { event: 'City Stuttgart City Walk With Puzzles', refEvent: eventOptions[0], refOption: refOptions[0], on: true },
+    { event: 'Cocktailkurs am Potsdamer Platz',       refEvent: eventOptions[1], refOption: refOptions[1], on: false },
+    { event: 'Hamburg Harbour Night Experience',      refEvent: eventOptions[2], refOption: refOptions[2], on: false },
+    { event: 'Berlin Street Art Walking Tour',        refEvent: eventOptions[3], refOption: refOptions[3], on: true },
+    { event: 'Munich Oktoberfest Food Tasting',       refEvent: eventOptions[4], refOption: refOptions[4], on: false },
+    { event: 'Cologne Cathedral & Old Town Walk',     refEvent: eventOptions[0], refOption: refOptions[1], on: false },
+    { event: 'Frankfurt Skyline Boat Cruise',         refEvent: eventOptions[2], refOption: refOptions[3], on: true },
+  ];
+
+  function buildDropdown(selectedValue, optionsList) {
+    var wrap = document.createElement('div');
+    wrap.className = 'dd-wrap';
+
+    var trigger = document.createElement('div');
+    trigger.className = 'dd-trigger';
+    trigger.innerHTML = '<span>' + selectedValue + '</span><img src="images/b2b-icon-dropdown.svg" alt="">';
+
+    var menu = document.createElement('div');
+    menu.className = 'dd-menu';
+
+    optionsList.forEach(function(opt) {
+      var item = document.createElement('div');
+      item.className = 'dd-option' + (opt === selectedValue ? ' selected' : '');
+      item.textContent = opt;
+      item.addEventListener('click', function(e) {
+        e.stopPropagation();
+        trigger.querySelector('span').textContent = opt;
+        menu.querySelectorAll('.dd-option').forEach(function(o){ o.classList.remove('selected'); });
+        item.classList.add('selected');
+        trigger.classList.remove('open');
+        menu.classList.remove('open');
+      });
+      menu.appendChild(item);
+    });
+
+    trigger.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var isOpen = menu.classList.contains('open');
+      // Close all other menus
+      document.querySelectorAll('.dd-menu.open').forEach(function(m){ m.classList.remove('open'); });
+      document.querySelectorAll('.dd-trigger.open').forEach(function(t){ t.classList.remove('open'); });
+      if (!isOpen) {
+        menu.classList.add('open');
+        trigger.classList.add('open');
+      }
+    });
+
+    wrap.appendChild(trigger);
+    wrap.appendChild(menu);
+    return wrap;
+  }
+
+  var container = document.getElementById('connRows');
+
+  rows.forEach(function(r, i) {
+    var div = document.createElement('div');
+    div.className = 'conn-row';
+
+    var tdEvent = document.createElement('div');
+    tdEvent.className = 'conn-td left col-event';
+    tdEvent.innerHTML = '<span class="event-name">' + r.event + '</span><a href="#" class="view-code">View original code</a>';
+
+    var tdStatus = document.createElement('div');
+    tdStatus.className = 'conn-td col-status';
+    tdStatus.innerHTML = '<div class="status-badge">Active</div>';
+
+    var tdEvname = document.createElement('div');
+    tdEvname.className = 'conn-td col-evname';
+    tdEvname.appendChild(buildDropdown(r.refEvent, eventOptions));
+
+    var tdRef = document.createElement('div');
+    tdRef.className = 'conn-td col-ref';
+    tdRef.appendChild(buildDropdown(r.refOption, refOptions));
+
+    var tdPrice = document.createElement('div');
+    tdPrice.className = 'conn-td col-price';
+    var toggle = document.createElement('div');
+    toggle.className = 'toggle ' + (r.on ? 'on' : 'off');
+    toggle.innerHTML = '<div class="toggle-thumb"></div>';
+    toggle.addEventListener('click', function() {
+      toggle.classList.toggle('on');
+      toggle.classList.toggle('off');
+    });
+    tdPrice.appendChild(toggle);
+
+    var tdAction = document.createElement('div');
+    tdAction.className = 'conn-td col-action';
+    tdAction.innerHTML = '<button class="map-btn">Map categories</button>';
+
+    div.appendChild(tdEvent);
+    div.appendChild(tdStatus);
+    div.appendChild(tdEvname);
+    div.appendChild(tdRef);
+    div.appendChild(tdPrice);
+    div.appendChild(tdAction);
+    container.appendChild(div);
+  });
+
+  // Close dropdowns on outside click
+  document.addEventListener('click', function() {
+    document.querySelectorAll('.dd-menu.open').forEach(function(m){ m.classList.remove('open'); });
+    document.querySelectorAll('.dd-trigger.open').forEach(function(t){ t.classList.remove('open'); });
+    document.querySelectorAll('.panel-dd-menu.open').forEach(function(m){ m.classList.remove('open'); });
+    document.querySelectorAll('.panel-dd-trigger.open').forEach(function(t){ t.classList.remove('open'); });
+  });
+
+  // ── Map connectivity panel ──
+  var panel   = document.getElementById('mapPanel');
+  var overlay = document.getElementById('panelOverlay');
+  var selectedType = null;
+
+  function openPanel() {
+    panel.classList.add('open');
+    overlay.classList.add('open');
+    showStep('stepType');
+    selectedType = 'category';
+    document.querySelectorAll('.type-option').forEach(function(o){ o.classList.remove('selected'); });
+    document.getElementById('optCategory').classList.add('selected');
+  }
+  function closePanel() {
+    panel.classList.remove('open');
+    overlay.classList.remove('open');
+  }
+  function showStep(id) {
+    document.querySelectorAll('.panel-step').forEach(function(s){ s.classList.remove('active'); });
+    document.getElementById(id).classList.add('active');
+  }
+
+  // Open panel on every "Map categories" click
+  document.addEventListener('click', function(e) {
+    if (e.target && e.target.classList.contains('map-btn')) openPanel();
+  });
+
+  document.getElementById('panelClose').addEventListener('click', closePanel);
+  overlay.addEventListener('click', closePanel);
+
+  // Type selection
+  document.querySelectorAll('.type-option').forEach(function(opt) {
+    opt.addEventListener('click', function(e) {
+      e.stopPropagation();
+      document.querySelectorAll('.type-option').forEach(function(o){ o.classList.remove('selected'); });
+      opt.classList.add('selected');
+      selectedType = opt.dataset.type;
+    });
+  });
+
+  // Next from step 1
+  document.getElementById('stepTypeNext').addEventListener('click', function() {
+    if (!selectedType) return;
+    showStep(selectedType === 'group' ? 'stepGroup' : 'stepCategory');
+  });
+
+  // Back buttons
+  document.getElementById('backFromGroup').addEventListener('click', function() { showStep('stepType'); });
+  document.getElementById('backFromCategory').addEventListener('click', function() { showStep('stepType'); });
+
+  // Save mapping — validate then show success
+  function validateAndSave(stepId, errorId) {
+    var wraps = document.querySelectorAll('#' + stepId + ' .panel-dd-wrap');
+    var errorEl = document.getElementById(errorId);
+    var hasError = false;
+
+    wraps.forEach(function(wrap) {
+      var trigger = wrap.querySelector('.panel-dd-trigger');
+      if (!wrap.dataset.selected) {
+        trigger.classList.add('error');
+        hasError = true;
+      } else {
+        trigger.classList.remove('error');
+      }
+    });
+
+    if (hasError) {
+      errorEl.classList.add('visible');
+      return;
+    }
+
+    errorEl.classList.remove('visible');
+    showStep('stepSuccess');
+    setTimeout(closePanel, 2000);
+  }
+
+  document.getElementById('confirmGroup').addEventListener('click', function() {
+    validateAndSave('stepGroup', 'groupError');
+  });
+  document.getElementById('confirmCategory').addEventListener('click', function() {
+    validateAndSave('stepCategory', 'categoryError');
+  });
+
+  // Build a panel dropdown
+  function buildPanelDropdown(placeholder, options) {
+    var wrap = document.createElement('div');
+    wrap.className = 'panel-dd-wrap';
+    wrap.dataset.selected = '';
+
+    var trigger = document.createElement('div');
+    trigger.className = 'panel-dd-trigger';
+    trigger.innerHTML = '<span>' + placeholder + '</span><img src="images/b2b-icon-dropdown.svg" alt="">';
+
+    var menu = document.createElement('div');
+    menu.className = 'panel-dd-menu';
+
+    options.forEach(function(opt) {
+      var item = document.createElement('div');
+      item.className = 'panel-dd-option';
+      item.textContent = opt;
+      item.addEventListener('click', function(e) {
+        e.stopPropagation();
+        trigger.querySelector('span').textContent = opt;
+        trigger.querySelector('span').style.color = '#ffffff';
+        menu.querySelectorAll('.panel-dd-option').forEach(function(o){ o.classList.remove('selected'); });
+        item.classList.add('selected');
+        trigger.classList.remove('open', 'error');
+        menu.classList.remove('open');
+        wrap.dataset.selected = opt;
+      });
+      menu.appendChild(item);
+    });
+
+    trigger.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var isOpen = menu.classList.contains('open');
+      document.querySelectorAll('.panel-dd-menu.open').forEach(function(m){ m.classList.remove('open'); });
+      document.querySelectorAll('.panel-dd-trigger.open').forEach(function(t){ t.classList.remove('open'); });
+      if (!isOpen) { menu.classList.add('open'); trigger.classList.add('open'); }
+    });
+
+    wrap.appendChild(trigger);
+    wrap.appendChild(menu);
+    return wrap;
+  }
+
+  // Build Group size rows
+  var groupSizes = ['1-10 people', '11-20 people', '20-50 people', '50+ people'];
+  var groupOptions = ['1-10 people', '10-20 people', '20-30 people', '30-50 people', '50+ people'];
+  var groupContainer = document.getElementById('groupRows');
+  groupSizes.forEach(function(size) {
+    var row = document.createElement('div');
+    row.className = 'panel-row';
+    var label = document.createElement('div');
+    label.className = 'panel-row-label';
+    label.textContent = size;
+    row.appendChild(label);
+    row.appendChild(buildPanelDropdown('Select option', groupOptions));
+    groupContainer.appendChild(row);
+  });
+
+  // Build Category rows
+  var categories = ['Adults', 'Children', 'Senior', 'Student'];
+  var categoryOptions = ['Adult', 'Children', 'Senior', 'Student', 'Youth'];
+  var catContainer = document.getElementById('categoryRows');
+  categories.forEach(function(cat) {
+    var row = document.createElement('div');
+    row.className = 'panel-row';
+    var label = document.createElement('div');
+    label.className = 'panel-row-label';
+    label.textContent = cat;
+    row.appendChild(label);
+    row.appendChild(buildPanelDropdown('Select category', categoryOptions));
+    catContainer.appendChild(row);
+  });
+</script>
+
+<!-- Mobile gate -->
+<div class="mobile-gate" id="mobileGate">
+  <button class="mobile-gate-back" onclick="history.back()">← Go back</button>
+  <div class="mobile-gate-card">
+    <div class="mobile-gate-title">This one needs a bigger screen!</div>
+    <div class="mobile-gate-sub">This prototype was designed for desktop — the kind with a keyboard and a proper cup of coffee. Grab your laptop and come back. It's worth it.</div>
+    <button class="mobile-copy-btn" id="mobileCopyBtn">Copy page link</button>
+  </div>
+</div>
+<script>
+  document.getElementById('mobileCopyBtn').addEventListener('click', function() {
+    var btn = this;
+    navigator.clipboard.writeText(window.location.href).then(function() {
+      btn.textContent = '✓ Link copied!';
+      btn.classList.add('copied');
+      setTimeout(function() {
+        btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="4" y="4" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M2 9.5V2.5A.5.5 0 0 1 2.5 2h7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg> Copy page link';
+        btn.classList.remove('copied');
+      }, 2500);
+    });
+  });
+</script>
+
+</body>
+</html>

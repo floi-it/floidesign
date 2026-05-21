@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Calendar — FloiDesign</title>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="images/logo_1logo.png" rel="icon" type="image/png" media="(prefers-color-scheme: light)">
+  <link href="images/logo-white.png" rel="icon" type="image/png" media="(prefers-color-scheme: dark)">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+
+    body {
+      background: #191919;
+      color: #ffffff;
+      font-family: 'Poppins', sans-serif;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .dashboard { display: flex; height: 100vh; overflow: hidden; }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: 230px; flex-shrink: 0;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      display: flex; flex-direction: column; justify-content: space-between;
+      height: 100%;
+    }
+    .sidebar-logo {
+      height: 56px; border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex; align-items: center; padding: 0 16px;
+    }
+    .sidebar-logo span { font-size: 17px; font-weight: 800; color: #f0f0f8; }
+    .sidebar-top { flex: 1; padding: 16px 10px 0; }
+    .nav-section-label {
+      font-size: 9.5px; font-weight: 700; color: rgba(255,255,255,0.3);
+      letter-spacing: 0.475px; text-transform: uppercase;
+      padding: 0 8px; margin-bottom: 8px; display: block;
+    }
+    .nav-items { display: flex; flex-direction: column; gap: 4px; }
+    .nav-item {
+      display: flex; align-items: center; gap: 10px;
+      height: 35.5px; padding: 0 10px; border-radius: 8px;
+      cursor: pointer; text-decoration: none;
+      color: rgba(255,255,255,0.5); font-size: 13px; font-weight: 500;
+    }
+    .nav-item.active { background: #2a2a2a; color: #ffffff; }
+    .nav-item:hover:not(.active) { background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.75); }
+    .nav-item.disabled { opacity: 0.28; pointer-events: none; }
+    .nav-item img { width: 15px; height: 15px; flex-shrink: 0; }
+    .sidebar-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding: 13px 10px; }
+    .sidebar-bottom .nav-item { color: #4bc0c0; }
+
+    /* ── Main ── */
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+    .topbar {
+      height: 56px; border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 20px; flex-shrink: 0;
+    }
+    .topbar-breadcrumb { font-size: 13px; color: #4bc0c0; }
+    .topbar-right { display: flex; align-items: center; gap: 10px; }
+    .bell-btn {
+      width: 34px; height: 34px; background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; cursor: pointer;
+    }
+    .bell-btn img { width: 16px; height: 16px; }
+    .bell-dot {
+      position: absolute; top: 6px; right: 4px; width: 8px; height: 8px;
+      background: #a3c90e; border-radius: 50%; border: 2px solid #191919;
+    }
+    .user-avatar {
+      width: 33px; height: 33px; background: #2a2a2a; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; color: #ffffff;
+    }
+
+    /* ── Content ── */
+    .content { flex: 1; overflow-y: auto; padding: 24px 28px; }
+    .content::-webkit-scrollbar { width: 5px; }
+    .content::-webkit-scrollbar-track { background: transparent; }
+    .content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 3px; }
+
+    .page-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .page-title { font-size: 30px; font-weight: 800; color: #f1feff; }
+    .synch-btn {
+      background: #10aaaa; border: 1px solid #12b7c2; border-radius: 8px;
+      padding: 10px 24px; font-size: 13px; font-weight: 600;
+      color: #161719; cursor: pointer; font-family: 'Poppins', sans-serif;
+    }
+    .synch-btn:hover { background: #0e9898; }
+
+    /* ── Mobile gate ── */
+    .mobile-gate {
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      background: #f7f6f2; align-items: center; justify-content: center; padding: 32px 24px;
+    }
+    .mobile-gate-back { position: absolute; top: 24px; left: 24px; font-family: Archivo, sans-serif; font-size: 0.875rem; font-weight: 500; color: #0c071b; background: none; border: none; cursor: pointer; padding: 0; }
+    .mobile-gate-back:hover { opacity: 0.6; }
+    .mobile-gate-card {
+      max-width: 360px; width: 100%;
+      display: flex; flex-direction: column; align-items: flex-start; gap: 20px;
+    }
+    .mobile-gate-title { font-family: "EB Garamond", serif; font-size: 2.4rem; font-weight: 500; color: #0c071b; line-height: 1.15; }
+    .mobile-gate-sub { font-family: Archivo, sans-serif; font-size: 0.95rem; font-weight: 400; color: #555; line-height: 1.65; }
+    .mobile-copy-btn { display: inline-flex; align-items: center; justify-content: center; background: #000; color: #fff; border: none; border-radius: 2.25rem; padding: 1rem 2rem; font-family: Archivo, sans-serif; font-size: 1rem; font-weight: 500; cursor: pointer; transition: opacity 0.15s; width: 100%; }
+    .mobile-copy-btn:hover { opacity: 0.85; }
+    .mobile-copy-btn.copied { background: #111; }
+    @media (max-width: 768px) { .mobile-gate { display: flex; } }
+
+    /* ── Calendar card ── */
+    .cal-card {
+      background: #242424;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    /* ── Toolbar ── */
+    .cal-toolbar {
+      display: flex; align-items: center; gap: 10px;
+      padding: 14px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .cal-nav { display: flex; align-items: center; gap: 4px; }
+    .cal-arrow {
+      width: 30px; height: 30px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: rgba(255,255,255,0.55); font-size: 15px;
+      transition: background 0.15s;
+      user-select: none;
+    }
+    .cal-arrow:hover { background: rgba(255,255,255,0.1); color: #ffffff; }
+    .cal-today-btn {
+      padding: 5px 14px; border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 7px; background: transparent;
+      color: rgba(255,255,255,0.6); font-size: 12px; font-weight: 500;
+      cursor: pointer; font-family: 'Poppins', sans-serif;
+      transition: background 0.15s;
+    }
+    .cal-today-btn:hover { background: rgba(255,255,255,0.07); color: #ffffff; }
+    .cal-month-title {
+      flex: 1; text-align: center;
+      font-size: 15px; font-weight: 700; color: #f1feff;
+    }
+    .view-tabs {
+      display: flex;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; overflow: hidden;
+    }
+    .view-tab {
+      padding: 6px 16px; font-size: 12px; font-weight: 600;
+      color: #a4a4a4; background: transparent;
+      cursor: pointer; border: none; font-family: 'Poppins', sans-serif;
+      transition: background 0.15s, color 0.15s;
+    }
+    .view-tab.active { background: #10aaaa; color: #032e32; }
+    .view-tab:not(.active):hover { background: rgba(255,255,255,0.06); color: #d0d0d0; }
+
+    /* ── Legend ── */
+    .cal-legend {
+      display: flex; align-items: center; gap: 20px;
+      padding: 10px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .legend-item {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 11.5px; color: rgba(255,255,255,0.55); font-weight: 500;
+    }
+    .legend-dot {
+      width: 14px; height: 14px; border-radius: 3px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 9px;
+    }
+    .legend-dot.public   { background: rgba(164,196,200,0.15); color: #a4c4c8; }
+    .legend-dot.private  { background: rgba(75,192,192,0.2);   color: #4bc0c0; }
+    .legend-dot.pub-priv { background: rgba(75,192,192,0.2);   color: #4bc0c0; }
+    .legend-dot.request  { background: rgba(255,153,51,0.2);   color: #ff9933; }
+
+    /* ── Day headers ── */
+    .cal-day-heads {
+      display: grid; grid-template-columns: repeat(7, 1fr);
+      background: rgba(255,255,255,0.03);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .cal-day-head {
+      padding: 9px 0; text-align: center;
+      font-size: 11px; font-weight: 600;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.3px; text-transform: uppercase;
+    }
+
+    /* ── Grid ── */
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      width: 100%;
+    }
+    .cal-cell {
+      aspect-ratio: 1;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 6px 5px 4px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cal-cell:nth-child(7n) { border-right: none; }
+    .cal-cell.other-month { background: rgba(0,0,0,0.08); }
+    .cal-cell.is-today { background: rgba(16,170,170,0.04); }
+
+    .day-num {
+      font-size: 12px; font-weight: 600;
+      color: rgba(255,255,255,0.55);
+      text-align: right; padding: 0 3px 4px; line-height: 1;
+    }
+    .day-num.current-month { color: rgba(255,255,255,0.75); }
+    .day-num.today-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 22px; height: 22px; border-radius: 50%;
+      background: #10aaaa; color: #032e32; font-weight: 700;
+      float: right;
+    }
+    .today-label {
+      display: inline-block;
+      font-size: 10px; font-weight: 600; color: #10aaaa;
+      border: 1px solid #10aaaa; border-radius: 4px;
+      padding: 1px 6px; margin-bottom: 4px;
+    }
+
+    /* ── Event tags ── */
+    .ev-list { display: flex; flex-direction: column; gap: 2px; margin-top: 2px; clear: both; }
+    .ev-tag {
+      display: flex; align-items: center; gap: 4px;
+      padding: 2px 5px; border-radius: 4px;
+      font-size: 10px; font-weight: 500; line-height: 1.4;
+      overflow: hidden; white-space: nowrap;
+      cursor: default;
+    }
+    .ev-tag .ev-icon { font-size: 9px; flex-shrink: 0; }
+    .ev-tag .ev-text { overflow: hidden; text-overflow: ellipsis; }
+
+    .ev-tag.public {
+      background: rgba(164,196,200,0.1);
+      border: 1px solid rgba(164,196,200,0.18);
+      color: #b8d4d8;
+    }
+    .ev-tag.private {
+      background: rgba(75,192,192,0.13);
+      border: 1px solid rgba(75,192,192,0.25);
+      color: #5ed3d3;
+    }
+    .ev-tag.request {
+      background: rgba(255,153,51,0.13);
+      border: 1px solid rgba(255,153,51,0.28);
+      color: #ffaa55;
+    }
+    .ev-tag.aggregate {
+      background: rgba(75,192,192,0.18);
+      border: 1px solid rgba(75,192,192,0.3);
+      color: #4bc0c0; font-weight: 600;
+    }
+    .ev-tag.holiday {
+      background: rgba(255,255,255,0.05);
+      border-left: 3px solid rgba(255,255,255,0.25);
+      border-radius: 0 4px 4px 0;
+      color: rgba(255,255,255,0.45);
+      padding-left: 6px;
+    }
+    .ev-tag { cursor: pointer; }
+    .ev-tag:hover { filter: brightness(1.2); }
+    .ev-more {
+      font-size: 10px; color: rgba(255,255,255,0.4);
+      padding: 1px 5px; cursor: pointer;
+      font-weight: 500;
+    }
+    .ev-more:hover { color: #4bc0c0; }
+
+    /* ── View panes ── */
+    .view-pane { display: none; }
+    .view-pane.active { display: flex; flex-direction: column; }
+
+    /* ── Week / Day shared ── */
+    .wk-head-row {
+      display: grid; flex-shrink: 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      background: #242424;
+    }
+    .wk-head-corner { /* time col spacer */ }
+    .wk-head-cell {
+      padding: 10px 0 8px; text-align: center;
+    }
+    .wk-head-day-name {
+      font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.35);
+      letter-spacing: 0.4px; text-transform: uppercase; margin-bottom: 4px;
+    }
+    .wk-head-date-num {
+      width: 28px; height: 28px; border-radius: 50%; margin: 0 auto;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.65);
+      transition: background 0.15s;
+    }
+    .wk-head-date-num.is-today { background: #10aaaa; color: #032e32; }
+    .wk-head-cell.is-today .wk-head-day-name { color: #10aaaa; }
+
+    .wk-body { display: flex; overflow-y: auto; flex: 1; position: relative; }
+    .wk-body::-webkit-scrollbar { width: 5px; }
+    .wk-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+
+    .wk-time-col { width: 52px; flex-shrink: 0; }
+    .wk-time-label {
+      height: 60px; display: flex; align-items: flex-start; justify-content: flex-end;
+      padding: 3px 8px 0 0; font-size: 10px; color: rgba(255,255,255,0.22);
+      font-weight: 500; user-select: none;
+    }
+
+    .wk-days { flex: 1; display: grid; position: relative; }
+    .wk-day-col { border-right: 1px solid rgba(255,255,255,0.05); position: relative; }
+    .wk-day-col:last-child { border-right: none; }
+    .wk-hour-row {
+      height: 60px; border-bottom: 1px solid rgba(255,255,255,0.04);
+      pointer-events: none;
+    }
+
+    /* ── Event blocks ── */
+    .ev-block {
+      position: absolute; left: 3px; right: 3px;
+      border-radius: 5px; padding: 3px 6px 3px 8px;
+      font-size: 10px; overflow: hidden; cursor: pointer; z-index: 2;
+      transition: filter 0.1s; min-height: 18px;
+    }
+    .ev-block:hover { filter: brightness(1.2); z-index: 3; }
+    .ev-block.public  { background: rgba(164,196,200,0.18); border-left: 3px solid #b8d4d8; color: #cdeef2; }
+    .ev-block.private { background: rgba(75,192,192,0.18);  border-left: 3px solid #5ed3d3; color: #9eeaea; }
+    .ev-block.request { background: rgba(255,153,51,0.18);  border-left: 3px solid #ffaa55; color: #ffd0a0; }
+    .ev-block-time { font-size: 9px; opacity: 0.7; line-height: 1.3; }
+    .ev-block-name { font-size: 10px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    /* current-time indicator */
+    .now-line {
+      position: absolute; left: 0; right: 0; height: 2px;
+      background: #10aaaa; z-index: 6; pointer-events: none;
+    }
+    .now-dot {
+      position: absolute; left: -4px; top: -5px;
+      width: 10px; height: 10px; border-radius: 50%; background: #10aaaa;
+    }
+
+    /* ── Tooltip ── */
+    .cal-tooltip {
+      position: fixed; z-index: 900;
+      background: #1c1d20; border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 9px; padding: 8px 12px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.55);
+      pointer-events: none; display: none;
+      max-width: 210px;
+    }
+    .cal-tooltip.visible { display: block; }
+    .cal-tt-time { font-size: 11px; color: rgba(255,255,255,0.45); font-weight: 500; margin-bottom: 2px; }
+    .cal-tt-name { font-size: 12px; color: #e2fdff; font-weight: 600; line-height: 1.3; }
+    .cal-tt-hint { font-size: 11px; color: #ffaa55; font-weight: 500; }
+
+    /* ── Modal ── */
+    .cal-modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+      z-index: 800; display: none; align-items: center; justify-content: center;
+    }
+    .cal-modal-overlay.open { display: flex; }
+    .cal-modal {
+      background: #1c1d20; border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px; width: 420px; max-height: 78vh;
+      display: flex; flex-direction: column;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+      animation: modal-in 0.2s ease;
+    }
+    @keyframes modal-in {
+      from { transform: scale(0.95); opacity: 0; }
+      to   { transform: scale(1);    opacity: 1; }
+    }
+    .modal-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.07); flex-shrink: 0;
+    }
+    .modal-header-left { display: flex; align-items: center; gap: 10px; }
+    .modal-type-badge {
+      font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 5px;
+      text-transform: uppercase; letter-spacing: 0.4px;
+    }
+    .modal-type-badge { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.55); }
+    .modal-title { font-size: 14px; font-weight: 700; color: #ffffff; }
+    .modal-close {
+      width: 28px; height: 28px; background: rgba(255,255,255,0.07);
+      border: none; border-radius: 50%; color: rgba(255,255,255,0.5); font-size: 16px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+    .modal-close:hover { background: rgba(255,255,255,0.13); color: #fff; }
+    .modal-body { padding: 20px; overflow-y: auto; flex: 1; }
+    .modal-body::-webkit-scrollbar { width: 4px; }
+    .modal-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+    .modal-date-row { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+    .modal-date-box {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px; padding: 8px 14px; text-align: center; flex-shrink: 0;
+    }
+    .modal-date-day  { font-size: 22px; font-weight: 800; color: #ffffff; line-height: 1; }
+    .modal-date-mon  { font-size: 11px; color: rgba(255,255,255,0.45); font-weight: 600; margin-top: 2px; }
+    .modal-date-info { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.7; }
+    .modal-date-info strong { color: #ffffff; font-weight: 600; }
+    .modal-divider { height: 1px; background: rgba(255,255,255,0.07); margin: 0 0 16px; }
+    .modal-row {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .modal-row:last-child { border-bottom: none; }
+    .modal-row-label { font-size: 11px; color: rgba(255,255,255,0.35); font-weight: 600; width: 80px; flex-shrink: 0; padding-top: 1px; text-transform: uppercase; letter-spacing: 0.3px; }
+    .modal-row-value { font-size: 13px; color: #ffffff; font-weight: 500; }
+    .modal-row-value.dim { color: rgba(255,255,255,0.4); font-style: italic; }
+    .modal-go-btn {
+      width: 100%; height: 40px; background: #10aaaa; border: 1px solid #12b7c2;
+      border-radius: 8px; color: #161719; font-size: 13px; font-weight: 600;
+      cursor: pointer; font-family: 'Poppins', sans-serif; margin-top: 18px;
+      transition: background 0.15s;
+    }
+    .modal-go-btn:hover { background: #0e9898; }
+
+    /* list view */
+    .modal-list-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .modal-list-item:last-child { border-bottom: none; }
+    .modal-list-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; background: rgba(255,255,255,0.35); }
+    .modal-list-main { flex: 1; }
+    .modal-list-name { font-size: 13px; color: #ffffff; font-weight: 500; }
+    .modal-list-time { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+    .modal-list-meta { text-align: right; flex-shrink: 0; }
+    .modal-list-price   { font-size: 12px; color: #ffffff; font-weight: 600; }
+    .modal-list-tickets { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 2px; }
+    .modal-list-avail   { font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 2px; font-style: italic; }
+
+    /* available (live, not booked) event tags */
+    .ev-tag.available {
+      background: none; border-color: transparent;
+      color: rgba(255,255,255,0.62);
+    }
+    .ev-tag.available .ev-icon { opacity: 0.55; }
+    .ev-block.available {
+      background: rgba(255,255,255,0.05); border-left: 3px solid rgba(255,255,255,0.3);
+      color: rgba(255,255,255,0.62);
+    }
+  </style>
+</head>
+<body>
+
+<div class="dashboard">
+
+  <!-- Sidebar — Calendar active -->
+  <aside class="sidebar">
+    <div>
+      <div class="sidebar-logo"><span>konfetti</span></div>
+      <div class="sidebar-top">
+        <span class="nav-section-label">Navigazione</span>
+        <div class="nav-items">
+          <a href="b2b-dashboard.html" class="nav-item">
+            <img src="images/b2b-icon-dashboard.svg" alt="">Dashboard
+          </a>
+          <a href="b2b-connectivity.html" class="nav-item">
+            <img src="images/b2b-icon-connectivity.svg" alt="">Connectivity
+          </a>
+          <a href="b2b-calendar.html" class="nav-item active">
+            <img src="images/b2b-icon-calendar.svg" alt="">Calendar
+          </a>
+          <a href="#" class="nav-item disabled">
+            <img src="images/b2b-icon-sales.svg" alt="">My Sales
+          </a>
+          <a href="#" class="nav-item disabled">
+            <img src="images/b2b-icon-invoices.svg" alt="">Invoices
+          </a>
+          <a href="#" class="nav-item disabled">
+            <img src="images/b2b-icon-reviews.svg" alt="">Reviews
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar-bottom">
+      <div class="nav-items">
+        <a href="#" class="nav-item"><img src="images/b2b-icon-helpcenter.svg" alt="">Help Center</a>
+        <a href="#" class="nav-item"><img src="images/b2b-icon-settings.svg" alt="">Settings</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+    <div class="topbar">
+      <span class="topbar-breadcrumb">API / Reseller</span>
+      <div class="topbar-right">
+        <div class="bell-btn">
+          <img src="images/b2b-icon-bell.svg" alt="">
+          <div class="bell-dot"></div>
+        </div>
+        <div class="user-avatar">AR</div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <div class="page-header">
+        <h1 class="page-title">Calendar</h1>
+        <button class="synch-btn">Synch products</button>
+      </div>
+
+      <div class="cal-card">
+
+        <!-- Toolbar -->
+        <div class="cal-toolbar">
+          <div class="cal-nav">
+            <div class="cal-arrow" id="calPrev">&#8249;</div>
+            <div class="cal-arrow" id="calNext">&#8250;</div>
+          </div>
+          <button class="cal-today-btn" id="calTodayBtn">Today</button>
+          <div class="cal-month-title" id="calMonthTitle"></div>
+          <div class="view-tabs">
+            <button class="view-tab active">Month</button>
+            <button class="view-tab">Week</button>
+            <button class="view-tab">Day</button>
+          </div>
+        </div>
+
+        <!-- Legend -->
+        <div class="cal-legend">
+          <div class="legend-item">
+            <div class="legend-dot public">🌐</div>Public Date
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot private">🔒</div>Private Date
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot pub-priv">🔒</div>Public private
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot request">⏰</div>Date Request
+          </div>
+        </div>
+
+        <!-- Month view -->
+        <div class="view-pane active" id="viewMonth">
+          <div class="cal-day-heads">
+            <div class="cal-day-head">Mon</div>
+            <div class="cal-day-head">Tue</div>
+            <div class="cal-day-head">Wed</div>
+            <div class="cal-day-head">Thu</div>
+            <div class="cal-day-head">Fri</div>
+            <div class="cal-day-head">Sat</div>
+            <div class="cal-day-head">Sun</div>
+          </div>
+          <div class="cal-grid" id="calGrid"></div>
+        </div>
+
+        <!-- Week view -->
+        <div class="view-pane" id="viewWeek">
+          <div class="wk-head-row" id="weekHeadRow" style="grid-template-columns: 52px repeat(7, 1fr);">
+            <div class="wk-head-corner"></div>
+          </div>
+          <div class="wk-body" id="weekBody">
+            <div class="wk-time-col" id="weekTimeCol"></div>
+            <div class="wk-days" id="weekDays" style="grid-template-columns: repeat(7, 1fr);"></div>
+          </div>
+        </div>
+
+        <!-- Day view -->
+        <div class="view-pane" id="viewDay">
+          <div class="wk-head-row" id="dayHeadRow" style="grid-template-columns: 52px 1fr;">
+            <div class="wk-head-corner"></div>
+          </div>
+          <div class="wk-body" id="dayBody">
+            <div class="wk-time-col" id="dayTimeCol"></div>
+            <div class="wk-days" id="dayDays" style="grid-template-columns: 1fr;"></div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+</div>
+
+<!-- Tooltip -->
+<div class="cal-tooltip" id="calTooltip"></div>
+
+<!-- Event modal -->
+<div class="cal-modal-overlay" id="calModalOverlay">
+  <div class="cal-modal" id="calModal">
+    <div class="modal-header">
+      <div class="modal-header-left">
+        <span class="modal-type-badge" id="modalBadge"></span>
+        <span class="modal-title" id="modalTitle"></span>
+      </div>
+      <button class="modal-close" id="modalClose">&#x2715;</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+  // ── Event data: shown[] are visible tags, hidden[] appear in modal list ──
+  var dayEvents = {
+    '2026-4-26': {
+      shown: [
+        { type: 'public',  icon: '🌐', time: '11:30am', name: 'Auf und ab Tour',   price: '€25', tickets: 12 },
+        { type: 'private', icon: '🔒', time: '1:30pm',  name: 'Weinquickie',        price: '€45', tickets: 8  },
+      ], hidden: []
+    },
+    '2026-4-29': {
+      shown: [{ type: 'aggregate', icon: '🔒', time: '', name: '3 booked public dates', price: '€25', tickets: 3 }], hidden: []
+    },
+    '2026-4-30': {
+      shown: [{ type: 'aggregate', icon: '🔒', time: '', name: '2 booked private dates', price: '€45', tickets: 2 }], hidden: []
+    },
+    '2026-5-11': {
+      shown: [{ type: 'request', icon: '⏰', time: '11:12', name: 'Weinwandertag', price: '€35', tickets: 6 }], hidden: []
+    },
+    '2026-5-12': {
+      shown: [
+        { type: 'public', icon: '🌐', time: '11:30am', name: 'Auf und ab Tour', price: '€25', tickets: 14 },
+        { type: 'public', icon: '🌐', time: '12:30pm', name: 'Auf und ab Tour', price: '€25', tickets: 9  },
+        { type: 'public', icon: '🌐', time: '2:00pm',  name: 'Auf und ab Tour', price: '€25', tickets: 15 },
+      ],
+      hidden: [
+        { type: 'public', icon: '🌐', time: '3:30pm',  name: 'Auf und ab Tour',       price: '€25', tickets: 7  },
+        { type: 'public', icon: '🌐', time: '5:00pm',  name: 'Auf und ab Tour',       price: '€25', tickets: 11 },
+        { type: 'public', icon: '🌐', time: '6:30pm',  name: 'Auf und ab Tour',       price: '€25', tickets: 6  },
+        { type: 'public', icon: '🌐', time: '8:00pm',  name: 'Auf und ab Tour',       price: '€25', tickets: 14 },
+        { type: 'public', icon: '🌐', time: '10:00am', name: 'Berlin Street Art Walk', price: '€30', tickets: 10 },
+        { type: 'public', icon: '🌐', time: '1:00pm',  name: 'Hamburg Harbour Tour',  price: '€20', tickets: 8  },
+        { type: 'public', icon: '🌐', time: '4:00pm',  name: 'Munich Beer Garden',    price: '€35', tickets: 5  },
+        { type: 'public', icon: '🌐', time: '7:00pm',  name: 'Frankfurt Skyline Cruise', price: '€40', tickets: 12 },
+      ]
+    },
+    '2026-5-13': {
+      shown: [
+        { type: 'private', icon: '🔒', time: '1:30pm',  name: 'Weinquickie',      price: '€45', tickets: 10 },
+        { type: 'public',  icon: '🌐', time: '10:30am', name: 'Auf und ab Tour',  price: '€25', tickets: 13 },
+        { type: 'public',  icon: '🌐', time: '12:30pm', name: 'Auf und ab Tour',  price: '€25', tickets: 8  },
+      ],
+      hidden: [
+        { type: 'public', icon: '🌐', time: '2:00pm',  name: 'Auf und ab Tour',      price: '€25', tickets: 6  },
+        { type: 'public', icon: '🌐', time: '3:30pm',  name: 'Auf und ab Tour',      price: '€25', tickets: 9  },
+        { type: 'public', icon: '🌐', time: '5:00pm',  name: 'Auf und ab Tour',      price: '€25', tickets: 11 },
+        { type: 'public', icon: '🌐', time: '6:30pm',  name: 'Berlin Art Walk',      price: '€30', tickets: 7  },
+        { type: 'public', icon: '🌐', time: '8:00pm',  name: 'Hamburg Harbour Tour', price: '€20', tickets: 5  },
+        { type: 'public', icon: '🌐', time: '9:30pm',  name: 'Cologne Cathedral',    price: '€22', tickets: 14 },
+        { type: 'public', icon: '🌐', time: '11:00am', name: 'Frankfurt Cruise',     price: '€40', tickets: 8  },
+        { type: 'public', icon: '🌐', time: '4:30pm',  name: 'Munich Food Tasting',  price: '€35', tickets: 10 },
+      ]
+    },
+    '2026-5-14': {
+      shown: [
+        { type: 'public', icon: '🌐', time: '10:30am', name: 'Auf und ab Tour', price: '€25', tickets: 9  },
+        { type: 'public', icon: '🌐', time: '12:30pm', name: 'Auf und ab Tour', price: '€25', tickets: 12 },
+        { type: 'public', icon: '🌐', time: '2:00pm',  name: 'Auf und ab Tour', price: '€25', tickets: 7  },
+      ],
+      hidden: [
+        { type: 'public', icon: '🌐', time: '3:30pm',  name: 'Auf und ab Tour',      price: '€25', tickets: 15 },
+        { type: 'public', icon: '🌐', time: '5:00pm',  name: 'Berlin Art Walk',      price: '€30', tickets: 6  },
+        { type: 'public', icon: '🌐', time: '6:30pm',  name: 'Hamburg Harbour Tour', price: '€20', tickets: 11 },
+        { type: 'public', icon: '🌐', time: '8:00pm',  name: 'Munich Beer Garden',   price: '€35', tickets: 8  },
+        { type: 'public', icon: '🌐', time: '10:00am', name: 'Cologne Cathedral',    price: '€22', tickets: 13 },
+        { type: 'public', icon: '🌐', time: '1:00pm',  name: 'Frankfurt Cruise',     price: '€40', tickets: 5  },
+        { type: 'public', icon: '🌐', time: '4:00pm',  name: 'Munich Food Tasting',  price: '€35', tickets: 9  },
+        { type: 'public', icon: '🌐', time: '7:00pm',  name: 'Stuttgart City Walk',  price: '€18', tickets: 14 },
+      ]
+    },
+    '2026-5-15': {
+      shown: [
+        { type: 'public', icon: '🌐', time: '10:30am', name: 'Auf und ab Tour', price: '€25', tickets: 11 },
+        { type: 'public', icon: '🌐', time: '12:30pm', name: 'Auf und ab Tour', price: '€25', tickets: 8  },
+        { type: 'public', icon: '🌐', time: '2:00pm',  name: 'Auf und ab Tour', price: '€25', tickets: 14 },
+      ], hidden: [
+        { type: 'public', icon: '🌐', time: '3:30pm',  name: 'Berlin Art Walk',      price: '€30', tickets: 6  },
+        { type: 'public', icon: '🌐', time: '5:00pm',  name: 'Hamburg Harbour Tour', price: '€20', tickets: 10 },
+        { type: 'public', icon: '🌐', time: '6:30pm',  name: 'Cologne Cathedral',    price: '€22', tickets: 7  },
+        { type: 'public', icon: '🌐', time: '8:00pm',  name: 'Frankfurt Cruise',     price: '€40', tickets: 12 },
+        { type: 'public', icon: '🌐', time: '10:00am', name: 'Munich Beer Garden',   price: '€35', tickets: 9  },
+        { type: 'public', icon: '🌐', time: '1:00pm',  name: 'Stuttgart City Walk',  price: '€18', tickets: 5  },
+        { type: 'public', icon: '🌐', time: '4:00pm',  name: 'Munich Food Tasting',  price: '€35', tickets: 13 },
+        { type: 'public', icon: '🌐', time: '7:00pm',  name: 'Auf und ab Tour',      price: '€25', tickets: 8  },
+      ]
+    },
+    '2026-5-16': {
+      shown: [
+        { type: 'public', icon: '🌐', time: '10:30am', name: 'Auf und ab Tour', price: '€25', tickets: 7  },
+        { type: 'public', icon: '🌐', time: '12:30pm', name: 'Auf und ab Tour', price: '€25', tickets: 13 },
+        { type: 'public', icon: '🌐', time: '2:00pm',  name: 'Auf und ab Tour', price: '€25', tickets: 10 },
+      ], hidden: [
+        { type: 'public', icon: '🌐', time: '3:30pm',  name: 'Berlin Art Walk',      price: '€30', tickets: 8  },
+        { type: 'public', icon: '🌐', time: '5:00pm',  name: 'Hamburg Harbour Tour', price: '€20', tickets: 6  },
+        { type: 'public', icon: '🌐', time: '6:30pm',  name: 'Cologne Cathedral',    price: '€22', tickets: 14 },
+        { type: 'public', icon: '🌐', time: '8:00pm',  name: 'Frankfurt Cruise',     price: '€40', tickets: 9  },
+        { type: 'public', icon: '🌐', time: '10:00am', name: 'Munich Beer Garden',   price: '€35', tickets: 11 },
+        { type: 'public', icon: '🌐', time: '1:00pm',  name: 'Stuttgart City Walk',  price: '€18', tickets: 7  },
+        { type: 'public', icon: '🌐', time: '4:00pm',  name: 'Munich Food Tasting',  price: '€35', tickets: 5  },
+        { type: 'public', icon: '🌐', time: '7:00pm',  name: 'Auf und ab Tour',      price: '€25', tickets: 12 },
+      ]
+    },
+    '2026-5-19': {
+      shown: [
+        { type: 'private', icon: '🔒', time: '1:30pm',  name: 'Weinquickie',     price: '€45', tickets: 8 },
+        { type: 'public',  icon: '🌐', time: '11:30am', name: 'Auf und ab Tour', price: '€25', tickets: 11 },
+      ],
+      hidden: [
+        { type: 'public', icon: '🌐', time: '3:00pm', name: 'Berlin Art Walk', price: '€30', tickets: 6 },
+      ]
+    },
+    '2026-5-20': {
+      shown: [
+        { type: 'private', icon: '🔒', time: '3:00pm',  name: 'Weinquickie',     price: '€45', tickets: 7  },
+        { type: 'public',  icon: '🌐', time: '11:30am', name: 'Auf und ab Tour', price: '€25', tickets: 12 },
+        { type: 'public',  icon: '🌐', time: '1:00pm',  name: 'Auf und ab Tour', price: '€25', tickets: 9  },
+      ],
+      hidden: (function() {
+        var h = [];
+        for (var i = 0; i < 17; i++) {
+          h.push({ type: 'public', icon: '🌐', time: (9 + i) + ':00' + (i < 3 ? 'am' : 'pm'), name: 'Public Date Event', price: '€25', tickets: 5 + i });
+        }
+        return h;
+      })()
+    },
+    '2026-5-21': {
+      shown: [
+        { type: 'request', icon: '⏰', time: '10:00am', name: 'Weinwandertag',   price: '€35', tickets: 6  },
+        { type: 'public',  icon: '🌐', time: '11:30am', name: 'Auf und ab Tour', price: '€25', tickets: 10 },
+      ],
+      hidden: [
+        { type: 'public', icon: '🌐', time: '1:00pm', name: 'Auf und ab Tour',      price: '€25', tickets: 8  },
+        { type: 'public', icon: '🌐', time: '2:30pm', name: 'Berlin Art Walk',      price: '€30', tickets: 5  },
+        { type: 'public', icon: '🌐', time: '4:00pm', name: 'Hamburg Harbour Tour', price: '€20', tickets: 11 },
+      ]
+    },
+    '2026-5-22': {
+      shown: [
+        { type: 'private', icon: '🔒', time: '1:30pm',  name: 'Weinquickie',     price: '€45', tickets: 9  },
+        { type: 'public',  icon: '🌐', time: '11:30am', name: 'Auf und ab Tour', price: '€25', tickets: 7  },
+      ],
+      hidden: [
+        { type: 'public', icon: '🌐', time: '3:00pm', name: 'Cologne Cathedral', price: '€22', tickets: 13 },
+      ]
+    },
+    '2026-5-23': {
+      shown: [
+        { type: 'public', icon: '🌐', time: '10:00am', name: 'Public Date Event', price: '€25', tickets: 8 },
+      ],
+      hidden: (function() {
+        var h = [];
+        for (var i = 0; i < 19; i++) {
+          h.push({ type: 'public', icon: '🌐', time: (9 + (i % 10)) + ':00am', name: 'Public Date Event', price: '€25', tickets: 4 + i });
+        }
+        return h;
+      })()
+    },
+    '2026-5-24': {
+      shown: [{ type: 'holiday', icon: '', time: '', name: 'holiday blocker', price: '', tickets: 0 }],
+      hidden: []
+    },
+  };
+
+  // ── Extra dates to fill out the month ──
+  var extraDates = {
+    '2026-5-1':  [{ type:'public',  icon:'🌐', time:'11:30am', name:'Auf und ab Tour',       price:'€25', tickets:10 }],
+    '2026-5-2':  [{ type:'public',  icon:'🌐', time:'10:00am', name:'Stuttgart City Walk',   price:'€18', tickets:8  },
+                  { type:'private', icon:'🔒', time:'2:00pm',  name:'Weinquickie',            price:'€45', tickets:6  }],
+    '2026-5-3':  [{ type:'available', icon:'🌐', time:'11:00am', name:'Hamburg Harbour Tour',  price:'€20', tickets:0 }],
+    '2026-5-4':  [{ type:'available', icon:'🌐', time:'10:30am', name:'Auf und ab Tour',       price:'€25', tickets:0 },
+                  { type:'available', icon:'🌐', time:'2:00pm',  name:'Berlin Art Walk',        price:'€30', tickets:0 }],
+    '2026-5-5':  [{ type:'available', icon:'🌐', time:'11:00am', name:'Berlin Art Walk',       price:'€30', tickets:0 }],
+    '2026-5-6':  [{ type:'available', icon:'🔒', time:'3:00pm',  name:'Weinquickie',           price:'€45', tickets:0 }],
+    '2026-5-7':  [{ type:'available', icon:'🌐', time:'10:00am', name:'Cologne Cathedral',     price:'€22', tickets:0 }],
+    '2026-5-8':  [{ type:'public',  icon:'🌐', time:'11:30am', name:'Auf und ab Tour',       price:'€25', tickets:9  },
+                  { type:'request', icon:'⏰', time:'2:00pm',  name:'Weinwandertag',          price:'€35', tickets:4  }],
+    '2026-5-9':  [{ type:'public',  icon:'🌐', time:'10:00am', name:'Frankfurt Cruise',      price:'€40', tickets:13 }],
+    '2026-5-10': [{ type:'public',  icon:'🌐', time:'11:00am', name:'Munich Beer Garden',    price:'€35', tickets:8  }],
+    '2026-5-17': [{ type:'public',  icon:'🌐', time:'10:30am', name:'Auf und ab Tour',       price:'€25', tickets:11 }],
+    '2026-5-18': [{ type:'private', icon:'🔒', time:'1:00pm',  name:'Weinquickie',           price:'€45', tickets:7  },
+                  { type:'public',  icon:'🌐', time:'3:30pm',  name:'Stuttgart City Walk',   price:'€18', tickets:6  }],
+    '2026-5-25': [{ type:'available', icon:'🌐', time:'10:00am', name:'Auf und ab Tour',       price:'€25', tickets:0 }],
+    '2026-5-26': [{ type:'available', icon:'🌐', time:'11:30am', name:'Berlin Art Walk',       price:'€30', tickets:0 }],
+    '2026-5-27': [{ type:'private', icon:'🔒', time:'2:00pm',  name:'Weinquickie',           price:'€45', tickets:9  }],
+    '2026-5-28': [{ type:'public',  icon:'🌐', time:'10:30am', name:'Auf und ab Tour',       price:'€25', tickets:12 },
+                  { type:'request', icon:'⏰', time:'4:00pm',  name:'Weinwandertag',          price:'€35', tickets:5  }],
+    '2026-5-29': [{ type:'public',  icon:'🌐', time:'11:00am', name:'Hamburg Harbour Tour',  price:'€20', tickets:7  }],
+    '2026-5-30': [{ type:'public',  icon:'🌐', time:'10:00am', name:'Frankfurt Cruise',      price:'€40', tickets:14 }],
+    '2026-5-31': [{ type:'private', icon:'🔒', time:'1:30pm',  name:'Weinquickie',           price:'€45', tickets:6  }],
+    '2026-6-1':  [{ type:'public',    icon:'🌐', time:'11:00am', name:'Auf und ab Tour',       price:'€25', tickets:9  }],
+    '2026-6-2':  [{ type:'public',    icon:'🌐', time:'10:30am', name:'Munich Beer Garden',    price:'€35', tickets:8  }],
+    '2026-6-3':  [{ type:'available', icon:'🌐', time:'11:00am', name:'Cologne Cathedral',     price:'€22', tickets:0  }],
+    '2026-6-4':  [{ type:'private',   icon:'🔒', time:'2:00pm',  name:'Weinquickie',           price:'€45', tickets:7  }],
+    '2026-6-5':  [{ type:'available', icon:'🌐', time:'10:00am', name:'Stuttgart City Walk',   price:'€18', tickets:0  }],
+    '2026-6-6':  [{ type:'public',    icon:'🌐', time:'11:30am', name:'Berlin Art Walk',       price:'€30', tickets:6  }],
+    '2026-6-8':  [{ type:'public',    icon:'🌐', time:'11:00am', name:'Auf und ab Tour',       price:'€25', tickets:11 },
+                  { type:'private',   icon:'🔒', time:'3:00pm',  name:'Weinquickie',           price:'€45', tickets:5  }],
+    '2026-6-9':  [{ type:'available', icon:'🌐', time:'10:30am', name:'Hamburg Harbour Tour',  price:'€20', tickets:0  }],
+    '2026-6-10': [{ type:'public',    icon:'🌐', time:'11:30am', name:'Berlin Art Walk',       price:'€30', tickets:9  }],
+    '2026-6-11': [{ type:'request',   icon:'⏰', time:'2:00pm',  name:'Weinwandertag',          price:'€35', tickets:4  }],
+    '2026-6-12': [{ type:'public',    icon:'🌐', time:'10:00am', name:'Auf und ab Tour',       price:'€25', tickets:13 },
+                  { type:'public',    icon:'🌐', time:'2:00pm',  name:'Cologne Cathedral',     price:'€22', tickets:8  }],
+    '2026-6-13': [{ type:'available', icon:'🌐', time:'11:00am', name:'Stuttgart City Walk',   price:'€18', tickets:0  }],
+    '2026-6-15': [{ type:'private',   icon:'🔒', time:'1:30pm',  name:'Weinquickie',           price:'€45', tickets:10 }],
+    '2026-6-16': [{ type:'public',    icon:'🌐', time:'10:30am', name:'Frankfurt Cruise',      price:'€40', tickets:7  }],
+    '2026-6-17': [{ type:'public',    icon:'🌐', time:'11:00am', name:'Auf und ab Tour',       price:'€25', tickets:12 }],
+    '2026-6-18': [{ type:'available', icon:'🌐', time:'10:00am', name:'Munich Beer Garden',    price:'€35', tickets:0  }],
+    '2026-6-19': [{ type:'public',    icon:'🌐', time:'11:30am', name:'Hamburg Harbour Tour',  price:'€20', tickets:6  },
+                  { type:'request',   icon:'⏰', time:'3:00pm',  name:'Weinwandertag',          price:'€35', tickets:3  }],
+    '2026-6-22': [{ type:'public',    icon:'🌐', time:'10:00am', name:'Auf und ab Tour',       price:'€25', tickets:14 }],
+    '2026-6-23': [{ type:'private',   icon:'🔒', time:'2:30pm',  name:'Weinquickie',           price:'€45', tickets:8  }],
+    '2026-6-24': [{ type:'available', icon:'🌐', time:'11:00am', name:'Berlin Art Walk',       price:'€30', tickets:0  }],
+    '2026-6-25': [{ type:'public',    icon:'🌐', time:'10:30am', name:'Cologne Cathedral',     price:'€22', tickets:11 }],
+    '2026-6-26': [{ type:'public',    icon:'🌐', time:'11:00am', name:'Frankfurt Cruise',      price:'€40', tickets:9  }],
+    '2026-6-29': [{ type:'public',    icon:'🌐', time:'10:00am', name:'Auf und ab Tour',       price:'€25', tickets:7  },
+                  { type:'available', icon:'🌐', time:'2:00pm',  name:'Stuttgart City Walk',   price:'€18', tickets:0  }],
+    '2026-6-30': [{ type:'private',   icon:'🔒', time:'1:30pm',  name:'Weinquickie',           price:'€45', tickets:6  }],
+    // July
+    '2026-7-1':  [{ type:'public',    icon:'🌐', time:'11:00am', name:'Auf und ab Tour',       price:'€25', tickets:10 }],
+    '2026-7-2':  [{ type:'available', icon:'🌐', time:'10:30am', name:'Hamburg Harbour Tour',  price:'€20', tickets:0  }],
+    '2026-7-3':  [{ type:'public',    icon:'🌐', time:'11:30am', name:'Berlin Art Walk',       price:'€30', tickets:8  }],
+    '2026-7-6':  [{ type:'private',   icon:'🔒', time:'2:00pm',  name:'Weinquickie',           price:'€45', tickets:9  }],
+    '2026-7-7':  [{ type:'public',    icon:'🌐', time:'10:00am', name:'Cologne Cathedral',     price:'€22', tickets:12 }],
+    '2026-7-8':  [{ type:'available', icon:'🌐', time:'11:00am', name:'Munich Beer Garden',    price:'€35', tickets:0  }],
+    '2026-7-9':  [{ type:'public',    icon:'🌐', time:'10:30am', name:'Auf und ab Tour',       price:'€25', tickets:7  },
+                  { type:'request',   icon:'⏰', time:'3:00pm',  name:'Weinwandertag',          price:'€35', tickets:5  }],
+    '2026-7-10': [{ type:'public',    icon:'🌐', time:'11:30am', name:'Frankfurt Cruise',      price:'€40', tickets:11 }],
+    '2026-7-13': [{ type:'available', icon:'🌐', time:'10:00am', name:'Stuttgart City Walk',   price:'€18', tickets:0  }],
+    '2026-7-14': [{ type:'public',    icon:'🌐', time:'11:00am', name:'Auf und ab Tour',       price:'€25', tickets:13 },
+                  { type:'private',   icon:'🔒', time:'2:30pm',  name:'Weinquickie',           price:'€45', tickets:6  }],
+    '2026-7-15': [{ type:'public',    icon:'🌐', time:'10:30am', name:'Hamburg Harbour Tour',  price:'€20', tickets:8  }],
+    '2026-7-16': [{ type:'request',   icon:'⏰', time:'2:00pm',  name:'Weinwandertag',          price:'€35', tickets:4  }],
+    '2026-7-17': [{ type:'public',    icon:'🌐', time:'11:00am', name:'Berlin Art Walk',       price:'€30', tickets:10 }],
+    '2026-7-20': [{ type:'available', icon:'🌐', time:'10:00am', name:'Cologne Cathedral',     price:'€22', tickets:0  }],
+    '2026-7-21': [{ type:'public',    icon:'🌐', time:'11:30am', name:'Auf und ab Tour',       price:'€25', tickets:9  }],
+    '2026-7-22': [{ type:'private',   icon:'🔒', time:'1:30pm',  name:'Weinquickie',           price:'€45', tickets:7  }],
+    '2026-7-23': [{ type:'public',    icon:'🌐', time:'10:30am', name:'Frankfurt Cruise',      price:'€40', tickets:14 }],
+    '2026-7-24': [{ type:'available', icon:'🌐', time:'11:00am', name:'Munich Beer Garden',    price:'€35', tickets:0  }],
+    '2026-7-27': [{ type:'public',    icon:'🌐', time:'10:00am', name:'Auf und ab Tour',       price:'€25', tickets:11 }],
+    '2026-7-28': [{ type:'public',    icon:'🌐', time:'11:30am', name:'Hamburg Harbour Tour',  price:'€20', tickets:6  },
+                  { type:'available', icon:'🌐', time:'3:00pm',  name:'Stuttgart City Walk',   price:'€18', tickets:0  }],
+    '2026-7-29': [{ type:'private',   icon:'🔒', time:'2:00pm',  name:'Weinquickie',           price:'€45', tickets:8  }],
+    '2026-7-30': [{ type:'public',    icon:'🌐', time:'10:30am', name:'Berlin Art Walk',       price:'€30', tickets:12 }],
+    '2026-7-31': [{ type:'request',   icon:'⏰', time:'11:00am', name:'Weinwandertag',          price:'€35', tickets:5  }],
+  };
+  Object.keys(extraDates).forEach(function(k) {
+    if (!dayEvents[k]) dayEvents[k] = { shown: extraDates[k], hidden: [] };
+  });
+
+  // ── Calendar state ──
+  var now = new Date();
+  var viewYear  = now.getFullYear();
+  var viewMonth = now.getMonth();
+
+  function getMonthName(m) {
+    return ['January','February','March','April','May','June',
+            'July','August','September','October','November','December'][m];
+  }
+  function getDayName(d) {
+    return ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][d];
+  }
+
+  function getMonday(date) {
+    var d = new Date(date);
+    var day = d.getDay();
+    var diff = (day === 0) ? -6 : 1 - day;
+    d.setDate(d.getDate() + diff);
+    return d;
+  }
+
+  function renderCalendar() {
+    document.getElementById('calMonthTitle').textContent =
+      getMonthName(viewMonth) + ' ' + viewYear;
+
+    var grid = document.getElementById('calGrid');
+    grid.innerHTML = '';
+
+    var firstDay  = new Date(viewYear, viewMonth, 1);
+    var startDate = getMonday(firstDay);
+    var todayDate = new Date();
+    todayDate.setHours(0,0,0,0);
+
+    for (var i = 0; i < 42; i++) {
+      var cellDate = new Date(startDate);
+      cellDate.setDate(startDate.getDate() + i);
+
+      var isCurrentMonth = (cellDate.getMonth() === viewMonth && cellDate.getFullYear() === viewYear);
+      var isToday = cellDate.getTime() === todayDate.getTime();
+
+      var cell = document.createElement('div');
+      cell.className = 'cal-cell' + (isCurrentMonth ? '' : ' other-month') + (isToday ? ' is-today' : '');
+
+      var dayNumEl = document.createElement('div');
+      dayNumEl.className = 'day-num' + (isCurrentMonth ? ' current-month' : '') + (isToday ? ' today-num' : '');
+      dayNumEl.textContent = cellDate.getDate();
+      cell.appendChild(dayNumEl);
+
+      var key = cellDate.getFullYear() + '-' + (cellDate.getMonth()+1) + '-' + cellDate.getDate();
+      var day = dayEvents[key];
+      if (day) {
+        var list = document.createElement('div');
+        list.className = 'ev-list';
+
+        day.shown.forEach(function(ev) {
+          if (ev.type === 'holiday') {
+            var tag = document.createElement('div');
+            tag.className = 'ev-tag holiday';
+            tag.innerHTML = '<span class="ev-text">' + ev.name + '</span>';
+            list.appendChild(tag);
+            return;
+          }
+          var tag = document.createElement('div');
+          tag.className = 'ev-tag ' + ev.type;
+          tag.dataset.ev = JSON.stringify(ev);
+          tag.dataset.dateKey = key;
+          tag.innerHTML = '<span class="ev-icon">' + ev.icon + '</span>' +
+                          '<span class="ev-text">' + (ev.time ? ev.time + ' ' : '') + ev.name + '</span>';
+          list.appendChild(tag);
+        });
+
+        if (day.hidden.length > 0) {
+          var more = document.createElement('div');
+          more.className = 'ev-more';
+          more.textContent = '+' + day.hidden.length + ' more';
+          more.dataset.dateKey = key;
+          more.dataset.isMore = '1';
+          list.appendChild(more);
+        }
+
+        // seeall trigger for large hidden sets
+        if (day.hidden.length >= 10) {
+          var see = document.createElement('div');
+          see.className = 'ev-more';
+          see.textContent = '+ see all';
+          see.dataset.dateKey = key;
+          see.dataset.isMore = '1';
+          list.appendChild(see);
+        }
+
+        cell.appendChild(list);
+      }
+
+      grid.appendChild(cell);
+    }
+  }
+
+  // ── Tooltip ──
+  var tooltip = document.getElementById('calTooltip');
+  var tooltipTimer;
+
+  document.addEventListener('mouseover', function(e) {
+    var tag = e.target.closest('.ev-tag[data-ev]');
+    if (!tag) { hideTooltip(); return; }
+    clearTimeout(tooltipTimer);
+    var ev = JSON.parse(tag.dataset.ev);
+    if (ev.type === 'request') {
+      tooltip.innerHTML = '<div class="cal-tt-hint">⏰ Opens date request page</div>';
+    } else {
+      tooltip.innerHTML =
+        (ev.time ? '<div class="cal-tt-time">' + ev.time + '</div>' : '') +
+        '<div class="cal-tt-name">' + ev.name + '</div>';
+    }
+    positionTooltip(e);
+    tooltip.classList.add('visible');
+  });
+
+  document.addEventListener('mousemove', function(e) {
+    if (tooltip.classList.contains('visible')) positionTooltip(e);
+  });
+
+  document.addEventListener('mouseout', function(e) {
+    if (!e.target.closest('.ev-tag[data-ev]')) return;
+    tooltipTimer = setTimeout(hideTooltip, 120);
+  });
+
+  function hideTooltip() { tooltip.classList.remove('visible'); }
+
+  function positionTooltip(e) {
+    var x = e.clientX + 14, y = e.clientY - 8;
+    if (x + 220 > window.innerWidth) x = e.clientX - 224;
+    tooltip.style.left = x + 'px';
+    tooltip.style.top  = y + 'px';
+  }
+
+  // ── Modal ──
+  var modalOverlay = document.getElementById('calModalOverlay');
+  var modalBadge   = document.getElementById('modalBadge');
+  var modalTitle   = document.getElementById('modalTitle');
+  var modalBody    = document.getElementById('modalBody');
+
+  function openModal(title, badgeText, badgeType, bodyHTML) {
+    modalTitle.textContent = title;
+    modalBadge.textContent = badgeText;
+    modalBadge.className   = 'modal-type-badge ' + badgeType;
+    modalBody.innerHTML    = bodyHTML;
+    modalOverlay.classList.add('open');
+  }
+
+  function closeModal() { modalOverlay.classList.remove('open'); }
+
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  modalOverlay.addEventListener('click', function(e) {
+    if (e.target === modalOverlay) closeModal();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  function dateLabel(key) {
+    var parts = key.split('-');
+    var d = new Date(+parts[0], +parts[1]-1, +parts[2]);
+    return getDayName(d.getDay()) + ', ' + getMonthName(d.getMonth()) + ' ' + d.getDate() + ', ' + d.getFullYear();
+  }
+
+  function singleEventBody(ev, key) {
+    var parts = key.split('-');
+    var d = new Date(+parts[0], +parts[1]-1, +parts[2]);
+    var isAvailable = ev.type === 'available';
+    var ticketsHtml = isAvailable
+      ? '<div class="modal-row"><span class="modal-row-label">Tickets</span><span class="modal-row-value dim">No bookings yet</span></div>'
+      : (ev.tickets ? '<div class="modal-row"><span class="modal-row-label">Tickets</span><span class="modal-row-value">' + ev.tickets + ' sold</span></div>' : '');
+    return '<div class="modal-date-row">' +
+             '<div class="modal-date-box">' +
+               '<div class="modal-date-day">' + d.getDate() + '</div>' +
+               '<div class="modal-date-mon">' + getMonthName(d.getMonth()).slice(0,3).toUpperCase() + '</div>' +
+             '</div>' +
+             '<div class="modal-date-info">' +
+               '<strong>' + getDayName(d.getDay()) + '</strong><br>' +
+               getMonthName(d.getMonth()) + ' ' + d.getDate() + ', ' + d.getFullYear() +
+             '</div>' +
+           '</div>' +
+           '<div class="modal-divider"></div>' +
+           (ev.time ? '<div class="modal-row"><span class="modal-row-label">Time</span><span class="modal-row-value">' + ev.time + '</span></div>' : '') +
+           '<div class="modal-row"><span class="modal-row-label">Event</span><span class="modal-row-value">' + ev.name + '</span></div>' +
+           (ev.price ? '<div class="modal-row"><span class="modal-row-label">Price</span><span class="modal-row-value">' + ev.price + ' / person</span></div>' : '') +
+           ticketsHtml +
+           '<button class="modal-go-btn" onclick="alert(\'Going to order…\')">Go to order</button>';
+  }
+
+  function listBody(allEvs, key) {
+    return allEvs.map(function(ev) {
+      var isAvail = ev.type === 'available';
+      var metaHtml = '<div class="modal-list-meta">' +
+        (ev.price ? '<div class="modal-list-price">' + ev.price + '</div>' : '') +
+        (isAvail
+          ? '<div class="modal-list-avail">No bookings</div>'
+          : (ev.tickets ? '<div class="modal-list-tickets">' + ev.tickets + ' tickets</div>' : '')) +
+        '</div>';
+      return '<div class="modal-list-item">' +
+               '<div class="modal-list-dot"></div>' +
+               '<div class="modal-list-main">' +
+                 '<div class="modal-list-name">' + ev.name + '</div>' +
+                 (ev.time ? '<div class="modal-list-time">' + ev.time + '</div>' : '') +
+               '</div>' +
+               metaHtml +
+             '</div>';
+    }).join('');
+  }
+
+  // Click on ev-tag
+  document.addEventListener('click', function(e) {
+    // date request — no modal, tooltip only
+    var tag = e.target.closest('.ev-tag[data-ev]');
+    if (tag) {
+      hideTooltip();
+      var ev = JSON.parse(tag.dataset.ev);
+      if (ev.type === 'request') return; // tooltip only
+      var key = tag.dataset.dateKey;
+      var typeLabel = { public: 'Public Date', private: 'Private Date', aggregate: 'Aggregate', holiday: 'Holiday', available: 'Live · Not booked' };
+      openModal(ev.name, typeLabel[ev.type] || ev.type, 'list', singleEventBody(ev, key));
+      return;
+    }
+
+    // +N more / see all
+    var more = e.target.closest('.ev-more[data-date-key]');
+    if (more) {
+      hideTooltip();
+      var key = more.dataset.dateKey;
+      var day = dayEvents[key];
+      if (!day) return;
+      var allEvs = day.shown.concat(day.hidden).filter(function(ev){ return ev.type !== 'holiday'; });
+      openModal(
+        dateLabel(key),
+        allEvs.length + ' Events',
+        'list',
+        listBody(allEvs, key)
+      );
+    }
+  });
+
+  // Navigation
+  document.getElementById('calPrev').addEventListener('click', function() {
+    viewMonth--;
+    if (viewMonth < 0) { viewMonth = 11; viewYear--; }
+    renderCalendar();
+  });
+  document.getElementById('calNext').addEventListener('click', function() {
+    viewMonth++;
+    if (viewMonth > 11) { viewMonth = 0; viewYear++; }
+    renderCalendar();
+  });
+  document.getElementById('calTodayBtn').addEventListener('click', function() {
+    var n = new Date();
+    viewYear = n.getFullYear();
+    viewMonth = n.getMonth();
+    renderCalendar();
+  });
+
+  // ── Active view ──
+  var activeView = 'month'; // 'month' | 'week' | 'day'
+  var viewWeekStart = getMonday(new Date()); // start of current week for week view
+  var viewDayDate   = new Date();            // current day for day view
+  viewWeekStart.setHours(0,0,0,0);
+  viewDayDate.setHours(0,0,0,0);
+
+  var HOURS_START = 7, HOURS_END = 23, HOUR_H = 60;
+
+  function parseTime(t) {
+    if (!t) return null;
+    var m = t.match(/^(\d+):(\d+)(am|pm)?$/i);
+    if (!m) return null;
+    var h = parseInt(m[1]), min = parseInt(m[2]);
+    var suf = (m[3] || '').toLowerCase();
+    if (suf === 'pm' && h !== 12) h += 12;
+    if (suf === 'am' && h === 12) h = 0;
+    return { h: h, m: min };
+  }
+
+  function buildTimeSidebar(containerId) {
+    var col = document.getElementById(containerId);
+    col.innerHTML = '';
+    for (var h = HOURS_START; h <= HOURS_END; h++) {
+      var label = document.createElement('div');
+      label.className = 'wk-time-label';
+      label.textContent = h === 0 ? '12am' : h < 12 ? h + 'am' : h === 12 ? '12pm' : (h-12) + 'pm';
+      col.appendChild(label);
+    }
+  }
+
+  function buildHourRows(col) {
+    for (var h = HOURS_START; h <= HOURS_END; h++) {
+      var row = document.createElement('div');
+      row.className = 'wk-hour-row';
+      col.appendChild(row);
+    }
+  }
+
+  function addNowLine(col, referenceDate) {
+    var n = new Date();
+    if (n.toDateString() !== referenceDate.toDateString()) return;
+    var topPx = (n.getHours() - HOURS_START) * HOUR_H + (n.getMinutes() / 60) * HOUR_H;
+    if (topPx < 0) return;
+    var line = document.createElement('div');
+    line.className = 'now-line';
+    line.style.top = topPx + 'px';
+    var dot = document.createElement('div');
+    dot.className = 'now-dot';
+    line.appendChild(dot);
+    col.appendChild(line);
+  }
+
+  function addEventsToCol(col, dateKey) {
+    var day = dayEvents[dateKey];
+    if (!day) return;
+    var allEvs = day.shown.concat(day.hidden);
+    allEvs.forEach(function(ev) {
+      if (ev.type === 'holiday' || !ev.time) return;
+      var t = parseTime(ev.time);
+      if (!t) return;
+      var topPx = (t.h - HOURS_START) * HOUR_H + (t.m / 60) * HOUR_H;
+      if (topPx < 0 || topPx > (HOURS_END - HOURS_START + 1) * HOUR_H) return;
+      var block = document.createElement('div');
+      block.className = 'ev-block ' + ev.type;
+      block.style.top    = topPx + 'px';
+      block.style.height = HOUR_H - 4 + 'px';
+      block.innerHTML = '<div class="ev-block-time">' + ev.time + '</div>' +
+                        '<div class="ev-block-name">' + ev.name + '</div>';
+      block.dataset.ev      = JSON.stringify(ev);
+      block.dataset.dateKey = dateKey;
+      col.appendChild(block);
+    });
+  }
+
+  // ── Week view ──
+  function renderWeek() {
+    var todayDate = new Date(); todayDate.setHours(0,0,0,0);
+
+    // Header
+    var headRow = document.getElementById('weekHeadRow');
+    headRow.innerHTML = '<div class="wk-head-corner"></div>';
+    for (var i = 0; i < 7; i++) {
+      var d = new Date(viewWeekStart);
+      d.setDate(d.getDate() + i);
+      var isToday = d.getTime() === todayDate.getTime();
+      var cell = document.createElement('div');
+      cell.className = 'wk-head-cell' + (isToday ? ' is-today' : '');
+      var dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+      cell.innerHTML = '<div class="wk-head-day-name">' + dayNames[d.getDay()] + '</div>' +
+                       '<div class="wk-head-date-num' + (isToday ? ' is-today' : '') + '">' + d.getDate() + '</div>';
+      headRow.appendChild(cell);
+    }
+
+    // Title
+    var endDate = new Date(viewWeekStart); endDate.setDate(endDate.getDate() + 6);
+    var title = getMonthName(viewWeekStart.getMonth());
+    if (viewWeekStart.getMonth() !== endDate.getMonth()) title += ' – ' + getMonthName(endDate.getMonth());
+    title += ' ' + viewWeekStart.getFullYear();
+    document.getElementById('calMonthTitle').textContent = title;
+
+    // Time sidebar
+    buildTimeSidebar('weekTimeCol');
+
+    // Day columns
+    var daysContainer = document.getElementById('weekDays');
+    daysContainer.innerHTML = '';
+    for (var j = 0; j < 7; j++) {
+      var d2 = new Date(viewWeekStart); d2.setDate(d2.getDate() + j);
+      var col = document.createElement('div');
+      col.className = 'wk-day-col';
+      buildHourRows(col);
+      var key = d2.getFullYear() + '-' + (d2.getMonth()+1) + '-' + d2.getDate();
+      addEventsToCol(col, key);
+      addNowLine(col, d2);
+      daysContainer.appendChild(col);
+    }
+
+    // scroll to 8am
+    document.getElementById('weekBody').scrollTop = HOUR_H;
+  }
+
+  // ── Day view ──
+  function renderDay() {
+    var todayDate = new Date(); todayDate.setHours(0,0,0,0);
+    var isToday = viewDayDate.getTime() === todayDate.getTime();
+    var dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+    // Header
+    var headRow = document.getElementById('dayHeadRow');
+    headRow.innerHTML = '<div class="wk-head-corner"></div>';
+    var cell = document.createElement('div');
+    cell.className = 'wk-head-cell' + (isToday ? ' is-today' : '');
+    cell.innerHTML = '<div class="wk-head-day-name">' + dayNames[viewDayDate.getDay()] + '</div>' +
+                     '<div class="wk-head-date-num' + (isToday ? ' is-today' : '') + '">' + viewDayDate.getDate() + '</div>';
+    headRow.appendChild(cell);
+
+    // Title
+    document.getElementById('calMonthTitle').textContent =
+      dayNames[viewDayDate.getDay()] + ', ' + getMonthName(viewDayDate.getMonth()) + ' ' + viewDayDate.getDate() + ', ' + viewDayDate.getFullYear();
+
+    // Time sidebar
+    buildTimeSidebar('dayTimeCol');
+
+    // Day column
+    var dayCol = document.getElementById('dayDays');
+    dayCol.innerHTML = '';
+    var col = document.createElement('div');
+    col.className = 'wk-day-col';
+    buildHourRows(col);
+    var key = viewDayDate.getFullYear() + '-' + (viewDayDate.getMonth()+1) + '-' + viewDayDate.getDate();
+    addEventsToCol(col, key);
+    addNowLine(col, viewDayDate);
+    dayCol.appendChild(col);
+
+    document.getElementById('dayBody').scrollTop = HOUR_H;
+  }
+
+  // ── View tabs ──
+  var tabEls = document.querySelectorAll('.view-tab');
+  var viewIds = { 'Month': 'viewMonth', 'Week': 'viewWeek', 'Day': 'viewDay' };
+
+  tabEls.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      tabEls.forEach(function(t){ t.classList.remove('active'); });
+      tab.classList.add('active');
+      activeView = tab.textContent.toLowerCase();
+      document.querySelectorAll('.view-pane').forEach(function(p){ p.classList.remove('active'); });
+      document.getElementById(viewIds[tab.textContent]).classList.add('active');
+      if (activeView === 'week') renderWeek();
+      else if (activeView === 'day')  renderDay();
+      else renderCalendar();
+    });
+  });
+
+  // ── Nav arrows: context-aware ──
+  function navigatePrev() {
+    if (activeView === 'month') {
+      viewMonth--; if (viewMonth < 0) { viewMonth = 11; viewYear--; } renderCalendar();
+    } else if (activeView === 'week') {
+      viewWeekStart.setDate(viewWeekStart.getDate() - 7); renderWeek();
+    } else {
+      viewDayDate.setDate(viewDayDate.getDate() - 1); renderDay();
+    }
+  }
+  function navigateNext() {
+    if (activeView === 'month') {
+      viewMonth++; if (viewMonth > 11) { viewMonth = 0; viewYear++; } renderCalendar();
+    } else if (activeView === 'week') {
+      viewWeekStart.setDate(viewWeekStart.getDate() + 7); renderWeek();
+    } else {
+      viewDayDate.setDate(viewDayDate.getDate() + 1); renderDay();
+    }
+  }
+  function navigateToday() {
+    var n = new Date();
+    viewYear = n.getFullYear(); viewMonth = n.getMonth();
+    viewWeekStart = getMonday(new Date()); viewWeekStart.setHours(0,0,0,0);
+    viewDayDate = new Date(); viewDayDate.setHours(0,0,0,0);
+    if (activeView === 'month') renderCalendar();
+    else if (activeView === 'week') renderWeek();
+    else renderDay();
+  }
+
+  document.getElementById('calPrev').addEventListener('click', navigatePrev);
+  document.getElementById('calNext').addEventListener('click', navigateNext);
+  document.getElementById('calTodayBtn').addEventListener('click', navigateToday);
+
+  // Click on week/day event blocks → same modal
+  document.addEventListener('click', function(e) {
+    var block = e.target.closest('.ev-block[data-ev]');
+    if (!block) return;
+    hideTooltip();
+    var ev = JSON.parse(block.dataset.ev);
+    if (ev.type === 'request') return;
+    var key = block.dataset.dateKey;
+    var typeLabel = { public: 'Public Date', private: 'Private Date', aggregate: 'Aggregate' };
+    openModal(ev.name, typeLabel[ev.type] || ev.type, ev.type, singleEventBody(ev, key));
+  });
+
+  // Hover tooltip on week/day blocks
+  document.addEventListener('mouseover', function(e) {
+    var block = e.target.closest('.ev-block[data-ev]');
+    if (!block) return;
+    clearTimeout(tooltipTimer);
+    var ev = JSON.parse(block.dataset.ev);
+    if (ev.type === 'request') {
+      tooltip.innerHTML = '<div class="cal-tt-hint">⏰ Opens date request page</div>';
+    } else {
+      tooltip.innerHTML =
+        (ev.time ? '<div class="cal-tt-time">' + ev.time + '</div>' : '') +
+        '<div class="cal-tt-name">' + ev.name + '</div>';
+    }
+    positionTooltip(e);
+    tooltip.classList.add('visible');
+  });
+
+  renderCalendar();
+</script>
+
+<!-- Mobile gate -->
+<div class="mobile-gate" id="mobileGate">
+  <button class="mobile-gate-back" onclick="history.back()">← Go back</button>
+  <div class="mobile-gate-card">
+    <div class="mobile-gate-title">This one needs a bigger screen!</div>
+    <div class="mobile-gate-sub">This prototype was designed for desktop — the kind with a keyboard and a proper cup of coffee. Grab your laptop and come back. It's worth it.</div>
+    <button class="mobile-copy-btn" id="mobileCopyBtn">Copy page link</button>
+  </div>
+</div>
+<script>
+  document.getElementById('mobileCopyBtn').addEventListener('click', function() {
+    var btn = this;
+    navigator.clipboard.writeText(window.location.href).then(function() {
+      btn.textContent = '✓ Link copied!';
+      btn.classList.add('copied');
+      setTimeout(function() {
+        btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="4" y="4" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M2 9.5V2.5A.5.5 0 0 1 2.5 2h7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg> Copy page link';
+        btn.classList.remove('copied');
+      }, 2500);
+    });
+  });
+</script>
+
+</body>
+</html>
