@@ -253,6 +253,12 @@
 }
 
 @media (max-width: 479px) {
+  /* Webflow collapses section_home-header to height:1% at this breakpoint — restore it */
+  .section_home-header {
+    height: auto !important;
+    min-height: auto !important;
+  }
+
   /* Slider height */
   .bas-wrapper {
     height: 260px;
