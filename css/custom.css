@@ -22,6 +22,11 @@
   margin-right: auto;
 }
 
+/* Navbar logo — Webflow offsets it -0.5rem upward; reset to align with links */
+.navbar_logo-wrap {
+  top: 0;
+}
+
 /* Home page navbar — Webflow marks the logo link w--current on the home page,
    which triggers a min-width:1280px rule that gives it flex:1, causing the logo
    to grow and steal space from the three nav-link groups. Pin it to natural width. */
