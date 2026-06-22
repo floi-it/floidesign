@@ -1,5 +1,10 @@
 /* Floi custom overrides — loaded after webflow CSS */
 
+/* Navbar: same top padding at every breakpoint, mobile included */
+.waves---nav-container {
+  padding-top: 14px !important;
+}
+
 /* Navbar (desktop/tablet): logo far left, links right-aligned, vertically centered */
 @media (min-width: 768px) {
   .waves---nav-container {
