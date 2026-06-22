@@ -22,12 +22,31 @@
   margin-right: auto;
 }
 
-/* Navbar link containers stretch full height but links sit at top by default —
-   make them flex so links are vertically centered with the logo */
+/* Navbar: logo left, links right-aligned with 80px gap, vertically centered */
+.waves---nav-container {
+  justify-content: flex-end;
+  align-items: center;
+  gap: 80px;
+}
+
+.navbar_logo-wrap {
+  margin-right: auto;
+  top: 0;
+}
+
 .container-9 {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  flex: 0 0 auto;
+  padding: 0;
+}
+
+/* Mobile menu wrapper is empty on desktop — remove its space */
+@media (min-width: 992px) {
+  .waves-right-nav-1 {
+    display: none;
+  }
 }
 
 /* Home page navbar — Webflow marks the logo link w--current on the home page,
