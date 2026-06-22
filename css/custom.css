@@ -22,9 +22,12 @@
   margin-right: auto;
 }
 
-/* Navbar logo — Webflow offsets it -0.5rem upward; reset to align with links */
-.navbar_logo-wrap {
-  top: 0;
+/* Navbar link containers stretch full height but links sit at top by default —
+   make them flex so links are vertically centered with the logo */
+.container-9 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 /* Home page navbar — Webflow marks the logo link w--current on the home page,
