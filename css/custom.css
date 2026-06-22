@@ -22,14 +22,18 @@
   margin-right: auto;
 }
 
-/* Navbar: logo left, links right-aligned with 80px gap, vertically centered */
+/* Navbar: logo far left, links on the right with 40px between each */
 .waves---nav-container {
-  justify-content: flex-end;
-  align-items: center;
-  gap: 80px;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  gap: 40px;
 }
 
+/* Logo anchors to the left; auto margin pushes all links to the right */
 .navbar_logo-wrap {
+  flex: 0 0 auto;
   margin-right: auto;
   top: 0;
 }
@@ -38,14 +42,15 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  flex: 0 0 auto;
-  padding: 0;
+  flex: 0 0 auto !important;
+  padding: 0 !important;
+  align-self: center !important;
 }
 
-/* Mobile menu wrapper is empty on desktop — remove its space */
+/* Hide the mobile menu wrapper on desktop so it takes no space */
 @media (min-width: 992px) {
   .waves-right-nav-1 {
-    display: none;
+    display: none !important;
   }
 }
 
@@ -350,7 +355,7 @@
   /* Konfetti — "Text reviews" & "A positive fourth iteration" tab grids:
      3-col grid at desktop, Webflow leaves it 2-col at 479px — force single column */
   .div-block {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: 0.5fr !important;
     grid-auto-flow: row !important;
   }
 
