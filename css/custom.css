@@ -319,4 +319,39 @@
     font-size: 14px;
     margin-left: 0 !important;
   }
+
+  /* Konfetti — "Text reviews" & "A positive fourth iteration" tab grids:
+     3-col grid at desktop, Webflow leaves it 2-col at 479px — force single column */
+  .div-block {
+    grid-template-columns: 1fr !important;
+    grid-auto-flow: row !important;
+  }
+
+  /* "A positive fourth iteration" body text has a fixed 40rem width — uncap it */
+  .we-removed-the-profile-image-requirement-we-streamlined-the-upload-process-and-segmented-it-to-each {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* "Numbers that speak" — horizontal 600px flex row overflows on mobile;
+     stack it vertically with auto height */
+  .frame-589-2 {
+    flex-direction: column !important;
+    height: auto !important;
+    min-height: auto !important;
+    padding: 32px 20px !important;
+    align-items: flex-start !important;
+  }
+
+  .frame-558-4 {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    padding-bottom: 24px !important;
+  }
+
+  .container-18 {
+    flex-flow: column !important;
+    width: 100% !important;
+  }
 }
