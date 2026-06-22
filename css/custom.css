@@ -1,5 +1,37 @@
 /* Floi custom overrides — loaded after webflow CSS */
 
+/* Navbar (desktop/tablet): logo far left, links right-aligned, vertically centered */
+@media (min-width: 768px) {
+  .waves---nav-container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    gap: 32px;
+  }
+
+  .navbar_logo-wrap {
+    flex: 0 0 auto;
+    margin-right: auto;
+    top: 0;
+  }
+
+  .container-9 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 0 0 auto !important;
+    padding: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    align-self: center !important;
+  }
+
+  .waves-right-nav-1 {
+    display: none !important;
+  }
+}
+
 /* "Keep scrolling" — fixed-size text that doesn't reflow under the title */
 .scroll-note_text {
   top: auto;
