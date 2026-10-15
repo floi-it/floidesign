@@ -37,10 +37,29 @@ html{overflow-x:hidden} /* safety net: decorative absolutely-positioned stickers
 @media (prefers-reduced-motion: reduce){.logo-wiggle:hover img,.logo-wiggle:focus-visible img{animation:none}}
 
 /* Nav */
-.nav{font-family:'Host Grotesk',sans-serif;display:flex;justify-content:space-between;align-items:center;padding:20px 40px;gap:16px;flex-wrap:wrap;background:var(--bg)}
+.nav{font-family:'Host Grotesk',sans-serif;display:flex;justify-content:space-between;align-items:center;padding:20px 40px;gap:16px;background:var(--bg)}
 .nav a{text-decoration:none;margin-left:20px;color:var(--ink)}
 .nav a:first-child{margin-left:0;font-weight:600}
 .nav .active{font-weight:700;font-size:18px;border-bottom:2px solid var(--ink);padding-bottom:2px}
+.nav-links{display:flex;align-items:center;flex-wrap:wrap}
+
+/* Hamburger button: hidden on desktop, shown once the links no longer fit in one row.
+   z-index:1000 keeps it (and its X state) above the full-page menu panel below, which itself
+   sits above everything else on the page (stickers z-index:5, hover-follow 50, WIP chip 60). */
+.nav-toggle{display:none;flex-direction:column;justify-content:center;gap:5px;width:28px;height:22px;background:none;border:none;padding:0;cursor:pointer;flex-shrink:0;position:relative;z-index:1000}
+.nav-toggle span{display:block;width:100%;height:2px;background:var(--ink);border-radius:2px;transition:transform .2s,opacity .2s}
+.nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+.nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+@media (max-width:700px){
+  .nav{position:relative}
+  .nav-toggle{display:flex}
+  .nav-links{display:none;position:fixed;inset:0;z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:var(--bg)}
+  .nav-links.open{display:flex}
+  .nav-links a{margin-left:0;padding:14px 0;font-size:24px}
+  .nav .active{font-size:26px}
+}
 
 /* Footer */
 footer.site-footer{font-family:'Host Grotesk',sans-serif;color:var(--ink);background:var(--bg);padding-top:var(--space-section);padding-bottom:clamp(32px,6vw,48px)}
@@ -102,7 +121,7 @@ footer.site-footer .row{display:flex;justify-content:space-between;flex-wrap:wra
 .redesign .i-secret:hover .psst,.redesign .i-secret:focus-visible .psst{opacity:1}
 
 /* Floating shapes */
-.redesign .shape-field{position:absolute;inset:0;pointer-events:none;overflow:visible;user-select:none}
+.redesign .shape-field{position:absolute;inset:0;z-index:5;pointer-events:none;overflow:visible;user-select:none}
 .redesign .float-shape{position:absolute;pointer-events:auto;cursor:grab;touch-action:none}
 .redesign .float-shape:active{cursor:grabbing}
 .redesign .float-shape:focus-visible{outline:2px solid var(--indigo);outline-offset:3px}
@@ -148,5 +167,11 @@ footer.site-footer .row{display:flex;justify-content:space-between;flex-wrap:wra
 /* Selected work covers: zoom on hover, like the live site's work-list images */
 .redesign .cover-wrap{overflow:hidden;border-radius:24px}
 .redesign .cover-wrap img{transition:transform .5s cubic-bezier(.25,.8,.25,1);transform:scale(1);display:block}
-.redesign a:hover .cover-wrap img{transform:scale(1.06)}
-@media (prefers-reduced-motion: reduce){.redesign .cover-wrap img{transition:none}.redesign a:hover .cover-wrap img{transform:none}}
+/* Mouse/trackpad: zoom on hover. Scoped to real hover so touch doesn't need a first "activate hover"
+   tap before the second tap actually follows the link — that's what made cards feel like they needed
+   two presses. Touch instead gets .in-view, toggled by scroll position (see the JS below). */
+@media (hover:hover) and (pointer:fine){
+  .redesign a:hover .cover-wrap img{transform:scale(1.06)}
+}
+.redesign .cover-wrap img.in-view{transform:scale(1.06)}
+@media (prefers-reduced-motion: reduce){.redesign .cover-wrap img{transition:none;transform:none!important}}

@@ -13,7 +13,10 @@
 
 <nav class="nav" aria-label="Main">
   <a href="index.html" class="logo-wiggle"><img src="images/logo_1logo.png" alt="Francesca Loi" style="height:32px;width:auto;display:block"></a>
-  <div style="display:flex;align-items:center;flex-wrap:wrap">
+  <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="nav-links">
     <a href="#work" class="active">Work</a>
     <a href="about.html">About</a>
     <a href="https://floidesignart.gumroad.com/l/b6-2026-montly" target="_blank" rel="noopener">Shop</a>
@@ -93,16 +96,16 @@
       <span class="mono">Websites</span><span class="row-name">Bikefinder</span><span class="mono">2022</span>
     </a>
     <a href="https://nomi-floit.lovable.app/" target="_blank" rel="noopener" class="sp-row hover-follow-trigger" data-photo="NOMI" data-img="images/nomi-thumbnail.png">
-      <span class="mono">Websites</span><span class="row-name">Dystopian NOMI ↗</span><span class="mono">2017–18</span>
+      <span class="mono">Websites</span><span class="row-name">Dystopian NOMI ↗︎</span><span class="mono">2017–18</span>
     </a>
     <a href="detail_fun.html" class="sp-row hover-follow-trigger" data-photo="Momo" data-img="images/web/momo-thumbnail.jpg">
       <span class="mono">Photography</span><span class="row-name">Momo — fashion photography at AADK Spain</span><span class="mono">2022–23</span>
     </a>
     <a href="https://www.behance.net/gallery/96757599/N-DING" target="_blank" rel="noopener" class="sp-row hover-follow-trigger" data-photo="Gianfranco" data-img="images/web/Giancarlo-lo-sgabello.jpg">
-      <span class="mono">Industrial products</span><span class="row-name">Gianfranco lo sgabello ↗</span><span class="mono">2018</span>
+      <span class="mono">Industrial products</span><span class="row-name">Gianfranco lo sgabello ↗︎</span><span class="mono">2018</span>
     </a>
     <a href="https://www.behance.net/gallery/97219489/HUM" target="_blank" rel="noopener" class="sp-row hover-follow-trigger" data-photo="Hum" data-img="images/web/hum-cuffie-thumbnail.jpg">
-      <span class="mono">Industrial products</span><span class="row-name">Hum cuffie ↗</span><span class="mono">2018</span>
+      <span class="mono">Industrial products</span><span class="row-name">Hum cuffie ↗︎</span><span class="mono">2018</span>
     </a>
     <div class="row-list-end"></div>
   </div>
@@ -136,6 +139,32 @@
   "use strict";
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var palette = ['#A5CCF3','#CF5F3A','#273C2C','#D4D0F1','#880666'];
+
+  /* ---- Mobile nav: hamburger toggle ---- */
+  (function(){
+    var btn = document.querySelector('.nav-toggle');
+    var menu = document.getElementById('nav-links');
+    if (!btn || !menu) return;
+    function close(){
+      menu.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+      btn.setAttribute('aria-label', 'Open menu');
+      document.body.style.overflow = '';
+    }
+    function open(){
+      menu.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+      btn.setAttribute('aria-label', 'Close menu');
+      document.body.style.overflow = 'hidden'; // menu is full-page now, so lock background scroll
+    }
+    btn.addEventListener('click', function(){
+      menu.classList.contains('open') ? close() : open();
+    });
+    menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', close); });
+    document.addEventListener('click', function(e){
+      if (menu.classList.contains('open') && !menu.contains(e.target) && e.target !== btn && !btn.contains(e.target)) close();
+    });
+  })();
 
   /* ---- Shared letter-scramble effect: mostly letters, few symbols, cycling through the palette ---- */
   var SCRAMBLE_SYMBOLS = '#%&*+=?~';
@@ -456,6 +485,22 @@
       el.textContent = el.dataset.final;
     }
     el.closest('h2').addEventListener('mouseenter', scramble);
+  })();
+
+  /* ---- Selected work covers: zoom in as each scrolls into view (the touch/no-hover equivalent
+       of the hover-zoom above — also what made cards work correctly with a single tap) ---- */
+  (function(){
+    if (reduced) return;
+    var covers = document.querySelectorAll('.cover-wrap img');
+    if (!covers.length) return;
+    if ('IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          entry.target.classList.toggle('in-view', entry.isIntersecting);
+        });
+      }, {threshold:0.35});
+      covers.forEach(function(img){ io.observe(img); });
+    }
   })();
 
   /* ---- Nav "On the side": plain text at rest, scrambles in on hover/focus ---- */
