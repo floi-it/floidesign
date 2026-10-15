@@ -1,0 +1,152 @@
+/* Redesign 2026 — shared tokens, nav, footer. Used by pages rebuilt from portfolio-wireframes-2. */
+
+:root{
+  /* Darkened, same-hue versions of the brand colors, used wherever they sit as static text on --bg —
+     checked against --bg for WCAG AAA (7:1). Full-brightness originals stay in the JS `palette` array
+     for animated/decorative use (floating shapes, scramble glyphs), which isn't static text. */
+  --teal:#135291; --coral:#863A21; --olive:#273C2C; --ochre:#4A39C1; --indigo:#880666;
+  --teal-tint:#E7F2FC; --coral-tint:#FBE6DD; --olive-tint:#E1E6E2; --ochre-tint:#F0EEFA; --indigo-tint:#F3DFF0;
+  --bg:#F4F4F2; --ink:#141413;
+  /* One fluid vertical rhythm for all sections, instead of a fixed 96px repeated everywhere —
+     shrinks gracefully down to phone widths instead of jumping at a breakpoint. */
+  --space-section: clamp(48px, 9vw, 96px);
+}
+
+html{overflow-x:hidden} /* safety net: decorative absolutely-positioned stickers must never force a horizontal scrollbar */
+.redesign{font-family:'Host Grotesk',sans-serif;background:var(--bg);color:var(--ink);margin:0;overflow-x:hidden}
+.redesign .hand{font-family:'Nothing You Could Do',cursive}
+.redesign a{color:var(--ink)}
+.redesign .c-teal{color:var(--teal)} .redesign .c-coral{color:var(--coral)} .redesign .c-olive{color:var(--olive)} .redesign .c-ochre{color:var(--ochre)} .redesign .c-indigo{color:var(--indigo)}
+.redesign .ph{border:1.5px dashed #9A9A9A;background:#E7E7E3;display:flex;align-items:center;justify-content:center;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#4A4A4A;padding:8px;box-sizing:border-box}
+
+@media (prefers-reduced-motion: reduce){
+  .redesign *{animation:none!important;transition:none!important}
+}
+
+/* Site chrome (nav, footer, shared tokens): deliberately NOT scoped under .redesign — this same
+   nav/footer markup is dropped into old (not-yet-redesigned) pages too, whose <body> keeps its
+   original Webflow classes so the rest of that page's look is untouched. */
+.mono{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:#4A4A4A}
+.scramble{display:inline-block}
+.box{max-width:1200px;margin:0 auto;padding:0 40px;box-sizing:border-box}
+
+/* Nav logo: wiggle on hover */
+@keyframes logoWiggle{0%,100%{transform:rotate(0)}20%{transform:rotate(-8deg)}40%{transform:rotate(7deg)}60%{transform:rotate(-5deg)}80%{transform:rotate(3deg)}}
+.logo-wiggle img{transform-origin:50% 100%}
+.logo-wiggle:hover img,.logo-wiggle:focus-visible img{animation:logoWiggle .5s ease}
+@media (prefers-reduced-motion: reduce){.logo-wiggle:hover img,.logo-wiggle:focus-visible img{animation:none}}
+
+/* Nav */
+.nav{font-family:'Host Grotesk',sans-serif;display:flex;justify-content:space-between;align-items:center;padding:20px 40px;gap:16px;flex-wrap:wrap;background:var(--bg)}
+.nav a{text-decoration:none;margin-left:20px;color:var(--ink)}
+.nav a:first-child{margin-left:0;font-weight:600}
+.nav .active{font-weight:700;font-size:18px;border-bottom:2px solid var(--ink);padding-bottom:2px}
+
+/* Footer */
+footer.site-footer{font-family:'Host Grotesk',sans-serif;color:var(--ink);background:var(--bg);padding-top:var(--space-section);padding-bottom:clamp(32px,6vw,48px)}
+footer.site-footer a{color:var(--ink)}
+footer.site-footer .talk{font-size:clamp(36px,7vw,96px);font-weight:500;line-height:1;letter-spacing:-.03em}
+footer.site-footer .row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-top:32px;padding-top:16px;border-top:1px solid #BDBDBD}
+
+/* Section rhythm + shared titles */
+.redesign section.section{padding-top:var(--space-section)}
+.redesign .section-title{font-size:clamp(26px,4.5vw,40px);font-weight:500;margin:0 0 24px;letter-spacing:-.02em}
+
+/* Selected work */
+.redesign .work-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,40px) 32px}
+.redesign .work-card{text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:10px}
+.redesign .work-title{font-size:clamp(17px,2.4vw,24px);font-weight:500;line-height:1.3}
+
+/* Side Projects heading */
+.redesign .sp-heading{display:flex;gap:clamp(16px,5vw,48px);align-items:center}
+.redesign .sp-plus{font-size:clamp(36px,8vw,80px);font-weight:500;flex-shrink:0}
+.redesign .sp-h2{font-size:clamp(34px,9vw,112px);font-weight:700;letter-spacing:-.03em;line-height:.9;margin:0}
+
+/* Side-project / experience rows: one shared grid, collapses to a stack on phones */
+.redesign .row-list{margin-top:clamp(24px,4vw,40px)}
+.redesign .row-list-end{border-top:1px solid var(--ink)}
+.redesign .sp-row{text-decoration:none;color:inherit;display:grid;grid-template-columns:clamp(110px,22vw,200px) 1fr auto;gap:clamp(10px,2.5vw,24px);align-items:baseline;padding:14px 0;border-top:1px solid var(--ink)}
+.redesign .row-name{font-size:clamp(16px,2.6vw,22px)}
+
+.redesign .exp-section{padding-bottom:40px;position:relative}
+.redesign .exp-row{text-decoration:none;color:inherit;display:grid;grid-template-columns:1.4fr 2fr auto;gap:clamp(10px,2.5vw,16px);align-items:baseline;padding:16px 0;border-top:1px solid #BDBDBD}
+.redesign .exp-row .row-name{font-weight:500}
+.redesign .exp-date{text-align:right}
+.redesign .exp-section > .row-list-end{border-top:1px solid #BDBDBD}
+
+@media (max-width:700px){
+  .box,.nav{padding-left:16px;padding-right:16px}
+  .redesign .g2{grid-template-columns:1fr!important}
+  .redesign .work-grid{grid-template-columns:1fr}
+}
+
+/* Phones: stack the label/name/date rows instead of forcing three columns into a narrow screen */
+@media (max-width:560px){
+  .redesign .sp-row,.redesign .exp-row{grid-template-columns:1fr;row-gap:4px}
+  .redesign .sp-row > :first-child,.redesign .exp-row > :first-child{order:2}
+  .redesign .sp-row > :nth-child(2),.redesign .exp-row > :nth-child(2){order:1}
+  .redesign .sp-row > :last-child,.redesign .exp-row > :last-child{order:3;text-align:left}
+  footer.site-footer .row{flex-direction:column;align-items:flex-start;gap:12px}
+}
+
+/* Wordmark letters and intro words: nudged by the stickers that hit them (see the shape loop in index.html) */
+.redesign .wm{display:inline-block}
+
+/* Wordmark "o": a centered dot, like a slashed/dotted zero */
+.redesign .wm-o-dot{position:relative}
+.redesign .wm-o-dot::after{content:'';position:absolute;left:50%;top:52%;width:.1em;height:.1em;background:currentColor;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none}
+
+/* Easter egg: "psst…" reveal on the dot of the i */
+.redesign .i-secret{position:relative}
+.redesign .i-secret .psst{position:absolute;left:60%;top:-10px;font-size:22px;letter-spacing:0;font-weight:400;white-space:nowrap;transform:rotate(-8deg);opacity:0;transition:opacity .2s;pointer-events:none}
+.redesign .i-secret:hover .psst,.redesign .i-secret:focus-visible .psst{opacity:1}
+
+/* Floating shapes */
+.redesign .shape-field{position:absolute;inset:0;pointer-events:none;overflow:visible;user-select:none}
+.redesign .float-shape{position:absolute;pointer-events:auto;cursor:grab;touch-action:none}
+.redesign .float-shape:active{cursor:grabbing}
+.redesign .float-shape:focus-visible{outline:2px solid var(--indigo);outline-offset:3px}
+.redesign .shape-field.static .float-shape{cursor:default}
+
+/* Stickers sit in place from the start and each pops in with its own bouncy wiggle (staggered via
+   animation-delay set in JS), instead of all falling in together */
+@keyframes stickerPop{
+  0%{transform:scale(.5) rotate(-14deg);opacity:0}
+  45%{transform:scale(1.14) rotate(9deg);opacity:1}
+  65%{transform:scale(.93) rotate(-5deg)}
+  82%{transform:scale(1.05) rotate(3deg)}
+  100%{transform:scale(1) rotate(0)}
+}
+.redesign .sticker-pop{animation:stickerPop .7s cubic-bezier(.3,.6,.35,1) both}
+@media (prefers-reduced-motion: reduce){.redesign .sticker-pop{animation:none}}
+
+/* 3D placeholder tilt */
+.redesign .tilt-box{transition:transform .15s ease-out;transform-style:preserve-3d}
+
+/* Disabled side-project rows: no destination yet, so no hover/pointer affordance */
+.redesign .sp-disabled{color:#B5B5B2;cursor:default}
+.redesign .sp-disabled .mono{color:#C8C8C5}
+
+/* Shared hover-follow image, used by Experience rows and Side project rows */
+.redesign .hover-follow{position:fixed;width:160px;height:110px;z-index:50;transition:opacity .15s;opacity:0;border-radius:12px;overflow:hidden;pointer-events:none}
+.redesign .hover-follow.show{opacity:1}
+.redesign .hover-follow img{width:100%;height:100%;object-fit:cover;border-radius:12px;display:block}
+.redesign .hover-follow.ph{border-radius:12px}
+
+/* "In progress" chip: sticky bottom-left, rainbow background. A dark scrim sits between the
+   gradient and the text so contrast holds regardless of which hue is behind the letters. */
+.redesign .wip-chip{
+  position:fixed;left:16px;bottom:16px;z-index:60;
+  font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;
+  color:#fff;padding:8px 14px;border-radius:999px;
+  background:linear-gradient(90deg,#880666,#CF5F3A,#D4D0F1,#A5CCF3,#880666);
+  background-size:300% 100%;
+  box-shadow:0 4px 14px rgba(0,0,0,.18), inset 0 0 0 999px rgba(0,0,0,.3);
+}
+@media (max-width:560px){.redesign .wip-chip{left:12px;bottom:12px;font-size:10px;padding:7px 12px}}
+
+/* Selected work covers: zoom on hover, like the live site's work-list images */
+.redesign .cover-wrap{overflow:hidden;border-radius:24px}
+.redesign .cover-wrap img{transition:transform .5s cubic-bezier(.25,.8,.25,1);transform:scale(1);display:block}
+.redesign a:hover .cover-wrap img{transform:scale(1.06)}
+@media (prefers-reduced-motion: reduce){.redesign .cover-wrap img{transition:none}.redesign a:hover .cover-wrap img{transform:none}}
