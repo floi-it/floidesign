@@ -8,6 +8,9 @@
   <link href="css/webflow.css" rel="stylesheet" type="text/css">
   <link href="css/marvelous-site-05045cc22831c.webflow.css" rel="stylesheet" type="text/css">
   <link href="css/custom.css" rel="stylesheet" type="text/css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="css/redesign.css" rel="stylesheet" type="text/css">
   <link href="images/logo_1logo.png" rel="icon" type="image/png" media="(prefers-color-scheme: light)">
   <link href="images/logo-white.png" rel="icon" type="image/png" media="(prefers-color-scheme: dark)">
   <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -194,52 +197,25 @@
         person_profiles: 'identified_only',
     })
   </script>
+<style>
+/* Nav sits on the hero's own background instead of a separate grey band. */
+.nav{background:#ffffff}  /* match .b2b-hero so there is no band */
+</style>
 </head>
 <body>
 
-  <nav class="navbar">
-    <div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="waves-navbar-1 w-nav">
-      <div class="waves---nav-container w-container">
-        <a href="index.html" class="navbar_logo-wrap w-inline-block"><img loading="lazy" src="images/logo_1logo.png" alt="" class="navbar_logo"></a>
-        <div class="w-layout-blockcontainer container-9 w-container">
-          <a href="works.html#UX" class="navbar_link w-inline-block">
-            <div class="navbar_link-text _1">Case Studies</div>
-            <div class="navbar_link-text _2">Case Studies</div>
-          </a>
-        </div>
-        <div class="w-layout-blockcontainer container-9 w-container">
-          <a href="https://floidesignart.gumroad.com/l/b6-2026-montly" target="_blank" class="navbar_link w-inline-block">
-            <div class="navbar_link-text _1">Shop</div>
-            <div class="navbar_link-text _2">Shop</div>
-          </a>
-        </div>
-        <div class="w-layout-blockcontainer container-9 w-container">
-          <a href="about.html" class="navbar_link w-inline-block">
-            <div class="navbar_link-text _1">About floi</div>
-            <div class="navbar_link-text _2">About floi</div>
-          </a>
-        </div>
-        <div class="waves-right-nav-1">
-          <nav role="navigation" class="waves---nav-menu w-nav-menu">
-            <a href="index.html" class="waves---nav-link w-nav-link">Home</a>
-            <a href="about.html" class="waves---nav-link w-nav-link">About</a>
-            <a href="works.html" class="waves---nav-link w-nav-link">Works</a>
-            <a href="CV-Francesca-Loi-2025-2.pdf" download class="waves---nav-link w-nav-link">CV</a>
-            <a href="mailto:francesca@floi.it?subject=.Hello!" class="waves---nav-link w-nav-link">Contact</a>
-          </nav>
-          <div class="waves---nav-buttons-right">
-            <div class="waves---menu-button w-nav-button">
-              <a href="#" class="navbar_link w-inline-block">
-                <div class="navbar_link-text _1">Menu</div>
-                <div class="navbar_link-text _2">Menu</div>
-              </a>
-              <div class="waves---hamburger-icon w-icon-nav-menu"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </nav>
+  <nav class="nav" aria-label="Main">
+  <a href="index.html" class="logo-wiggle"><img src="images/logo_1logo.png" alt="Francesca Loi" style="height:32px;width:auto;display:block"></a>
+  <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="nav-links">
+    <a href="works.html" class="active">Work</a>
+    <a href="about.html">About</a>
+    <a href="https://floidesignart.gumroad.com/l/b6-2026-montly" target="_blank" rel="noopener">Shop</a>
+    <a href="index.html#side-projects">On the side</a>
+  </div>
+</nav>
 
   <section class="b2b-hero">
     <div class="b2b-hero-inner">
@@ -270,5 +246,29 @@
   </section>
 
   <script src="js/webflow.js" type="text/javascript"></script>
+<footer class="box site-footer">
+  <div class="talk">Let's talk.</div>
+  <div class="row">
+    <a href="mailto:francesca@floi.it">francesca@floi.it</a>
+    <span class="mono">Cagliari, Sardinia &middot; You can find me where the sun is</span>
+    <span><a href="https://www.linkedin.com/in/floi-it/" target="_blank" rel="noopener">LinkedIn</a> &middot; <a href="CV-Francesca-Loi-2025-2.pdf" download>CV 2026</a></span>
+  </div>
+</footer>
+
+<script>
+/* Shared site chrome: mobile nav toggle (same behaviour as the redesigned pages) */
+(function(){
+  var btn = document.querySelector('.nav-toggle');
+  var menu = document.getElementById('nav-links');
+  if (!btn || !menu) return;
+  function close(){ menu.classList.remove('open'); btn.setAttribute('aria-expanded','false'); btn.setAttribute('aria-label','Open menu'); document.body.style.overflow=''; }
+  function open(){ menu.classList.add('open'); btn.setAttribute('aria-expanded','true'); btn.setAttribute('aria-label','Close menu'); document.body.style.overflow='hidden'; }
+  btn.addEventListener('click', function(){ menu.classList.contains('open') ? close() : open(); });
+  menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', close); });
+  document.addEventListener('click', function(e){
+    if (menu.classList.contains('open') && !menu.contains(e.target) && e.target!==btn && !btn.contains(e.target)) close();
+  });
+})();
+</script>
 </body>
 </html>

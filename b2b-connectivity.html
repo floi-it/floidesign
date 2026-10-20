@@ -182,7 +182,7 @@
     .dd-trigger:hover { border-color: rgba(255,255,255,0.12); }
     .dd-trigger.open  { border-color: rgba(255,255,255,0.18); }
     .dd-trigger span { font-size: 12px; color: rgba(255,255,255,0.7); overflow: hidden; white-space: nowrap; max-width: 135px; }
-    .dd-trigger img { width: 12px; height: auto; flex-shrink: 0; opacity: 0.5; transition: transform 0.15s; }
+    .dd-trigger img { width: 12px; height: 12px; flex-shrink: 0; opacity: 0.5; transition: transform 0.15s; }
     .dd-trigger.open img { transform: rotate(180deg); }
 
     .dd-menu {
@@ -238,7 +238,7 @@
     }
     .page-btn.active { background: #10aaaa; color: #032e32; border-color: rgba(0,0,0,0.1); opacity: 0.8; font-weight: 500; }
     .page-btn:hover:not(.active) { background: #1e1f22; color: #d0d0d0; }
-    .page-btn img { width: 14px; height: auto; opacity: 0.6; }
+    .page-btn img { width: 9px; height: 14px; opacity: 0.6; }
     .page-dots { color: #a4a4a4; font-size: 14px; padding: 0 4px; line-height: 36px; }
 
     /* ── Map connectivity panel ── */
@@ -311,7 +311,7 @@
       padding: 0 10px; cursor: pointer;
     }
     .panel-dd-trigger span { font-size: 12px; color: rgba(255,255,255,0.55); overflow: hidden; white-space: nowrap; }
-    .panel-dd-trigger img { width: 12px; height: auto; opacity: 0.5; transition: transform 0.15s; }
+    .panel-dd-trigger img { width: 12px; height: 12px; opacity: 0.5; transition: transform 0.15s; }
     .panel-dd-trigger.open img { transform: rotate(180deg); }
     .panel-dd-trigger.open { border-color: rgba(255,255,255,0.25); }
 
@@ -379,8 +379,26 @@
         person_profiles: 'identified_only',
     })
   </script>
+<style>
+/* Site-level notice above the product demo. The demo shell is height:100vh with
+   overflow hidden, so the body becomes a flex column: the banner takes its own
+   height (it may wrap on narrow screens) and the app fills whatever is left. */
+body{display:flex;flex-direction:column}
+.dashboard{height:auto;flex:1 1 auto;min-height:0}
+.demo-banner{flex:0 0 auto;background:#F4F4F2;color:#141413;font-size:13.5px;line-height:1.45;
+  display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;padding:10px 20px;
+  border-bottom:1px solid #D6D3CA}
+.demo-banner b{font-weight:700}
+.demo-banner .dot{width:8px;height:8px;border-radius:50%;background:#863A21;flex:none}
+@media (max-width:700px){.demo-banner{padding:10px 16px;font-size:12.5px}}
+</style>
 </head>
 <body>
+<div class="demo-banner" role="note">
+  <span class="dot" aria-hidden="true"></span>
+  <span><b>Interactive demo.</b> A simplified prototype of a much more complex product &mdash; the full case study is still being written.</span>
+</div>
+
 
 <div class="dashboard">
 
