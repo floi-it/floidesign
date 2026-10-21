@@ -75,8 +75,13 @@ footer.site-footer .row{display:flex;justify-content:space-between;flex-wrap:wra
 .redesign .section-title{font-size:clamp(26px,4.5vw,40px);font-weight:500;margin:0 0 24px;letter-spacing:-.02em}
 
 /* Selected work */
-.redesign .work-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,40px) 32px}
+/* Bento layout: 5 columns, 1st and 4th card span three, the others two, so rows go wide|narrow then narrow|wide (3:2) */
+.redesign .work-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(24px,5vw,40px) 16px}
+.redesign .work-card{grid-column:span 2}
+.redesign .work-card:nth-child(1),.redesign .work-card:nth-child(4){grid-column:span 3}
 .redesign .work-card{text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:10px}
+.redesign .work-card .cover-wrap{height:clamp(220px,32vw,420px)}
+.redesign .work-card .cover-wrap img{width:100%;height:100%;object-fit:cover}
 .redesign .work-title{font-size:clamp(17px,2.4vw,24px);font-weight:500;line-height:1.3}
 
 /* Side Projects heading */
@@ -100,6 +105,8 @@ footer.site-footer .row{display:flex;justify-content:space-between;flex-wrap:wra
   .box,.nav{padding-left:16px;padding-right:16px}
   .redesign .g2{grid-template-columns:1fr!important}
   .redesign .work-grid{grid-template-columns:1fr}
+  .redesign .work-card:nth-child(n){grid-column:auto}
+  .redesign .work-card .cover-wrap{height:auto;aspect-ratio:4/3}
 }
 
 /* Phones: stack the label/name/date rows instead of forcing three columns into a narrow screen */
@@ -113,10 +120,33 @@ footer.site-footer .row{display:flex;justify-content:space-between;flex-wrap:wra
 
 /* Wordmark letters and intro words: nudged by the stickers that hit them (see the shape loop in index.html) */
 .redesign .wm{display:inline-block}
+/* Homepage hero, after dnbls / Dan Billson: the header fills the first screen; "Francesca [image] Loi" sits on
+   one line in the middle, spanning the column; the intro sits bottom-left and a ↓ bottom-right.
+   7.45em = the name's width (7.30em measured, incl. the image box) plus the cursive i's overhang, so 100cqw / 7.45 fills the column. The load-in
+   scramble only uses glyphs no wider than each final letter (narrowGlyphs in index.html), so it never grows. */
+#home-header{container-type:inline-size;--wm-fill:1;display:flex;flex-direction:column;min-height:calc(100svh - 80px);box-sizing:border-box}
+/* safety net only: never let the wordmark cause a horizontal scroll; clips sideways, never vertically */
+#home-wordmark{overflow-x:clip;overflow-y:visible}
+/* the i sits at the right edge of the column, so its "psst…" easter egg opens to the left */
+#home-wordmark .i-secret .psst{left:auto;right:70%}
+#home-wordmark{font-size:calc(100cqw / 7.45 * var(--wm-fill));letter-spacing:-.04em;line-height:.85;margin:auto 0;position:relative;white-space:nowrap}
+.redesign .wm-plain{font-family:'Host Grotesk',sans-serif;font-weight:600;color:var(--ink);text-align:center;transition:color .2s}
+/* the picture between name and surname (photos a/b/c, swapped by index.html), cap-height tall, on the baseline; grey while loading */
+.redesign .wm-photo{width:1.3em;height:.7em;margin:0 .07em;background:#D6D6D2 center/cover no-repeat;vertical-align:baseline;cursor:pointer}
+.hero-row{flex:1;display:flex;flex-direction:column;gap:clamp(24px,4vw,48px)}
+.hero-bio{display:flex;align-items:flex-end;gap:clamp(12px,1.5vw,20px);max-width:720px}
+.hero-down{position:absolute;right:40px;bottom:clamp(20px,3vw,40px);font-size:20px;text-decoration:none;color:var(--ink)}
+@media (max-width:700px){
+  #home-header{min-height:calc(85svh - 64px)}
+  .hero-down{right:16px}
+}
+
+.hero-bio-slot{width:clamp(64px,8vw,108px);height:clamp(64px,8vw,108px);object-fit:contain;flex-shrink:0;rotate:-4deg} /* `rotate`, not transform, so the stickerPop entrance doesn't cancel the tilt */
+#home-intro{font-family:'Space Mono',monospace;font-size:clamp(18px,2.1vw,28px);font-weight:400;line-height:1.3;letter-spacing:-.03em;max-width:34ch;margin:0;position:relative}
 
 /* Wordmark "o": a centered dot, like a slashed/dotted zero */
 .redesign .wm-o-dot{position:relative}
-.redesign .wm-o-dot::after{content:'';position:absolute;left:50%;top:52%;width:.1em;height:.1em;background:currentColor;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none}
+.redesign .wm-o-dot::after{content:'';position:absolute;left:50%;top:52%;width:.1em;height:.1em;background:currentColor;border-radius:50%;transform:translate(calc(-50% + var(--px,0px)),calc(-50% + var(--py,0px)));pointer-events:none} /* --px/--py: the dot looks toward the mouse (index.html) */
 
 /* Easter egg: "psst…" reveal on the dot of the i */
 .redesign .i-secret{position:relative}
@@ -154,6 +184,8 @@ footer.site-footer .row{display:flex;justify-content:space-between;flex-wrap:wra
 .redesign .hover-follow.show{opacity:1}
 .redesign .hover-follow img{width:100%;height:100%;object-fit:cover;border-radius:12px;display:block}
 .redesign .hover-follow.ph{border-radius:12px}
+.redesign .hover-follow.logo{background:#232323;padding:18px;box-sizing:border-box;box-shadow:0 6px 20px rgba(0,0,0,.1)}
+.redesign .hover-follow.logo img{object-fit:contain;border-radius:0}
 
 /* "In progress" chip: sticky bottom-left, rainbow background. A dark scrim sits between the
    gradient and the text so contrast holds regardless of which hue is behind the letters. */

@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Francesca Loi, product designer working on trust, booking and health, from Sardinia.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&family=Nothing+You+Could+Do&family=IBM+Plex+Mono:wght@400;500&family=Bodoni+Moda:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&family=Nothing+You+Could+Do&family=IBM+Plex+Mono:wght@400;500&family=Bodoni+Moda:ital,wght@0,400..800;1,400..800&family=Anton&family=Archivo+Black&family=Space+Mono:wght@400;700&family=Big+Shoulders+Display:wght@900&display=swap" rel="stylesheet">
 <link href="css/redesign.css" rel="stylesheet">
 </head>
 <body class="redesign home">
@@ -24,17 +24,25 @@
   </div>
 </nav>
 
-<header class="box" id="home-header" style="padding-top:clamp(40px,10vw,80px);padding-bottom:clamp(32px,8vw,64px);text-align:center;position:relative;overflow:visible;-webkit-user-select:none;user-select:none">
+<header class="box" id="home-header" style="padding-top:clamp(24px,4vw,48px);padding-bottom:clamp(20px,3vw,40px);text-align:left;position:relative;overflow-x:clip;overflow-y:visible;-webkit-user-select:none;user-select:none">
   <div class="shape-field" aria-hidden="false"></div>
   <!-- the dot of the "i" is the easter egg: hover/focus reveals "psst…", links to Side Projects until a dedicated "other works" page exists -->
-  <!-- mixed-type logotype: F in a Bodoni-style serif, l sans-serif, o monospace, i cursive — each in its color from the floi logo -->
-  <h1 id="home-wordmark" style="font-size:clamp(64px,12vw,186px);letter-spacing:-.02em;line-height:.85;margin:0;position:relative">
-    <span class="wm" style="font-family:'Bodoni Moda',serif;font-weight:800;color:#880666"><span class="scramble" data-final="f"></span></span><span class="wm" style="font-family:'Host Grotesk',sans-serif;font-weight:800;color:#CF5F3A;font-size:.62em;margin-left:.06em;vertical-align:bottom"><span class="scramble" data-final="l"></span></span><span class="wm wm-o-dot" style="font-family:'IBM Plex Mono',monospace;font-weight:500;color:#D4D0F1"><span class="scramble" data-final="o"></span></span><a href="#side-projects" class="i-secret" aria-label="Secret: other work" style="text-decoration:none;color:#A5CCF3"><span class="wm" style="font-family:'Nothing You Could Do',cursive"><span class="scramble" data-final="i"></span></span><span class="hand c-coral psst" aria-hidden="true">psst…</span></a>
+  <!-- header after dnbls / Dan Billson: "Francesca [image] Loi" on one line in the middle of the first screen, intro bottom-left, ↓ bottom-right.
+       F and L-o-i are the animated floi logotype letters (F Bodoni Moda serif, L Archivo Black, o IBM Plex Mono, i Nothing You Could Do cursive (as on the live site), each in its floi colour); "rancesca" is plain ink -->
+  <div class="hero-row">
+  <h1 id="home-wordmark" aria-label="Francesca Loi">
+    <span class="wm" style="font-family:'Bodoni Moda',serif;font-weight:800;color:#880666"><span class="scramble" data-final="F"></span></span><span class="wm wm-plain" aria-hidden="true">r</span><span class="wm wm-plain" aria-hidden="true">a</span><span class="wm wm-plain" aria-hidden="true">n</span><span class="wm wm-plain" aria-hidden="true">c</span><span class="wm wm-plain" aria-hidden="true">e</span><span class="wm wm-plain" aria-hidden="true">s</span><span class="wm wm-plain" aria-hidden="true">c</span><span class="wm wm-plain" aria-hidden="true">a</span><span class="wm wm-photo" aria-hidden="true" style="background-image:url(images/web/header-a.webp)"></span><span class="wm" style="font-family:'Archivo Black',sans-serif;font-weight:400;color:#CF5F3A"><span class="scramble" data-final="L"></span></span><span class="wm wm-o-dot" style="font-family:'IBM Plex Mono',monospace;font-weight:500;color:#D4D0F1"><span class="scramble" data-final="o"></span></span><a href="#side-projects" class="i-secret" aria-label="Secret: other work" style="text-decoration:none;color:#A5CCF3"><span class="wm" style="font-family:'Nothing You Could Do',cursive"><span class="scramble" data-final="i"></span></span><span class="hand c-coral psst" aria-hidden="true">psst…</span></a>
   </h1>
   <!-- TODO: sticker peel-on-hover "now: ingredients app"; swap once Ingredients app has a URL -->
-  <p id="home-intro" style="font-size:clamp(26px,3.4vw,44px);font-weight:400;line-height:1.25;letter-spacing:-.01em;max-width:900px;margin:48px auto 0;position:relative">
-    Made with <span class="c-teal">humans</span> in mind, tailored for <span class="c-indigo">business</span>.
-  </p>
+  <!-- intro, bottom-left and aligned with the name's left edge (as on dnbls); the hola sticker follows the text -->
+  <div class="hero-bio">
+    <p id="home-intro">
+      Made with <span class="c-teal">humans</span> in mind, tailored for <span class="c-indigo">business</span>, through UX, product design, research and branding.
+    </p>
+    <img class="hero-bio-slot sticker-pop" src="images/web/spanish_sticker.png" alt="" style="animation-delay:.4s">
+  </div>
+  </div>
+  <a href="#work" class="hero-down" aria-label="Scroll to selected work">↓</a>
 </header>
 
 <!-- Paused until there's a 3D asset to pair with the "connect" line — re-enable by uncommenting
@@ -55,22 +63,22 @@
   <h2 class="section-title">Selected work</h2>
   <div class="work-grid">
     <a href="details_kon.html" class="work-card">
-      <div class="cover-wrap"><img src="images/web/konfetti-thumbnail.jpg" alt="" style="aspect-ratio:4/3;object-fit:cover;width:100%"></div>
+      <div class="cover-wrap"><img src="images/web/konfetti-thumbnail.jpg" alt=""></div>
       <div class="mono">konfetti · 2023–24</div>
       <div class="work-title">Trust without reviews</div>
     </a>
     <a href="b2b-dashboard.html" class="work-card">
-      <div class="cover-wrap"><img src="images/web/macbook-b2b.jpg" alt="" style="aspect-ratio:4/3;object-fit:cover;width:100%"></div>
+      <div class="cover-wrap"><img src="images/web/macbook-b2b.jpg" alt=""></div>
       <div class="mono">konfetti · 2024–25</div>
       <div class="work-title">SaaS dashboard</div>
     </a>
     <a href="detail_tatdoc.html" class="work-card">
-      <div class="cover-wrap"><img src="images/web/tatdocs-thumbnail.jpg" alt="" style="aspect-ratio:4/3;object-fit:cover;width:100%"></div>
+      <div class="cover-wrap"><img src="images/web/tatdocs-thumbnail.jpg" alt=""></div>
       <div class="mono">TatDocs · 2020</div>
       <div class="work-title">From first sketch to launch, in a regulated market</div>
     </a>
     <a href="detail_bisu.html" class="work-card">
-      <div class="cover-wrap"><img src="images/web/bisu-thumbnail.jpg" alt="" style="aspect-ratio:4/3;object-fit:cover;width:100%"></div>
+      <div class="cover-wrap"><img src="images/web/bisu-thumbnail.jpg" alt=""></div>
       <div class="mono">Bisu · extra · 2019</div>
       <div class="work-title">What happens to the objects nobody inherits?</div>
     </a>
@@ -86,7 +94,7 @@
     <div class="sp-row sp-disabled">
       <span class="mono">Apps</span><span class="row-name">Ingredients app</span><span class="mono">2026 · coming soon</span>
     </div>
-    <div class="sp-row sp-disabled">
+    <div class="sp-row sp-disabled hover-follow-trigger" data-photo="TrueVeil" data-img="images/trueveil-logo.svg" data-fit="logo">
       <span class="mono">Brand identity</span><span class="row-name">TrueVeil</span><span class="mono">2026</span>
     </div>
     <a href="#" class="sp-row hover-follow-trigger" data-photo="Somerset Pacific" data-img="images/web/Somerset-thumbnail.jpg">
@@ -178,6 +186,7 @@
     var cols = opts.colors || palette;
     var totalFrames = opts.totalFrames || 8;
     var interval = opts.interval || 65;
+    var pick = opts.glyphs ? function(){ return opts.glyphs[Math.floor(Math.random()*opts.glyphs.length)]; } : randomGlyph;
     var final = el.dataset.final;
     var running = false;
     return function scramble(){
@@ -194,7 +203,7 @@
           if (i < revealCount){
             html += final[i];
           } else {
-            html += '<span style="color:' + cols[(i+frame) % cols.length] + '">' + randomGlyph() + '</span>';
+            html += '<span style="color:' + cols[(i+frame) % cols.length] + '">' + pick() + '</span>';
           }
         }
         el.innerHTML = html;
@@ -210,14 +219,29 @@
     if (!field || !header) return;
     if (reduced) field.classList.add('static');
 
-    /* decorative stickers, scattered around the wordmark; they fall in on load, are draggable,
-       and knock the "floi" letters around when they hit them */
+    /* the field covers the whole page, so stickers can be scattered across every section and thrown
+       anywhere. Each sticker is first laid out inside its anchor section (d.in, default the header) so
+       its left/top stay relative to that section, then moved into this page-wide field on first frame. */
+    document.body.appendChild(field);
+    field.style.cssText = 'top:0;left:0;right:auto;bottom:auto;width:100%';
+    function sizeField(){ field.style.height = '0px'; field.style.height = document.documentElement.scrollHeight + 'px'; }
+    sizeField();
+    window.addEventListener('resize', sizeField);
+    window.addEventListener('load', sizeField);
+
+    /* decorative stickers, scattered around the page; they pop in on load, are draggable/throwable
+       anywhere on the page, and knock the "floi" letters around when they hit them.
+       `in` = the section a sticker is positioned in (left = % of that section's width, top = px from its top) */
     var defs = [
-      {label:'“hola” speech bubble sticker', w:182, h:136, left:'0%', top:'60px', rotate:5, img:'images/web/spanish_sticker.png'},
-      {label:'bird sticker', w:112, h:112, left:'7%', top:'330px', rotate:-7, img:'images/web/bird_sticker.png'},
-      {label:'camera sticker', w:194, h:152, left:'76%', top:'20px', rotate:9, img:'images/web/camera_sticker.png'},
-      {label:'coffee sticker', w:98, h:98, left:'88%', top:'240px', rotate:-5, img:'images/web/coffee_sticker.png'},
-      {label:'sunflower sticker', w:128, h:128, left:'79%', top:'400px', rotate:-12, img:'images/web/sunflower_sticker.png'}
+      {label:'fluffy bird sticker', in:'.exp-section', w:66, h:92, left:'84%', top:'20px', rotate:-6, phone:false, img:'images/web/soggetto-6.webp'},
+      {label:'Olympus film camera sticker', in:'#work', w:112, h:92, left:'86%', top:'600px', rotate:-7, phone:false, img:'images/web/soggetto-16.webp'},
+      {label:'cat sticker', meow:true, in:'#work', w:60, h:81, left:'44%', top:'615px', rotate:-4, phone:false, img:'images/web/soggetto-11.webp'},
+      {label:'daisy sticker', w:84, h:84, left:'90%', top:'425px', phoneLeft:'72%', phoneTop:'40px', rotate:12, img:'images/web/soggetto-10.webp'},
+      {label:'blue stone sticker', in:'#side-projects', w:52, h:40, left:'58%', top:'330px', rotate:4, phone:false, img:'images/web/soggetto-13.webp'},
+      {label:'fountain pen sticker', vivid:true, in:'#side-projects', w:20, h:170, left:'80%', top:'40px', rotate:28, phone:false, img:'images/web/soggetto-3.webp'},
+      {label:'gold filigree ring sticker', in:'.exp-section', w:68, h:50, left:'34%', top:'100px', rotate:-8, phone:false, img:'images/web/soggetto-14.webp'},
+      {label:'leather notebook sticker', vivid:true, in:'footer.site-footer', w:80, h:103, left:'82%', top:'40px', rotate:-9, phone:false, img:'images/web/soggetto-1.webp'},
+      {label:'cappuccino sticker', tone:'saturate(1.05) brightness(1.12) contrast(1.05)', w:112, h:120, left:'42.5%', top:'-12px', phoneLeft:'8%', phoneTop:'330px', rotate:10, img:'images/web/soggetto-15.webp'}
     ];
     var shapes = [];
 
@@ -228,13 +252,16 @@
     var TOP_SCALE = isNarrow ? 0.5 : 1;
 
     defs.forEach(function(d){
+      if (isNarrow && d.phone === false) return; // ten stickers crowd a phone header; show a subset
+      var anchor = (d.in && document.querySelector(d.in)) || header;
+      if (getComputedStyle(anchor).position === 'static') anchor.style.position = 'relative';
       var w = Math.round(d.w * SIZE_SCALE), h = Math.round(d.h * SIZE_SCALE);
       var left = d.left, top = d.top;
       if (isNarrow){
         // squeeze the full 0–100% spread into 4–62% so the right-hand stickers keep their
         // relative positions instead of all piling up against the same clamp
-        left = (4 + parseFloat(d.left) * 0.58) + '%';
-        top = (parseFloat(d.top) * TOP_SCALE) + 'px';
+        left = d.phoneLeft || (4 + parseFloat(d.left) * 0.58) + '%';
+        top = d.phoneTop || (parseFloat(d.top) * TOP_SCALE) + 'px';
       }
       var el = document.createElement('div');
       el.className = 'float-shape';
@@ -247,31 +274,39 @@
       img.src = d.img;
       img.alt = '';
       img.className = 'sticker-pop';
-      img.style.cssText = 'width:100%;height:100%;object-fit:contain;pointer-events:none;filter:drop-shadow(0 6px 10px rgba(0,0,0,.15))';
+      // warm tone on every sticker; `vivid` ones (photographed a bit dull) also get extra brightness/colour;
+      // `tone` overrides both (the coffee cup: brighter but no sepia, which turned its white cup yellow)
+      var tone = d.tone ? d.tone : d.vivid ? 'sepia(.12) saturate(1.35) brightness(1.18) contrast(1.06)' : 'sepia(.16) saturate(1.08) brightness(1.02)';
+      img.style.cssText = 'width:100%;height:100%;object-fit:contain;pointer-events:none;filter:' + tone + ' drop-shadow(0 6px 10px rgba(0,0,0,.15))';
       if (!reduced) img.style.animationDelay = (Math.random() * 900) + 'ms';
       el.appendChild(img);
       el.setAttribute('tabindex','0');
       el.setAttribute('role','img');
       el.setAttribute('aria-label', d.label + (reduced ? '' : ', draggable, or focus and use arrow keys to move'));
-      field.appendChild(el);
+      anchor.appendChild(el);
       shapes.push({
-        el: el, r: Math.max(w, h)/2, w: w, h: h, rotate: d.rotate,
+        el: el, r: Math.max(w, h)/2, w: w, h: h, rotate: d.rotate, meow: !!d.meow,
         x: 0, y: 0, vx: 0, vy: 0,
         dragging: false, landed: true
       });
     });
 
-    function placeOnce(shape){
-      // resolve the CSS left/top position to px once, on first layout pass — stickers sit at their
-      // spot from the start; the pop-in wiggle (see .sticker-pop) handles the entrance, not this
-      if (shape._placed) return;
+    /* A sticker at rest stays inside its anchor section, so it follows the layout (fonts loading,
+       resizes). syncFromDom reads its page position; detach moves it into the page-wide field the
+       first time it's grabbed, thrown or hit, and from then on the physics owns its position. */
+    function syncFromDom(shape, fr){
+      if (shape.placed) return;
       var r = shape.el.getBoundingClientRect();
-      var hr = header.getBoundingClientRect();
-      shape.restX = r.left - hr.left;
-      shape.restY = r.top - hr.top;
-      shape._placed = true;
-      shape.x = shape.restX;
-      shape.y = shape.restY;
+      shape.x = r.left - fr.left;
+      shape.y = r.top - fr.top;
+    }
+    function detach(shape){
+      if (shape.placed) return;
+      syncFromDom(shape, field.getBoundingClientRect());
+      field.appendChild(shape.el);
+      shape.el.style.left = 0; shape.el.style.top = 0;
+      shape.el.style.transform = 'translate(' + shape.x + 'px,' + shape.y + 'px) rotate(' + shape.rotate + 'deg)';
+      shape.placed = true;
     }
 
     if (reduced) return; // static placement only, no physics/drag loop
@@ -308,7 +343,7 @@
       var prev = L.el.style.transform;
       L.el.style.transform = '';
       var r = L.el.getBoundingClientRect();
-      var hr = header.getBoundingClientRect();
+      var hr = field.getBoundingClientRect();
       L.bx = r.left - hr.left; L.by = r.top - hr.top;
       L.bw = r.width; L.bh = r.height;
       L.el.style.transform = prev;
@@ -348,17 +383,37 @@
       });
     }
 
+    /* the cat sticker meows when it's thrown, alternating between two recordings (1st throw, 2nd throw,
+       then round again). Loaded lazily on the first throw; each plays at a slightly different speed
+       (and so pitch) so repeated throws don't sound identical */
+    var MEOWS = ['images/soundreality-cat-meow-fx-461188.mp3', 'images/sound_garage-cat-meow-8-fx-306184.mp3'];
+    var meowSounds = [], meowCount = 0, lastMeow = 0;
+    function meow(){
+      var now = performance.now();
+      if (now - lastMeow < 500) return; // no meow machine-gun on rapid throws
+      lastMeow = now;
+      var i = meowCount++ % MEOWS.length;
+      meowSounds.forEach(function(a){ a.pause(); }); // a new throw cuts off the previous meow
+      var sound = meowSounds[i] = meowSounds[i] || new Audio(MEOWS[i]);
+      sound.preservesPitch = false;
+      sound.playbackRate = 0.9 + Math.random() * 0.2;
+      sound.currentTime = 0;
+      var p = sound.play();
+      if (p && p.catch) p.catch(function(){}); // browser blocked audio: just stay silent
+    }
+
     var lastPointer = null;
     shapes.forEach(function(s){
       s.el.addEventListener('pointerdown', function(e){
         e.preventDefault(); // dragging over the wordmark/paragraph shouldn't start a text selection
+        detach(s);
         s.dragging = true;
         s.el.setPointerCapture(e.pointerId);
         lastPointer = {x:e.clientX, y:e.clientY, t:performance.now()};
       });
       s.el.addEventListener('pointermove', function(e){
         if (!s.dragging) return;
-        var hr = header.getBoundingClientRect();
+        var hr = field.getBoundingClientRect();
         var now = performance.now();
         var dt = Math.max(now - lastPointer.t, 1);
         var nx = e.clientX - hr.left - s.r;
@@ -368,9 +423,13 @@
         s.x = nx; s.y = ny;
         lastPointer = {x:e.clientX, y:e.clientY, t:now};
       });
-      s.el.addEventListener('pointerup', function(){ s.dragging = false; });
+      s.el.addEventListener('pointerup', function(){
+        s.dragging = false;
+        if (s.meow && Math.hypot(s.vx, s.vy) > 5) meow(); // only a real throw, not a gentle drop
+      });
       s.el.addEventListener('keydown', function(e){
         var step = 14;
+        if (/^Arrow/.test(e.key)) detach(s);
         if (e.key === 'ArrowLeft'){ s.x -= step; s.vx = 0; }
         else if (e.key === 'ArrowRight'){ s.x += step; s.vx = 0; }
         else if (e.key === 'ArrowUp'){ s.y -= step; s.vy = 0; }
@@ -381,9 +440,9 @@
     });
 
     function step(){
-      var hr = header.getBoundingClientRect();
+      var hr = field.getBoundingClientRect();
       var W = hr.width, H = hr.height;
-      shapes.forEach(function(s){ placeOnce(s); });
+      shapes.forEach(function(s){ syncFromDom(s, hr); });
 
       var FRICTION = 0.94, SLEEP = 0.04;
       shapes.forEach(function(s){
@@ -403,6 +462,9 @@
           var dx=(b.x+b.r)-(a.x+a.r), dy=(b.y+b.r)-(a.y+a.r);
           var dist=Math.hypot(dx,dy), min=a.r+b.r;
           if (dist>0 && dist<min){
+            var moving = a.dragging || b.dragging || Math.hypot(a.vx,a.vy) > SLEEP || Math.hypot(b.vx,b.vy) > SLEEP;
+            if (!moving) continue; // two stickers resting close together stay put
+            detach(a); detach(b);
             var nx=dx/dist, ny=dy/dist, overlap=(min-dist)/2;
             if (!a.dragging){ a.x-=nx*overlap; a.y-=ny*overlap; }
             if (!b.dragging){ b.x+=nx*overlap; b.y+=ny*overlap; }
@@ -415,8 +477,8 @@
       nudgeLetters();
 
       shapes.forEach(function(s){
+        if (!s.placed) return; // still resting in its section, laid out by CSS
         s.el.style.transform = 'translate(' + s.x + 'px,' + s.y + 'px) rotate(' + s.rotate + 'deg)';
-        s.el.style.left = 0; s.el.style.top = 0;
       });
       requestAnimationFrame(step);
     }
@@ -426,6 +488,7 @@
     setTimeout(function(){
       var s = shapes[Math.floor(Math.random() * shapes.length)];
       if (s.dragging) return;
+      detach(s);
       var angle = Math.random() * Math.PI * 2;
       var speed = 7 + Math.random() * 4;
       s.vx = Math.cos(angle) * speed;
@@ -455,19 +518,140 @@
     if (!wordmark) return;
     var LOGO_COLORS = ['#880666','#CF5F3A','#D4D0F1','#A5CCF3'];
     var letters = [].slice.call(wordmark.querySelectorAll('.scramble'));
-    letters.forEach(function(el, i){
-      var slow = el.dataset.final === 'l';
-      var scramble = makeScrambler(el, {
-        colors: LOGO_COLORS,
-        totalFrames: slow ? 18 : 8,
-        interval: slow ? 90 : 65
-      });
-      setTimeout(scramble, i * 170);
-      if (el.closest('.i-secret')){
-        var link = el.closest('.i-secret');
-        link.addEventListener('mouseenter', scramble);
-        link.addEventListener('focus', scramble);
+
+    /* The wordmark runs edge to edge, so the load-in scramble may only use random glyphs that are no wider
+       than each letter's final glyph (in that letter's own font) — the row never grows past the screen. */
+    function narrowGlyphs(el){
+      var box = el.parentNode, pool = SCRAMBLE_LETTERS + SCRAMBLE_SYMBOLS, ok = [];
+      el.textContent = el.dataset.final;
+      var max = box.getBoundingClientRect().width + 0.5;
+      for (var k = 0; k < pool.length; k++){
+        el.textContent = pool[k];
+        if (box.getBoundingClientRect().width <= max) ok.push(pool[k]);
       }
+      el.textContent = '';
+      return ok.length > 1 ? ok : [el.dataset.final];
+    }
+
+    function start(){
+      letters.forEach(function(el, i){
+        var slow = el.dataset.final === 'L';
+        var scramble = makeScrambler(el, {
+          glyphs: narrowGlyphs(el),
+          colors: LOGO_COLORS,
+          totalFrames: slow ? 18 : 8,
+          interval: slow ? 90 : 65
+        });
+        setTimeout(scramble, i * 170);
+        if (el.closest('.i-secret')){
+          var link = el.closest('.i-secret');
+          link.addEventListener('mouseenter', scramble);
+          link.addEventListener('focus', scramble);
+        }
+      });
+    }
+    /* Funky on hover (mouse only): each plain letter of "rancesca" flips to a random typeface + floi colour
+       when the pointer touches it; when it leaves the name the typefaces settle back one after another,
+       but the letters keep their colours.
+       Each letter's box is locked to its plain width, and only typefaces no wider than that are used,
+       so the row never grows past the screen edge. */
+    var FUNKY = [
+      ["'Bodoni Moda',serif", '800', 'italic'],
+      ["'Archivo Black',sans-serif", '400', 'normal'],
+      ["'Space Mono',monospace", '700', 'normal'],
+      ["'Big Shoulders Display',sans-serif", '900', 'normal'],
+      ["'Nothing You Could Do',cursive", '400', 'normal'],
+      ["'Anton',sans-serif", '400', 'normal'],
+      ["'Host Grotesk',sans-serif", '800', 'italic']
+    ];
+    function setFont(el, f){
+      el.style.fontFamily = f ? f[0] : ''; el.style.fontWeight = f ? f[1] : ''; el.style.fontStyle = f ? f[2] : '';
+    }
+    function setupFunky(){
+      var plain = [].slice.call(wordmark.querySelectorAll('.wm-plain'));
+      // touch screens have no hover: show the name already colourful instead
+      if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches){
+        plain.forEach(function(el, i){ el.style.color = LOGO_COLORS[i % LOGO_COLORS.length]; });
+        return;
+      }
+      if (reduced) return;
+      var touched = false;
+      function funk(el){
+        if (!el._fits || !el._fits.length) return;
+        setFont(el, el._fits[Math.floor(Math.random() * el._fits.length)]);
+        el.style.color = LOGO_COLORS[Math.floor(Math.random() * LOGO_COLORS.length)];
+      }
+      plain.forEach(function(el){
+        el.style.width = '';
+        var base = el.offsetWidth, fits = [];
+        FUNKY.forEach(function(f){ setFont(el, f); if (el.offsetWidth <= base + 1) fits.push(f); });
+        setFont(el, null);
+        var fs = parseFloat(getComputedStyle(el).fontSize) || 1;
+        el.style.width = (base / fs) + 'em'; // locked, scales with the name on resize
+        el._fits = fits;
+        el.addEventListener('mouseenter', function(){ touched = true; funk(el); });
+      });
+
+      // load-in hint that the name reacts to the mouse: "r", "a", "n" flip one after another once the
+      // F/L-o-i scramble is done, then settle back to plain ink — unless the visitor is already hovering
+      var tease = plain.slice(0, 3), START = 1500, STEP = 180, HOLD = 1100;
+      tease.forEach(function(el, i){ setTimeout(function(){ if (!touched) funk(el); }, START + i * STEP); });
+      setTimeout(function(){
+        if (touched) return;
+        tease.forEach(function(el, i){ setTimeout(function(){ if (!touched){ setFont(el, null); el.style.color = ''; } }, i * 120); });
+      }, START + tease.length * STEP + HOLD);
+      wordmark.addEventListener('mouseleave', function(){
+        plain.forEach(function(el, i){
+          setTimeout(function(){ setFont(el, null); }, i * 45); // the font settles back; the colour stays
+        });
+      });
+    }
+
+    // start once the webfonts are in, so the letters don't animate in a fallback font first
+    function init(){ start(); setupFunky(); }
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(init); else init();
+  })();
+
+  /* ---- The picture between name and surname: photo a at rest; while the pointer is on the name it
+       cycles a → b → c every 0.7s and stops on the current one when it leaves. On touch, a tap advances. ---- */
+  (function(){
+    var box = document.querySelector('#home-wordmark .wm-photo');
+    var name = document.getElementById('home-wordmark');
+    if (!box || !name) return;
+    var PICS = ['images/web/header-a.webp', 'images/web/header-b.webp', 'images/web/header-c.webp'];
+    PICS.forEach(function(src){ var im = new Image(); im.src = src; }); // preload so swaps don't flash
+    var i = 0, timer = null;
+    function next(){ i = (i + 1) % PICS.length; box.style.backgroundImage = 'url(' + PICS[i] + ')'; }
+    name.addEventListener('mouseenter', function(){ if (!timer){ next(); timer = setInterval(next, 700); } });
+    name.addEventListener('mouseleave', function(){ clearInterval(timer); timer = null; });
+    box.addEventListener('click', function(e){ if (!timer){ e.preventDefault(); next(); } });
+  })();
+
+  /* ---- The dot inside the "o" follows the mouse, like a pupil: it moves toward the pointer but stays
+       inside the o's counter (an ellipse in em, so it scales with the wordmark), eased for smoothness ---- */
+  (function(){
+    var o = document.querySelector('#home-wordmark .wm-o-dot');
+    if (!o || reduced || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    // the o's counter (in em, measured on IBM Plex Mono 500): its centre sits CY below the dot's resting
+    // spot, and the dot's centre may travel RX/RY from that centre without touching the ring
+    var RX = 0.07, RY = 0.1, CY = 0.053;
+    var tx = 0, ty = 0, x = 0, y = 0, raf = null;
+    function tick(){
+      x += (tx - x) * 0.18; y += (ty - y) * 0.18;
+      o.style.setProperty('--px', x.toFixed(2) + 'px');
+      o.style.setProperty('--py', y.toFixed(2) + 'px');
+      raf = (Math.abs(tx - x) > 0.05 || Math.abs(ty - y) > 0.05) ? requestAnimationFrame(tick) : null;
+    }
+    window.addEventListener('mousemove', function(e){
+      var r = o.getBoundingClientRect();
+      var fs = parseFloat(getComputedStyle(o).fontSize) || 1;
+      var cy = CY * fs;
+      var dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height * 0.52 + cy);
+      var rx = RX * fs, ry = RY * fs;
+      var k = Math.hypot(dx / rx, dy / ry);
+      if (k > 1){ dx /= k; dy /= k; }
+      tx = dx; ty = dy + cy; // offset from the resting spot
+      if (!raf) raf = requestAnimationFrame(tick);
     });
   })();
 
@@ -522,6 +706,7 @@
       row.addEventListener('mouseenter', function(){
         if (row.dataset.img){
           follow.classList.remove('ph');
+          follow.classList.toggle('logo', row.dataset.fit === 'logo'); // logos show whole on a white card, photos fill the frame
           follow.innerHTML = '<img src="' + row.dataset.img + '" alt="">';
         } else {
           follow.classList.add('ph');
@@ -538,5 +723,6 @@
   })();
 })();
 </script>
+<script src="js/cursor.js" defer></script>
 </body>
 </html>
