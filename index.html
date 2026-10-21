@@ -26,12 +26,12 @@
 
 <header class="box" id="home-header" style="padding-top:clamp(24px,4vw,48px);padding-bottom:clamp(20px,3vw,40px);text-align:left;position:relative;overflow-x:clip;overflow-y:visible;-webkit-user-select:none;user-select:none">
   <div class="shape-field" aria-hidden="false"></div>
-  <!-- the dot of the "i" is the easter egg: hover/focus reveals "psst…", links to Side Projects until a dedicated "other works" page exists -->
+  <!-- the "i" is a quiet easter egg: it links to Side Projects until a dedicated "other works" page exists -->
   <!-- header after dnbls / Dan Billson: "Francesca [image] Loi" on one line in the middle of the first screen, intro bottom-left, ↓ bottom-right.
        F and L-o-i are the animated floi logotype letters (F Bodoni Moda serif, L Archivo Black, o IBM Plex Mono, i Nothing You Could Do cursive (as on the live site), each in its floi colour); "rancesca" is plain ink -->
   <div class="hero-row">
   <h1 id="home-wordmark" aria-label="Francesca Loi">
-    <span class="wm" style="font-family:'Bodoni Moda',serif;font-weight:800;color:#880666"><span class="scramble" data-final="F"></span></span><span class="wm wm-plain" aria-hidden="true">r</span><span class="wm wm-plain" aria-hidden="true">a</span><span class="wm wm-plain" aria-hidden="true">n</span><span class="wm wm-plain" aria-hidden="true">c</span><span class="wm wm-plain" aria-hidden="true">e</span><span class="wm wm-plain" aria-hidden="true">s</span><span class="wm wm-plain" aria-hidden="true">c</span><span class="wm wm-plain" aria-hidden="true">a</span><span class="wm wm-photo" aria-hidden="true" style="background-image:url(images/web/header-a.webp)"></span><span class="wm" style="font-family:'Archivo Black',sans-serif;font-weight:400;color:#CF5F3A"><span class="scramble" data-final="L"></span></span><span class="wm wm-o-dot" style="font-family:'IBM Plex Mono',monospace;font-weight:500;color:#D4D0F1"><span class="scramble" data-final="o"></span></span><a href="#side-projects" class="i-secret" aria-label="Secret: other work" style="text-decoration:none;color:#A5CCF3"><span class="wm" style="font-family:'Nothing You Could Do',cursive"><span class="scramble" data-final="i"></span></span><span class="hand c-coral psst" aria-hidden="true">psst…</span></a>
+    <span class="wm" style="font-family:'Bodoni Moda',serif;font-weight:800;color:#880666"><span class="scramble" data-final="F"></span></span><span class="wm wm-plain" aria-hidden="true">r</span><span class="wm wm-plain" aria-hidden="true">a</span><span class="wm wm-plain" aria-hidden="true">n</span><span class="wm wm-plain" aria-hidden="true">c</span><span class="wm wm-plain" aria-hidden="true">e</span><span class="wm wm-plain" aria-hidden="true">s</span><span class="wm wm-plain" aria-hidden="true">c</span><span class="wm wm-plain" aria-hidden="true">a</span><span class="wm-br" aria-hidden="true"></span><span class="wm wm-photo" aria-hidden="true" style="background-image:url(images/web/header-a.webp)"></span><span class="wm" style="font-family:'Archivo Black',sans-serif;font-weight:400;color:#CF5F3A"><span class="scramble" data-final="L"></span></span><span class="wm wm-o-dot" style="font-family:'IBM Plex Mono',monospace;font-weight:500;color:#D4D0F1"><span class="scramble" data-final="o"></span></span><a href="#side-projects" class="i-secret" aria-label="Secret: other work" style="text-decoration:none;color:#A5CCF3"><span class="wm" style="font-family:'Nothing You Could Do',cursive"><span class="scramble" data-final="i"></span></span></a>
   </h1>
   <!-- TODO: sticker peel-on-hover "now: ingredients app"; swap once Ingredients app has a URL -->
   <!-- intro, bottom-left and aligned with the name's left edge (as on dnbls); the hola sticker follows the text -->
@@ -234,14 +234,14 @@
        `in` = the section a sticker is positioned in (left = % of that section's width, top = px from its top) */
     var defs = [
       {label:'fluffy bird sticker', in:'.exp-section', w:66, h:92, left:'84%', top:'20px', rotate:-6, phone:false, img:'images/web/soggetto-6.webp'},
-      {label:'Olympus film camera sticker', in:'#work', w:112, h:92, left:'86%', top:'600px', rotate:-7, phone:false, img:'images/web/soggetto-16.webp'},
-      {label:'cat sticker', meow:true, in:'#work', w:60, h:81, left:'44%', top:'615px', rotate:-4, phone:false, img:'images/web/soggetto-11.webp'},
-      {label:'daisy sticker', w:84, h:84, left:'90%', top:'425px', phoneLeft:'72%', phoneTop:'40px', rotate:12, img:'images/web/soggetto-10.webp'},
+      {label:'Olympus film camera sticker', in:'#work', near:'.work-card:nth-child(2) .work-title', nearX:8.2, nearY:-1.9, w:112, h:92, left:'86%', top:'600px', rotate:-7, phone:false, img:'images/web/soggetto-16.webp'},
+      {label:'cat sticker', meow:true, in:'#work', near:'.work-card .work-title', nearX:10.3, nearY:-2.05, w:60, h:81, left:'44%', top:'615px', phoneIn:'.hero-bio', phoneLeft:'84%', phoneTop:'6px', rotate:-4, img:'images/web/soggetto-11.webp'},
+      {label:'daisy sticker', w:84, h:84, left:'90%', top:'425px', phoneIn:'#home-wordmark', phoneLeft:'80%', phoneTop:'52%', rotate:12, img:'images/web/soggetto-10.webp'},
       {label:'blue stone sticker', in:'#side-projects', w:52, h:40, left:'58%', top:'330px', rotate:4, phone:false, img:'images/web/soggetto-13.webp'},
-      {label:'fountain pen sticker', vivid:true, in:'#side-projects', w:20, h:170, left:'80%', top:'40px', rotate:28, phone:false, img:'images/web/soggetto-3.webp'},
-      {label:'gold filigree ring sticker', in:'.exp-section', w:68, h:50, left:'34%', top:'100px', rotate:-8, phone:false, img:'images/web/soggetto-14.webp'},
+      {label:'fountain pen sticker', vivid:true, in:'#side-projects', w:20, h:170, left:'80%', top:'40px', phoneLeft:'84%', phoneTop:'0px', rotate:28, img:'images/web/soggetto-3.webp'},
+      {label:'gold filigree ring sticker', in:'.exp-section', w:68, h:50, left:'34%', top:'100px', phoneLeft:'56%', phoneTop:'46px', rotate:-8, img:'images/web/soggetto-14.webp'},
       {label:'leather notebook sticker', vivid:true, in:'footer.site-footer', w:80, h:103, left:'82%', top:'40px', rotate:-9, phone:false, img:'images/web/soggetto-1.webp'},
-      {label:'cappuccino sticker', tone:'saturate(1.05) brightness(1.12) contrast(1.05)', w:112, h:120, left:'42.5%', top:'-12px', phoneLeft:'8%', phoneTop:'330px', rotate:10, img:'images/web/soggetto-15.webp'}
+      {label:'cappuccino sticker', tone:'saturate(1.05) brightness(1.12) contrast(1.05)', w:112, h:120, left:'42.5%', top:'-12px', phoneIn:'#home-wordmark', phoneLeft:'58%', phoneTop:'-78px', rotate:10, img:'images/web/soggetto-15.webp'}
     ];
     var shapes = [];
 
@@ -253,7 +253,8 @@
 
     defs.forEach(function(d){
       if (isNarrow && d.phone === false) return; // ten stickers crowd a phone header; show a subset
-      var anchor = (d.in && document.querySelector(d.in)) || header;
+      // phones can anchor a sticker elsewhere (phoneIn), e.g. to the two-line name or the intro, so it follows that text
+      var anchor = (isNarrow && d.phoneIn && document.querySelector(d.phoneIn)) || (d.in && document.querySelector(d.in)) || header;
       if (getComputedStyle(anchor).position === 'static') anchor.style.position = 'relative';
       var w = Math.round(d.w * SIZE_SCALE), h = Math.round(d.h * SIZE_SCALE);
       var left = d.left, top = d.top;
@@ -262,6 +263,15 @@
         // relative positions instead of all piling up against the same clamp
         left = d.phoneLeft || (4 + parseFloat(d.left) * 0.58) + '%';
         top = d.phoneTop || (parseFloat(d.top) * TOP_SCALE) + 'px';
+      }
+      // `near`: place the sticker relative to an element it must sit beside (offsets in that element's em),
+      // while still living in the section — e.g. the cat right after a card title, outside the card's link
+      var nearEl = !isNarrow && d.near && document.querySelector(d.near);
+      if (nearEl){
+        var ar = anchor.getBoundingClientRect(), nr = nearEl.getBoundingClientRect();
+        var nfs = parseFloat(getComputedStyle(nearEl).fontSize) || 16;
+        left = (nr.left - ar.left + d.nearX * nfs) + 'px';
+        top = (nr.top - ar.top + d.nearY * nfs) + 'px';
       }
       var el = document.createElement('div');
       el.className = 'float-shape';

@@ -127,8 +127,6 @@ footer.site-footer .row{display:flex;justify-content:space-between;flex-wrap:wra
 #home-header{container-type:inline-size;--wm-fill:1;display:flex;flex-direction:column;min-height:calc(100svh - 80px);box-sizing:border-box}
 /* safety net only: never let the wordmark cause a horizontal scroll; clips sideways, never vertically */
 #home-wordmark{overflow-x:clip;overflow-y:visible}
-/* the i sits at the right edge of the column, so its "psst…" easter egg opens to the left */
-#home-wordmark .i-secret .psst{left:auto;right:70%}
 #home-wordmark{font-size:calc(100cqw / 7.45 * var(--wm-fill));letter-spacing:-.04em;line-height:.85;margin:auto 0;position:relative;white-space:nowrap}
 .redesign .wm-plain{font-family:'Host Grotesk',sans-serif;font-weight:600;color:var(--ink);text-align:center;transition:color .2s}
 /* the picture between name and surname (photos a/b/c, swapped by index.html), cap-height tall, on the baseline; grey while loading */
@@ -136,7 +134,13 @@ footer.site-footer .row{display:flex;justify-content:space-between;flex-wrap:wra
 .hero-row{flex:1;display:flex;flex-direction:column;gap:clamp(24px,4vw,48px)}
 .hero-bio{display:flex;align-items:flex-end;gap:clamp(12px,1.5vw,20px);max-width:720px}
 .hero-down{position:absolute;right:40px;bottom:clamp(20px,3vw,40px);font-size:20px;text-decoration:none;color:var(--ink)}
+/* phones: "Francesca" / "[photo] Loi" on two lines so the name can be much bigger; sized on the longer
+   line ("Francesca" = 4.465em measured, so 100cqw / 4.5 fills the column) */
+.wm-br{display:none}
 @media (max-width:700px){
+  .wm-br{display:block}
+  #home-wordmark{font-size:calc(100cqw / 4.5 * var(--wm-fill));line-height:.95}
+  .redesign .wm-photo{margin-left:0}
   #home-header{min-height:calc(85svh - 64px)}
   .hero-down{right:16px}
 }
@@ -148,10 +152,8 @@ footer.site-footer .row{display:flex;justify-content:space-between;flex-wrap:wra
 .redesign .wm-o-dot{position:relative}
 .redesign .wm-o-dot::after{content:'';position:absolute;left:50%;top:52%;width:.1em;height:.1em;background:currentColor;border-radius:50%;transform:translate(calc(-50% + var(--px,0px)),calc(-50% + var(--py,0px)));pointer-events:none} /* --px/--py: the dot looks toward the mouse (index.html) */
 
-/* Easter egg: "psst…" reveal on the dot of the i */
+/* Easter egg: the i links to Side Projects */
 .redesign .i-secret{position:relative}
-.redesign .i-secret .psst{position:absolute;left:60%;top:-10px;font-size:22px;letter-spacing:0;font-weight:400;white-space:nowrap;transform:rotate(-8deg);opacity:0;transition:opacity .2s;pointer-events:none}
-.redesign .i-secret:hover .psst,.redesign .i-secret:focus-visible .psst{opacity:1}
 
 /* Floating shapes */
 .redesign .shape-field{position:absolute;inset:0;z-index:5;pointer-events:none;overflow:visible;user-select:none}
